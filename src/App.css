@@ -2,22 +2,3 @@
   text-align: center;
   display: block;
 }
-
-.navbar {
-  display: block;
-  position: relative;
-  height: auto;
-  padding: 10px;
-  background-color: black;
-  color: white;
-  float: left;
-}
-
-.navRight {
-  float: right;
-}
-
-.login {
-  display: inline-flex;
-  position: center;
-}
