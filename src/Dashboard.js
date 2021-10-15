@@ -1,11 +1,13 @@
 import React from "react";
-import './App.js';
+import './App.css';
+import Widgets from "./Widgets";
 
 class Dashboard extends React.Component {
     render() {
         return(
-            <div>
-                <p>Welcome to the Dashboard Page!</p>
+            <div className={'dashboard'}>
+                <h1>Welcome to the Dashboard Page!</h1>
+                <Widgets/>
             </div>
         );
     }

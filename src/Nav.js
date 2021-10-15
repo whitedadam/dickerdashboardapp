@@ -13,7 +13,7 @@ class Nav extends React.Component {
                   <a href={''}> Settings </a>
                   <a href={''}> Logout </a>
                   <div className={'navRight'}>
-                      <h3>Welcome, Merchant!</h3>
+                      <p><em><strong>Welcome, Merchant!</strong></em></p>
                   </div>
               </div>
 

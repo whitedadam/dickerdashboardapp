@@ -3,13 +3,19 @@
   display: block;
 }
 
+.appContainer {
+  display: inline-grid;
+  grid-auto-columns: auto;
+}
+
 .navbar {
-  display: block;
+  display: inline;
   position: relative;
   height: auto;
   padding: 10px;
-  background-color: black;
-  color: white;
+  color: black;
+  border-bottom: slategray;
+  border-bottom-width: medium;
   float: left;
 }
 
@@ -20,4 +26,17 @@
 .login {
   display: inline-flex;
   position: center;
+}
+
+.dashboard {
+  display: inline-flex;
+  float: top;
+}
+
+.widgets {
+  display: inline-grid;
+  background-color: slategray;
+  width: 500px;
+  height: 300px;
+  float: bottom;
 }

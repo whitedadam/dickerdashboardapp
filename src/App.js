@@ -7,13 +7,15 @@ import Dashboard from "./Dashboard";
 
 function App() {
   return (
-      <div>
+      <div className={'appContainer'}>
           <div className={'navContainer'}>
             <Nav />
           </div>
-        <Login/>
+          <div className={'loginContainer'}>
+            <Login/>
+          </div>
           <div className={'dashboardContainer'}>
-              <Dashboard/>
+            <Dashboard/>
           </div>
       </div>
   )
