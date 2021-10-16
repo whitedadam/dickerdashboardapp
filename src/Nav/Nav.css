@@ -1,0 +1,13 @@
+.navbar {
+  display: block;
+  position: relative;
+  height: auto;
+  padding: 10px;
+  background-color: black;
+  color: white;
+  float: left;
+}
+
+.navRight {
+  float: right;
+}
