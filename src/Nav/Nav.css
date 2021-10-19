@@ -1,11 +1,15 @@
 .navbar {
-  display: block;
+  display: inline-block;
   position: relative;
   height: auto;
   padding: 10px;
   background-color: black;
   color: white;
   float: left;
+}
+
+.navbar Link {
+  color: white;
 }
 
 .navRight {
