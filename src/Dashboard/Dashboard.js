@@ -4,7 +4,7 @@ class Dashboard extends React.Component {
   render() {
     return (
       <div>
-        <p>Welcome to the Dashboard Page!</p>
+        <p>Welcome to the Dashboard Page! - Avery</p>
       </div>
     );
   }
