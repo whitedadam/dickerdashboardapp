@@ -8,13 +8,14 @@ import './App.css';
 
 function App() {
   return (
+
     <Router>
       <Nav />
       <Switch>
-        <Route exact path='/login'>
+        <Route exact path='/'>
           <Login />
         </Route>
-        <Route exact path='/'>
+        <Route exact path='/dashboard'>
           <Dashboard />
         </Route>
         <Route exact path='/settings'>
@@ -23,6 +24,7 @@ function App() {
       </Switch>
     </Router>
   );
+
 }
 
 export default App;
