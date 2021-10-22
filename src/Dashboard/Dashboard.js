@@ -1,6 +1,6 @@
 import React from 'react';
 import SampleChart from "./DashboardComponents";
-import { Container } from 'reactstrap';
+import {Col, Container, Row} from 'reactstrap';
 import SampleChart2 from "./DashboardComponents/SampleChart2";
 import SampleChart3 from "./DashboardComponents/SampleChart3";
 
@@ -8,10 +8,14 @@ class Dashboard extends React.Component {
   render() {
     return (
       <Container className={'dashboardContainer'}>
-        <h3>Welcome to the Dashboard Page!</h3>
-        <SampleChart />
-        <SampleChart2 />
-        <SampleChart3 />
+        <Row>
+            <Col><h3>Welcome to the Dashboard Page!</h3></Col>
+        </Row>
+        <Row>
+            <Col xs={'auto'}><SampleChart /></Col>
+            <Col xs={'auto'}><SampleChart2 /></Col>
+            <Col xs={'auto'}><SampleChart3 /></Col>
+        </Row>
       </Container>
     );
   }

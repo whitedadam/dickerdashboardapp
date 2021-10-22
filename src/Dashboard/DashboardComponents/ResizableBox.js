@@ -5,14 +5,14 @@ import "react-resizable/css/styles.css";
 
 export default function ResizableBox({
                                          children,
-                                         width = 600,
-                                         height = 300,
-                                         resizable = true,
+                                         width = 330,
+                                         height = 240,
+                                         resizable = false,
                                          style = {},
                                          className = "",
                                      }) {
     return (
-        <div style={{ marginLeft: 20 }}>
+        <div style={{ marginLeft: 10 }}>
             {resizable ? (
                 <ReactResizableBox width={width} height={height}>
                     <div
