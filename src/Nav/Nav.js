@@ -1,5 +1,4 @@
-import React, {useState} from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
 import {Collapse, Container, Navbar, NavbarBrand, NavbarText, NavItem, NavLink} from "reactstrap";
 import dickerLogoSquare from '../images/dickerLogoSquare.png';
 import './Nav.css';
@@ -10,19 +9,22 @@ class Nav extends React.Component {
       <Container className={'navbar'}>
         <Navbar color={'dark'} expand={'xl'}>
           <Collapse isOpen={true} navbar>
-            <NavbarBrand>
-              <img src={dickerLogoSquare} alt={'DICKER logo'}/>
-            </NavbarBrand>
-            <NavItem>
-              <NavLink href="/dashboard">Dashboard</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="/settings">Settings</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="/">Logout</NavLink>
-            </NavItem>
-          <NavbarText>Welcome, Merchant!</NavbarText>
+              <NavbarBrand>
+                <img src={dickerLogoSquare} alt={'DICKER logo'}/>
+              </NavbarBrand>
+              <NavItem>
+                <NavLink href="/dashboard">Dashboard</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="/settings">Settings</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="/">Logout</NavLink>
+              </NavItem>
+              <NavItem className={'navDivider'}>
+                <p>______________________________________________________________________ </p>
+              </NavItem>
+              <NavbarText className={'merchantWelcome'}>Welcome, Merchant!</NavbarText>
           </Collapse>
         </Navbar>
 
