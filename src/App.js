@@ -12,23 +12,25 @@ function App() {
 
     <Router>
       <Container className={'app'}>
-          <Row>
-            <Col xl={'auto'}><Nav /></Col>
-          </Row>
+                  <Row>
+                    <Col xl={'auto'}><Nav /></Col>
+                  </Row>
           <Switch>
-              <Row>
-                  <Col>
-                      <Route exact path='/'>
-                          <Login />
-                      </Route>
-                      <Route exact path='/dashboard'>
-                          <Dashboard />
-                      </Route>
-                      <Route exact path='/settings'>
-                          <Settings />
-                      </Route>
-                  </Col>
-              </Row>
+              <React.Fragment>
+                  <Row>
+                      <Col>
+                          <Route exact path='/'>
+                              <Login />
+                          </Route>
+                          <Route exact path='/dashboard'>
+                              <Dashboard />
+                          </Route>
+                          <Route exact path='/settings'>
+                              <Settings />
+                          </Route>
+                      </Col>
+                  </Row>
+              </React.Fragment>
           </Switch>
       </Container>
     </Router>
