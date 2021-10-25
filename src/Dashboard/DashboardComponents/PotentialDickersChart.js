@@ -1,6 +1,6 @@
 import React from "react";
 import { Chart } from "react-charts";
-import useDemoConfig from './useDemoConfig';
+import PotentialDickersSampleData from './SuccessfulDickersSampleData';
 import ResizableBox from "./ResizableBox";
 //
 // ReactStrap install
@@ -32,11 +32,11 @@ import ResizableBox from "./ResizableBox";
 
 
 
-const SampleChart = () => {
+const PotentialDickersChart = () => {
 
-    const { data, randomizeData } = useDemoConfig({
-        series: 3,
-        dataType: "ordinal",
+    const { data } = PotentialDickersSampleData({
+        series: 1,
+        dataType: "time",
     });
 
     const primaryAxis = React.useMemo(
@@ -69,4 +69,4 @@ const SampleChart = () => {
     );
 }
 
-export default SampleChart;
+export default PotentialDickersChart;

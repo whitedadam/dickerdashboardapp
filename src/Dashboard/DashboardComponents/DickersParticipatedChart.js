@@ -1,6 +1,6 @@
 import React from "react";
 import { Chart } from "react-charts";
-import useDemoConfig from './useDemoConfig';
+import DickersParticipatedSampleData from './SuccessfulDickersSampleData';
 import ResizableBox from "./ResizableBox";
 //
 // ReactStrap install
@@ -34,9 +34,9 @@ import ResizableBox from "./ResizableBox";
 
 const SampleChart = () => {
 
-    const { data, randomizeData } = useDemoConfig({
-        series: 3,
-        dataType: "ordinal",
+    const { data } = DickersParticipatedSampleData({
+        series: 1,
+        dataType: "time",
     });
 
     const primaryAxis = React.useMemo(
