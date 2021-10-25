@@ -1,3 +1,3 @@
-import SampleChart from './SampleChart';
+import PotentialDickersChart from './PotentialDickersChart';
 
-export default SampleChart;
+export default PotentialDickersChart;
