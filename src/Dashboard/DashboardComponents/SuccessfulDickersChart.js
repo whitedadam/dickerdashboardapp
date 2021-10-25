@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import ResizableBox from "./ResizableBox";
 import {ButtonDropdown, Col, Container, DropdownItem, DropdownMenu, DropdownToggle, Row} from "reactstrap";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
 //
 // ReactStrap install
@@ -9,10 +9,9 @@ import PropTypes from "prop-types";
 //
 
 
-
 const SuccessfulDickers = () => {
 
-    const data = [
+    let data = [
         {
             label: "Dickers",
             datum: [
@@ -35,11 +34,33 @@ const SuccessfulDickers = () => {
             ]
         }
     ]
-    const [dropdownOpen, setOpen] = useState(false);
-    const toggle = () => setOpen(!dropdownOpen);
-    let currentFilter = data[0].datum[0];
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const toggle = () => setDropdownOpen(prevState => !prevState);
 
-        return (
+    const [currentDataTimeFrame, setCurrentDataTimeFrame] = useState(data[0].datum[0].timeframe) // data[0].datum[0];
+    const [currentDataDeals, setCurrentDataDeals] = useState(data[0].datum[0].deals)
+    const handleClick = (e, currentData) => {
+        let id = e.target.id;
+        console.log(id);
+        if (id === 'ytd') {
+            setCurrentDataTimeFrame(prevState => data[0].datum[0].timeframe);
+            setCurrentDataDeals(prevState => data[0].datum[0].deals);
+        }
+        if (id === 'month') {
+            setCurrentDataTimeFrame(prevState => data[0].datum[1].timeframe);
+            setCurrentDataDeals(prevState => data[0].datum[1].deals);
+        }
+        if (id === 'week') {
+            setCurrentDataTimeFrame(prevState => data[0].datum[2].timeframe);
+            setCurrentDataDeals(prevState => data[0].datum[2].deals);
+        }
+        if (id === 'today') {
+            setCurrentDataTimeFrame(prevState => data[0].datum[3].timeframe);
+            setCurrentDataDeals(prevState => data[0].datum[3].deals);
+        }
+    }
+
+    return (
             <Container>
                 <Row>
                     <ResizableBox>
@@ -47,63 +68,42 @@ const SuccessfulDickers = () => {
                             <Col>
                                 <h5>Successful Dickers</h5>
                             </Col>
-                            <Col></Col>
+                            <Col> </Col>
+                        </Row>
+                        <Row fluid>
+                            <Col lg={0}>
+                                <h5>{currentDataTimeFrame}</h5>
+                            </Col>
                         </Row>
                         <Row>
-                            <Col xs={4}></Col>
+                            <Col xs={4}> </Col>
                             <Col lg={0}>
-                                <h5>{ currentFilter.timeframe }</h5>
+                                <h1>{currentDataDeals}</h1>
                             </Col>
-                            <Col xs={4}></Col>
-                        </Row>
-                        <Row>
-                            <Col xs={4}></Col>
-                            <Col lg={0}>
-                                <h1>{ currentFilter.deals }</h1>
-                            </Col>
-                            <Col xs={4}></Col>
+                            <Col xs={4}> </Col>
                         </Row>
                     </ResizableBox>
                 </Row>
                 <Row>
-                    <Col></Col>
-                    <Col></Col>
+                    <Col> </Col>
+                    <Col> </Col>
                     <Col>
-                        <ButtonDropdown isOpen={dropdownOpen} onClick={toggle} toggle={true} id={'successDropdown'}>
+                        <ButtonDropdown isOpen={dropdownOpen} onClick={toggle} id={'successDropdown'}>
                             <DropdownToggle caret>
                                 Filter Timeline
                             </DropdownToggle>
                             <DropdownMenu>
                                 <DropdownItem header>Select Date Filter</DropdownItem>
-                                <DropdownItem>YTD</DropdownItem>
-                                <DropdownItem>This Month</DropdownItem>
-                                <DropdownItem>This Week</DropdownItem>
-                                <DropdownItem>Today</DropdownItem>
+                                <DropdownItem onClick={handleClick} id={'ytd'} value={data[0].datum[0]}>YTD</DropdownItem>
+                                <DropdownItem onClick={handleClick} id={'month'} value={data[0].datum[1]}>This Month</DropdownItem>
+                                <DropdownItem onClick={handleClick} id={'week'} value={data[0].datum[2]}>This Week</DropdownItem>
+                                <DropdownItem onClick={handleClick} id={'today'} value={data[0].datum[3]}>Today</DropdownItem>
                             </DropdownMenu>
                         </ButtonDropdown>
                     </Col>
                 </Row>
             </Container>
         );
-
 }
-
-ButtonDropdown.propTypes = {
-    disabled: PropTypes.bool,
-    direction: PropTypes.oneOf(['up', 'down', 'left', 'right']),
-    group: PropTypes.bool,
-    isOpen: PropTypes.bool,
-    tag: PropTypes.string,
-    toggle: PropTypes.func
-};
-
-DropdownToggle.propTypes = {
-    caret: PropTypes.bool,
-    color: PropTypes.string,
-    disabled: PropTypes.bool,
-    onClick: PropTypes.func,
-    'data-toggle': PropTypes.string,
-    'aria-haspopup': PropTypes.bool
-};
 
 export default SuccessfulDickers;
