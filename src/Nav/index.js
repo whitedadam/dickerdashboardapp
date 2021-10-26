@@ -1,3 +1,3 @@
-import Nav from './Settings';
+import Nav from './Nav';
 
 export default Nav;
