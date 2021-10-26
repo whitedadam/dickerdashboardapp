@@ -39,7 +39,7 @@ class Settings extends React.Component {
             <div className="Settings">
                 <h1>Admin Settings</h1>
                 <div className="NavigationGeneralSettings">
-                    <button className="GeneralSettingsButton" onClick={this.handleClassGeneralSettings}>
+                    <button className="GeneralSettingsButton" onClick={this.handleClickGeneralSettings}>
                         <h3> General Settings </h3>
                     </button>
                 </div>
