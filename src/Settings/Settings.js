@@ -30,7 +30,7 @@ class Settings extends React.Component {
 
     handleClickNotification() {
         this.setState({userOption: 'Notification', isNotification: true});
-        window.alert('Allow Notifications: ')
+        window.alert('Display Notifications: ')
     }
 
     render() {
