@@ -6,6 +6,8 @@ import Dashboard from './Dashboard';
 import Settings from './Settings';
 import './App.css';
 import {Col, Container, Row} from "reactstrap";
+import Reset from "./Reset";
+import Create from "./Createaccount";
 
 function App() {
   return (
@@ -24,6 +26,12 @@ function App() {
                           </Route>
                           <Route exact path='/dashboard'>
                               <Dashboard />
+                          </Route>
+                          <Route exact path='/resetpassword'>
+                              <Reset />
+                          </Route>
+                          <Route exact path='/createaccount'>
+                              <Create />
                           </Route>
                           <Route exact path='/settings'>
                               <Settings />
