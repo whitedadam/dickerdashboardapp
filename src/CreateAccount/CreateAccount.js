@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Form, Input, Label, NavLink} from "reactstrap";
+import {Button, Form, Input, Label} from "reactstrap";
 import {Col, Container, Row} from 'reactstrap';
 
 class CreateAccount extends React.Component {
