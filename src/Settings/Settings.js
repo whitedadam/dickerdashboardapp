@@ -60,7 +60,6 @@ class Settings extends React.Component {
                     <Col> </Col>
                     <Col>
                         <div className={'ResetModule'} hidden={this.state.resetHidden}>
-                            <p>This is where module hiding</p>
                             <Reset />
                         </div>
                     </Col>
