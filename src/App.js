@@ -3,8 +3,6 @@ import { Switch, BrowserRouter as Router, Route } from 'react-router-dom';
 import Login from './Login';
 import Nav from './Nav';
 import Dashboard from './Dashboard';
-import Create from "./Createaccount";
-import Reset from "./Reset";
 import Settings from './Settings';
 import './App.css';
 import {Col, Container, Row} from "reactstrap";
@@ -26,12 +24,6 @@ function App() {
                           </Route>
                           <Route exact path='/dashboard'>
                               <Dashboard />
-                          </Route>
-                          <Route exact path='/resetpassword'>
-                              <Reset />
-                          </Route>
-                          <Route exact path='/createaccount'>
-                              <Create />
                           </Route>
                           <Route exact path='/settings'>
                               <Settings />
