@@ -17,16 +17,15 @@ class Settings extends React.Component {
 
     handleClickGeneralSettings() {
         this.setState({userOption: 'General Setting', isGeneralSetting: true});
-        window.alert('Username: ');
-        window.alert('Phone number: ');
-        window.alert('Email: ');
-
+        window.alert('Username: \n\n' +
+            'Phone number: \n\n' +
+            'Email: \n');
     }
 
     handleClickSecurity() {
         this.setState({userOption: 'Security', isSecurity: true});
-        window.alert('Update or Change password: ');
-        window.alert('Please type in your email to prompt the system to send a reset password email: ');
+        window.alert('Update or Change password: \n\n' +
+            'Please type in your email to prompt the system to send a reset password email: \n');
     }
 
     handleClickNotification() {
@@ -39,7 +38,7 @@ class Settings extends React.Component {
             <div className="Settings">
                 <h1>Admin Settings</h1>
                 <div className="NavigationGeneralSettings">
-                    <button className="GeneralSettingsButton" onClick={this.handleClickGeneralSettings}>
+                    <button  className="GeneralSettingsButton" onClick={this.handleClickGeneralSettings}>
                         <h3> General Settings </h3>
                     </button>
                 </div>
