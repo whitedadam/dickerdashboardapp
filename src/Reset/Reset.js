@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Form, FormGroup, Input, Label, NavLink} from "reactstrap";
+import {Button, Form, FormGroup, Input, Label} from "reactstrap";
 import {Col, Container, Row} from 'reactstrap';
 
 class Reset extends React.Component{
