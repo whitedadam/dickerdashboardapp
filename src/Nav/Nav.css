@@ -1,13 +1,10 @@
 .navbar {
-  display: block;
-  position: relative;
-  height: auto;
-  padding: 10px;
-  background-color: black;
-  color: white;
-  float: left;
+    list-style-type: none;
+    width: 1080px;
 }
-
-.navRight {
-  float: right;
+.merchantWelcome {
+    color: rgb(217, 192, 124);
+}
+.navDivider {
+    color: rgb(52, 58, 64);
 }

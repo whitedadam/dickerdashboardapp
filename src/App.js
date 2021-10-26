@@ -5,24 +5,45 @@ import Nav from './Nav';
 import Dashboard from './Dashboard';
 import Settings from './Settings';
 import './App.css';
+import {Col, Container, Row} from "reactstrap";
+import Reset from "./Reset";
+import CreateAccount from "./CreateAccount";
 
 function App() {
   return (
+
     <Router>
-      <Nav />
-      <Switch>
-        <Route exact path='/login'>
-          <Login />
-        </Route>
-        <Route exact path='/'>
-          <Dashboard />
-        </Route>
-        <Route exact path='/settings'>
-          <Settings />
-        </Route>
-      </Switch>
+      <Container className={'app'}>
+                  <Row>
+                    <Col xl={'auto'}><Nav /></Col>
+                  </Row>
+          <Switch>
+              <React.Fragment>
+                  <Row>
+                      <Col>
+                          <Route exact path='/'>
+                              <Login />
+                          </Route>
+                          <Route exact path='/dashboard'>
+                              <Dashboard />
+                          </Route>
+                          <Route exact path='/resetPassword'>
+                              <Reset />
+                          </Route>
+                          <Route exact path='/createAccount'>
+                              <CreateAccount />
+                          </Route>
+                          <Route exact path='/settings'>
+                              <Settings />
+                          </Route>
+                      </Col>
+                  </Row>
+              </React.Fragment>
+          </Switch>
+      </Container>
     </Router>
   );
+
 }
 
 export default App;

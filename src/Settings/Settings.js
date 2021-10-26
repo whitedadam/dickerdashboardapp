@@ -1,7 +1,8 @@
 import React from 'react';
+import { Container } from "reactstrap";
 
 const Settings = () => {
-  return <div>User Settings Page</div>;
+  return <Container>User Settings Page</Container>;
 };
 
 export default Settings;
