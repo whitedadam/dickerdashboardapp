@@ -66,7 +66,7 @@ const SuccessfulDickers = () => {
                     <ResizableBox>
                         <Row>
                             <Col>
-                                <h5>Successful Dickers</h5>
+                                <h5>Successful DICKERs</h5>
                             </Col>
                             <Col> </Col>
                         </Row>
