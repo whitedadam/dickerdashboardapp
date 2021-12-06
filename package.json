@@ -7,7 +7,7 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
-    "bootstrap": "^4.0.0",
+    "bootstrap": "^4.6.1",
     "express": "^4.17.1",
     "jquery": "^1.9.1",
     "react": "^17.0.2",
@@ -22,9 +22,11 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "server": "node server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "dev": "concurrently \"npm run server\" \"npm run start\""
   },
   "proxy": "http://localhost:5000",
   "eslintConfig": {
