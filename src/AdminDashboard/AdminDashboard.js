@@ -1,9 +1,7 @@
 import React, {useState} from "react";
 import "./AdminDashboard.css"
-import {Col, Container, NavItem, NavLink, Row, Table} from 'reactstrap';
+import {Col, Container, NavItem, NavLink, Row} from 'reactstrap';
 import adminData from "../mock-data.json"
-import {Link} from "react-router-dom";
-
 
 function AdminDashboard() {
     const [merch, setMerch] = useState(adminData);
@@ -16,7 +14,7 @@ function AdminDashboard() {
                     <Col>
                         <p>Modules Coming Soon!</p>
 
-                        <NavItem>
+                        <NavItem className="adminDashNav">
                             <NavLink href="/AdminSettings">Admin Settings</NavLink>
                         </NavItem>
                     </Col>
