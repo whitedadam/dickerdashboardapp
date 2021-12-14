@@ -1,20 +1,22 @@
-import React from 'react';
-import {Col, Container, Row} from 'reactstrap';
+import React, {useState} from "react";
+import "./AdminDashboard.css"
+import {Col, Container, Row, Table} from 'reactstrap';
+import adminData from "../mock-data.json"
+import {Link, NavLink} from "react-router-dom";
+import Nav from "../Nav";
 
-
-class AdminDashboard extends React.Component {
-  render() {
-    return (
-      <Container className={'adminDashboardContainer'}>
-        <Row>
-            <Col><h3>Admin Dashboard</h3></Col>
-        </Row>
-          <Row>
-              <Col><p>Welcome, Admin!</p></Col>
-          </Row>
-      </Container>
-    );
-  }
+function AdminDashboard() {
+    const [merch, setMerch] = useState(adminData);
+        return(
+            <Container className="AdminDashboard">
+                <Row>
+                    <Col><h1>Welcome, {merch[1].firstName}!</h1></Col>
+                </Row>
+                <Row>
+                    <Col><p>Modules Coming Soon!</p></Col>
+                </Row>
+             </Container>
+        );
 }
 
 export default AdminDashboard;

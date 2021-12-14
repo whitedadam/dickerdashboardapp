@@ -3,6 +3,7 @@ import {Button, Form, FormGroup, Input, NavLink} from "reactstrap";
 import {Col, Container, Row} from 'reactstrap';
 import Dashboard from "../Dashboard";
 import AdminDashboard from "../AdminDashboard";
+import userData from "../mock-data.json";
 
 class Login extends React.Component{
 
@@ -148,7 +149,7 @@ class Login extends React.Component{
             if (this.state.isAdmin === false) {
                 return <Dashboard />;
             } else {
-                return <AdminDashboard />
+                return <AdminDashboard />;
             }
         }
     }

@@ -16,6 +16,12 @@ class Nav extends React.Component {
                 <NavLink href="/dashboard">Dashboard</NavLink>
               </NavItem>
               <NavItem>
+                  <NavLink href="/AdminDashboard">Admin Dashboard</NavLink>
+              </NavItem>
+              <NavItem>
+                  <NavLink href="/AdminSettings">Admin Settings</NavLink>
+              </NavItem>
+              <NavItem>
                 <NavLink href="/settings">Settings</NavLink>
               </NavItem>
               <NavItem>
@@ -28,7 +34,7 @@ class Nav extends React.Component {
                 <NavLink href="/">Logout</NavLink>
               </NavItem>
               <NavItem className={'navDivider'}>
-                <p>______________________________________________________________________ </p>
+                <p>______________________________________________________ </p>
               </NavItem>
               <NavbarText className={'merchantWelcome'}>Welcome, Merchant!</NavbarText>
           </Collapse>
