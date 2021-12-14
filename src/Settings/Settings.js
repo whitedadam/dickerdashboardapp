@@ -1,5 +1,7 @@
 import React from 'react';
-import { Container } from "reactstrap";
+import {Button, Col, Container, Row} from "reactstrap";
+import Reset from "../Reset";
+
 class Settings extends React.Component {
 
     constructor(props) {
@@ -9,6 +11,7 @@ class Settings extends React.Component {
             isGeneralSetting: false,
             isSecurity: false,
             isNotification: false,
+            resetHidden: true
         };
         this.handleClickGeneralSettings = this.handleClickGeneralSettings.bind(this);
         this.handleClickSecurity = this.handleClickSecurity.bind(this);
@@ -23,9 +26,8 @@ class Settings extends React.Component {
     }
 
     handleClickSecurity() {
-        this.setState({userOption: 'Security', isSecurity: true});
-        window.alert('Update or Change password: \n\n' +
-            'Please type in your email to prompt the system to send a reset password email: \n');
+        this.setState({userOption: 'Security', isSecurity: true, resetHidden: (!this.state.resetHidden)});
+        console.log(this.state.resetHidden);
     }
 
     handleClickNotification() {
@@ -35,24 +37,35 @@ class Settings extends React.Component {
 
     render() {
         return (
-            <div className="Settings">
+            <Container className="Settings">
                 <h1>Admin Settings</h1>
-                <div className="NavigationGeneralSettings">
-                    <button  className="GeneralSettingsButton" onClick={this.handleClickGeneralSettings}>
-                        <h3> General Settings </h3>
-                    </button>
-                </div>
-                <div className="NavigationSecurity">
-                    <button className="SecurityButton" onClick={this.handleClickSecurity}>
-                        <h3> Security </h3>
-                    </button>
-                </div>
-                <div className="NavigationNotification">
-                    <button className="NotificationButton" onClick={this.handleClickNotification}>
-                        <h3> Notification </h3>
-                    </button>
-                </div>
-            </div>
+                <Row>
+                    <Col className="NavigationGeneralSettings">
+                        <Button  className="GeneralSettingsButton" onClick={this.handleClickGeneralSettings}>
+                            <h3> General Settings </h3>
+                        </Button>
+                    </Col>
+                    <Col className="NavigationSecurity">
+                        <Button className="SecurityButton" onClick={this.handleClickSecurity}>
+                            <h3> Security </h3>
+                        </Button>
+                    </Col>
+                    <Col className="NavigationNotification">
+                        <Button className="NotificationButton" onClick={this.handleClickNotification}>
+                            <h3> Notification </h3>
+                        </Button>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col> </Col>
+                    <Col>
+                        <div className={'ResetModule'} hidden={this.state.resetHidden}>
+                            <Reset />
+                        </div>
+                    </Col>
+                    <Col> </Col>
+                </Row>
+            </Container>
         );
     }
 }
