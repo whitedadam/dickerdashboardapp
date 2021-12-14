@@ -4,6 +4,8 @@ import Login from './Login';
 import Nav from './Nav';
 import Dashboard from './Dashboard';
 import Settings from './Settings';
+import AdminDashboard from "./AdminDashboard/adminDash";
+import AdminSettings from "./AdminSettings/adminSettings";
 import './App.css';
 import {Col, Container, Row} from "reactstrap";
 import Reset from "./Reset";
@@ -35,6 +37,12 @@ function App() {
                           </Route>
                           <Route exact path='/settings'>
                               <Settings />
+                          </Route>
+                          <Route exact path='/adminDash'>
+                              <AdminDashboard />
+                          </Route>
+                          <Route exact path='/adminSettings'>
+                              <AdminSettings />
                           </Route>
                       </Col>
                   </Row>
