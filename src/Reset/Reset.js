@@ -7,12 +7,12 @@ class Reset extends React.Component{
         return(
             <Container className={'resetPassContainer'}>
                 <Form id="resetForm">
+                    <FormGroup>
                     <Row>
                         <Col>
                             <h2>Enter your account email address to the receive reset email!</h2>
                         </Col>
                     </Row>
-                    <FormGroup>
                         <Label for={'resetEmail'}>Email:</Label>
                         <Input type='email' name='resetEmail' placeholder='Enter email...' />
                         <Button>Submit</Button>
