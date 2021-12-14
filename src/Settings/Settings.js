@@ -111,20 +111,6 @@ class Settings extends React.Component {
                             <h3> Notification </h3>
                         </Button>
                     </Col>
-                <Col>
-                    <br/>
-                        <h4> Do you want to allow emails to be sent directly to you?</h4>
-                        <Button onClick={this.handleClickAllowNotification}>
-                            {this.state.isToggleOn ? "ON" : "OFF"}
-                        </Button>
-                    <br/>
-                </Col>
-                    <br/>
-                    <h5> Do you want to allow user information to be stored in Dicker Database?</h5>
-                    <Button onClick={this.handleClickAllowDatabase}>
-                        {this.state.isAllowDataOn ? "ON" : "OFF"}
-                    </Button>
-                <br/>
                 </Row>
                 <Row>
                     <Col> </Col>
@@ -133,7 +119,22 @@ class Settings extends React.Component {
                             <Reset />
                         </div>
                     </Col>
-                    <Col> </Col>
+                    <Col>
+                        <br/>
+                        <h4> Do you want to allow emails to be sent directly to you?</h4>
+                        <Button onClick={this.handleClickAllowNotification}>
+                            {this.state.isToggleOn ? "ON" : "OFF"}
+                        </Button>
+                        <br/>
+                    </Col>
+                    <Col>
+                        <br/>
+                        <h5> Do you want to allow user information to be stored in Dicker Database?</h5>
+                        <Button onClick={this.handleClickAllowDatabase}>
+                            {this.state.isAllowDataOn ? "ON" : "OFF"}
+                        </Button>
+                        <br/>
+                    </Col>
                 </Row>
 
             </Container>
