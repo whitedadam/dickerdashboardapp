@@ -88,6 +88,7 @@ class Login extends React.Component{
             event.preventDefault();
             console.log('you\'re in, merchant :)');
             this.setState({auth: true});
+            authData.isAdmin = false;
         }
         if (merchant.email === email && merchant.password !== password) {
             event.preventDefault();
@@ -126,10 +127,10 @@ class Login extends React.Component{
                 <Container className={'loginContainer'}>
 
                     <Form id="form" onSubmit={this.login}>
-                        <Row>
-                            <Col><h1 style={{alignContent: "center"}}>Login</h1></Col>
-                        </Row>
                         <FormGroup style={{backgroundColor: "", alignContent: "center"}}>
+                            <Row>
+                                <Col><h1 style={{alignContent: "center"}}>Login</h1></Col>
+                            </Row><br/>
                             <Row>
                                 <Col><Input type='email' name='email' id='email' value={this.state.email} onChange={this.handleChange} placeholder='Enter email...' /></Col>
                             </Row>
@@ -139,10 +140,12 @@ class Login extends React.Component{
                             <Row style={{alignContent: "center"}}>
                                 <Col><Button>Login</Button></Col>
                             </Row>
+                            <p className="App-intro">{this.state.data}</p>
+                            <Row>
+                                <NavLink href="./resetPassword">Forgot Password?</NavLink>
+                                <NavLink href="./CreateAccount">Create Account</NavLink>
+                            </Row>
                         </FormGroup>
-                        <p className="App-intro">{this.state.data}</p>
-                        <NavLink href="./resetPassword">Forgot Password?</NavLink>
-                        <NavLink href="./CreateAccount">Create Account</NavLink>
                     </Form>
 
                 </Container>

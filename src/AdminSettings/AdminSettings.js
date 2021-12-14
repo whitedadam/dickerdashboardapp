@@ -1,13 +1,15 @@
 import React, {useState} from "react";
 import "./AdminSettings.css"
-import {Container, NavItem, NavLink, Table} from 'reactstrap';
+import {Container, NavItem, NavLink} from 'reactstrap';
 import adminData from "../mock-data.json"
 
 function AdminSettings() {
+
     const [merch, setMerch] = useState(adminData);
-        return(
+
+    return(
             <Container>
-                <Table>
+                <table>
                     <thead>
                         <tr>
                             <th>Merchant ID</th>
@@ -32,7 +34,7 @@ function AdminSettings() {
                             </tr>
                         ))}
                     </tbody>
-                </Table>
+                </table>
                 <NavItem className="adminDashNav">
                     <NavLink href="/AdminDashboard">Admin Dashboard</NavLink>
                 </NavItem>
