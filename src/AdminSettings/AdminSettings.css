@@ -5,6 +5,10 @@
     padding: 1rem;
 }
 
+.adminDashNav {
+    list-style-type: none;
+}
+
 table {
     border-collapse: collapse;
     width: 100%;
