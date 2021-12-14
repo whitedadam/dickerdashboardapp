@@ -1,9 +1,10 @@
-import React from "react";
+import React, {useState} from "react";
 import {Button, Form, FormGroup, Input, NavLink} from "reactstrap";
 import {Col, Container, Row} from 'reactstrap';
 import Dashboard from "../Dashboard";
 import AdminDashboard from "../AdminDashboard";
 import userData from "../mock-data.json";
+import authData from "../authData.json"
 
 class Login extends React.Component{
 
@@ -75,6 +76,7 @@ class Login extends React.Component{
             event.preventDefault();
             console.log('you\'re in, admin :)');
             this.setState({auth: true, isAdmin: true});
+            authData.isAdmin = true;
         }
         if (admin.email === email && admin.password !== password) {
             event.preventDefault();

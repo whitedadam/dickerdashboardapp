@@ -38,7 +38,7 @@ class Settings extends React.Component {
     render() {
         return (
             <Container className="Settings">
-                <h1>Admin Settings</h1>
+                <h1>Merchant Settings</h1>
                 <Row>
                     <Col className="NavigationGeneralSettings">
                         <Button  className="GeneralSettingsButton" onClick={this.handleClickGeneralSettings}>
