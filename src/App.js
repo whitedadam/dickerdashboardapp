@@ -1,13 +1,11 @@
 import React from 'react';
 import { Switch, BrowserRouter as Router, Route } from 'react-router-dom';
+import {Col, Container, Row} from "reactstrap";
+import './App.css';
 import Login from './Login';
 import Nav from './Nav';
 import Dashboard from './Dashboard';
 import Settings from './Settings';
-import AdminDashboard from "./AdminDashboard/adminDash";
-import AdminSettings from "./AdminSettings/adminSettings";
-import './App.css';
-import {Col, Container, Row} from "reactstrap";
 import Reset from "./Reset";
 import CreateAccount from "./CreateAccount";
 import AdminSettings from "./AdminSettings";
