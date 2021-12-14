@@ -31,7 +31,8 @@ connection.connect();
 const Request = require('tedious').Request;
 
 function executeStatement() {
-    let request = new Request("select * from dbo.Business", function(err, rowCount) {
+    //select * from dbo.Business Test Statement
+    let request = new Request("Select COUNT(*) FROM dbo.AcceptedOffer WHERE IsRedeemed = 1", function(err, rowCount) {
         if (err) {
             console.log(err);
         } else {
@@ -53,6 +54,6 @@ app.listen(port, () => console.log(`Listening on port ${port}`)); //Line 6
 
 // create a GET route
 app.get('/express_backend', (req, res) => { //Line 9
-    executeStatement();
-    res.send({ express: 'YOUR EXPRESS BACKEND IS CONNECTED TO REACT' }); //Line 10
+    let success = executeStatement();
+    res.send({ successfulDICKER: success }); //Line 10
 }); //Line 11
