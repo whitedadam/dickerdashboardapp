@@ -8,6 +8,8 @@ import './App.css';
 import {Col, Container, Row} from "reactstrap";
 import Reset from "./Reset";
 import CreateAccount from "./CreateAccount";
+import AdminSettings from "./AdminSettings";
+import AdminDashboard from "./AdminDashboard";
 
 function App() {
   return (
@@ -32,6 +34,12 @@ function App() {
                           </Route>
                           <Route exact path='/createAccount'>
                               <CreateAccount />
+                          </Route>
+                          <Route exact path='/AdminDashboard'>
+                              <AdminDashboard />
+                          </Route>
+                          <Route exact path='/AdminSettings'>
+                              <AdminSettings />
                           </Route>
                           <Route exact path='/settings'>
                               <Settings />
