@@ -44,6 +44,12 @@ function App() {
                           <Route exact path='/settings'>
                               <Settings />
                           </Route>
+                          <Route exact path='/adminDash'>
+                              <AdminDashboard />
+                          </Route>
+                          <Route exact path='/adminSettings'>
+                              <AdminSettings />
+                          </Route>
                       </Col>
                   </Row>
               </React.Fragment>
