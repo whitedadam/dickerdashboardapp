@@ -1,0 +1,34 @@
+[
+  {
+    "merchantId": "1",
+    "firstName": "mr",
+    "lastName": "dude",
+    "phoneNumber": "111-1111-1111",
+    "email": "coolestmerchant@merchant.com",
+    "appUserId": "9128dajwe-awddj213fc-aw212f",
+    "dateCreated": "06/3/1999",
+    "loginAttempts": 0,
+    "lockoutEnabled": false,
+    "isAdmin": false
+  },
+  {
+    "merchantId": "2",
+    "firstName": "Admin",
+    "lastName": "AdminLast",
+    "phoneNumber": "111-1111-1111",
+    "email": "admin@dicker.com",
+    "password": "admin",
+    "loginAttempts": 0,
+    "lockoutEnabled": false,
+    "isAdmin": true
+  },
+  {
+    "id": "3",
+    "email": "firstcheck@lastcheck.test",
+    "password": "12345",
+    "name": "Bob",
+    "loginAttempts": 0,
+    "lockoutEnabled": false,
+    "isAdmin": false
+  }
+]
