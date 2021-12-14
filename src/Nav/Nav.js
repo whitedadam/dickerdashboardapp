@@ -19,12 +19,6 @@ class Nav extends React.Component {
                 <NavLink href="/settings">Settings</NavLink>
               </NavItem>
               <NavItem>
-                  <NavLink href="/adminDash">Admin Dashboard</NavLink>
-              </NavItem>
-              <NavItem>
-                  <NavLink href="/adminSettings">Admin Settings</NavLink>
-              </NavItem>
-              <NavItem>
                 <NavLink href="/">Logout</NavLink>
               </NavItem>
               <NavItem className={'navDivider'}>
