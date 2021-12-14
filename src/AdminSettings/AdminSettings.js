@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import "./AdminSettings.css"
-import {Col, Container, Row, Table} from 'reactstrap';
+import {Container, NavItem, NavLink, Table} from 'reactstrap';
 import adminData from "../mock-data.json"
 
 function AdminSettings() {
@@ -33,6 +33,9 @@ function AdminSettings() {
                         ))}
                     </tbody>
                 </Table>
+                <NavItem className="adminDashNav">
+                    <NavLink href="/AdminDashboard">Admin Dashboard</NavLink>
+                </NavItem>
              </Container>
         );
 }
