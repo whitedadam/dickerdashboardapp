@@ -32,7 +32,7 @@ const Request = require('tedious').Request;
 
 function executeStatement() {
     //select * from dbo.Business Test Statement
-    let request = new Request("Select COUNT(*) FROM dbo.AcceptedOffer WHERE IsRedeemed = 1", function(err, rowCount) {
+    let request = new Request("Select TOP (1000) [MerchantId],[FirstName],[LastName],[PhoneNumber],[Email],[AppUserId],[DateCreated] FROM [Merchant] WHERE MerchantId = 1", function(err, rowCount) {
         if (err) {
             console.log(err);
         } else {
@@ -55,5 +55,6 @@ app.listen(port, () => console.log(`Listening on port ${port}`)); //Line 6
 // create a GET route
 app.get('/express_backend', (req, res) => { //Line 9
     let success = executeStatement();
+    console.log(success);
     res.send({ successfulDICKER: success }); //Line 10
 }); //Line 11
