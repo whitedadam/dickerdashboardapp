@@ -56,5 +56,5 @@ app.listen(port, () => console.log(`Listening on port ${port}`)); //Line 6
 app.get('/express_backend', (req, res) => { //Line 9
     let success = executeStatement();
     console.log(success);
-    res.send({ successfulDICKER: success }); //Line 10
+    res.send({ data: success }); //Line 10
 }); //Line 11
