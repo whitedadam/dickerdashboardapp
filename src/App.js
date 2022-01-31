@@ -10,6 +10,9 @@ import Reset from "./Reset";
 import CreateAccount from "./CreateAccount";
 import AdminSettings from "./AdminSettings";
 import AdminDashboard from "./AdminDashboard";
+import Notifications from "./Settings/Notifications";
+import Security from "./Settings/Security";
+//import GeneralSettings from "./Settings/GeneralSettings"
 import NavEmpty from "./NavEmpty";
 
 function App() {
@@ -50,6 +53,11 @@ function App() {
                 </Route>
                 <Route exact path="/adminSettings">
                   <AdminSettings />
+                <Route exact path='/security'>
+                  <Security/>
+                </Route>
+                <Route exact path='/notifications'>
+                  <Notifications/>
                 </Route>
               </Col>
             </Row>

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, Col, Container, Popover, Row} from "reactstrap";
 import Reset from "../Reset";
-
+import {Link} from "react-router-dom";
 
 class Settings extends React.Component {
 
@@ -43,7 +43,7 @@ class Settings extends React.Component {
                     lockoutEnabled: false,
                     isAdmin: false,
                     allowEmail: "not allowing",
-                    allowData: "allowing"
+                    allowPush: "allowing"
 
                 }
             }
@@ -58,22 +58,16 @@ class Settings extends React.Component {
 
     handleClickGeneralSettings() {
         this.setState({userOption: 'General Setting', isGeneralSetting: true});
-        window.alert('Name: ' + this.state.users.merchant.name + "\n" +
-            'Username: ' + this.state.users.merchant.email + "\n" +
-            'Phone number: ' + this.state.users.merchant.phoneNumber);
     }
 
     handleClickSecurity() {
         this.setState({userOption: 'Security', isSecurity: true, resetHidden: (!this.state.resetHidden)});
-        console.log(this.state.resetHidden);
+
     }
 
     handleClickNotification() {
         this.setState({userOption: 'Notification', isNotification: true});
-        window.alert(this.state.users.merchant.name + " is " + this.state.users.merchant.allowEmail + " emails to be sent." + "\n" +
-            this.state.users.merchant.name + " is " + this.state.users.merchant.allowData + " data to be stored in Database." + "\n"
-        );
-    }
+   }
 
     handleClickAllowNotification() {
         this.setState(state => ({
@@ -98,45 +92,20 @@ class Settings extends React.Component {
                 <Row>
                     <Col className="NavigationGeneralSettings">
                         <Button  className="GeneralSettingsButton" onClick={this.handleClickGeneralSettings}>
-                            <h3> General Settings </h3>
+                            <Link to ="/generalSettings/">General Settings</Link>
                         </Button>
                     </Col>
                     <Col className="NavigationSecurity">
                         <Button className="SecurityButton" onClick={this.handleClickSecurity}>
-                            <h3> Security </h3>
+                            <Link to ="/security">Reset Password</Link>
                         </Button>
                     </Col>
                     <Col className="NavigationNotification">
                         <Button className="NotificationButton" onClick={this.handleClickNotification}>
-                            <h3> Notification </h3>
+                            <Link to ="/notifications">Notification</Link>
                         </Button>
                     </Col>
                 </Row>
-                <Row>
-                    <Col> </Col>
-                    <Col>
-                        <div className={'ResetModule'} hidden={this.state.resetHidden}>
-                            <Reset />
-                        </div>
-                    </Col>
-                    <Col>
-                        <br/>
-                        <h4> Do you want to allow emails to be sent directly to you?</h4>
-                        <Button onClick={this.handleClickAllowNotification}>
-                            {this.state.isToggleOn ? "ON" : "OFF"}
-                        </Button>
-                        <br/>
-                    </Col>
-                    <Col>
-                        <br/>
-                        <h5> Do you want to allow user information to be stored in Dicker Database?</h5>
-                        <Button onClick={this.handleClickAllowDatabase}>
-                            {this.state.isAllowDataOn ? "ON" : "OFF"}
-                        </Button>
-                        <br/>
-                    </Col>
-                </Row>
-
             </Container>
         );
     }
