@@ -1,3 +1,3 @@
-import AdminSettings from './AdminSettings';
+import AdminSettings from "./AdminSettings";
 
 export default AdminSettings;
