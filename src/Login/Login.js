@@ -5,6 +5,8 @@ import Dashboard from "../Dashboard";
 import AdminDashboard from "../AdminDashboard";
 import userData from "../mock-data.json";
 import authData from "../authData.json";
+import {Avatar, Grid, Paper} from '@material-ui/core';
+import {FaLock} from "react-icons/all";
 
 class Login extends React.Component {
   constructor(props) {
@@ -121,53 +123,70 @@ class Login extends React.Component {
 
   render() {
     if (this.state.auth === false) {
+
+      const loginFormStyle={position: 'relative', left: '215px'}
+      const paperStyle={padding: 100, height: '70vh', margin: "20px auto"}
+      const lockStyle={margin: "20px auto", color: 'rgb(217, 192, 124)', width: '5%', height: 'auto'}
+      const enterEmailStyle={bottom: "30px"}
+      const enterPassStyle={bottom: "20px"}
+      const loginButtonStyle={bottom: '20px', width: '500px'}
+
       return (
-        <Container className={"loginContainer"}>
-          <Form id="form" onSubmit={this.login}>
-            <FormGroup style={{ backgroundColor: "", alignContent: "center" }}>
-              <Row>
-                <Col>
-                  <h1 style={{ alignContent: "center" }}>Login</h1>
-                </Col>
-              </Row>
-              <br />
-              <Row>
-                <Col>
-                  <Input
-                    type="email"
-                    name="email"
-                    id="email"
-                    value={this.state.email}
-                    onChange={this.handleChange}
-                    placeholder="Enter email..."
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <Input
-                    type="password"
-                    name="password"
-                    id="password"
-                    value={this.state.password}
-                    onChange={this.handleChange}
-                    placeholder="Enter password..."
-                  />
-                </Col>
-              </Row>
-              <Row style={{ alignContent: "center" }}>
-                <Col>
-                  <Button>Login</Button>
-                </Col>
-              </Row>
-              <p className="App-intro">{this.state.data}</p>
-              <Row>
-                <NavLink href="./resetPassword">Forgot Password?</NavLink>
-                <NavLink href="./CreateAccount">Create Account</NavLink>
-              </Row>
-            </FormGroup>
-          </Form>
-        </Container>
+          <div id="loginPageBack>">
+            <Grid>
+              <Paper elevation-={20} style={paperStyle}>
+                <Grid align='center'>
+                  <Container className={"loginContainer"}>
+                    <FaLock style={lockStyle}/>
+                    <Form style={loginFormStyle} onSubmit={this.login}>
+                      <FormGroup>
+                        <Row>
+                          <Col style={{right: '20px'}}>
+                            <h1>Sign In</h1>
+                          </Col>
+                        </Row>
+                        <br />
+                        <Row>
+                          <Col style={enterEmailStyle}>
+                            <Input
+                              type="email"
+                              name="email"
+                              id="email"
+                              value={this.state.email}
+                              onChange={this.handleChange}
+                              placeholder="Enter email..."
+                            />
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col style={enterPassStyle}>
+                            <Input
+                              type="password"
+                              name="password"
+                              id="password"
+                              value={this.state.password}
+                              onChange={this.handleChange}
+                              placeholder="Enter password..."
+                            />
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col>
+                            <Button style={loginButtonStyle}>Login</Button>
+                          </Col>
+                        </Row>
+                        <p className="App-intro">{this.state.data}</p>
+                        <Row>
+                          <NavLink href="./resetPassword">Forgot Password?</NavLink>
+                          <NavLink href="./CreateAccount">Create Account</NavLink>
+                        </Row>
+                      </FormGroup>
+                    </Form>
+                  </Container>
+                </Grid>
+              </Paper>
+            </Grid>
+          </div>
       );
     } else if (this.state.auth === true) {
       if (this.state.isAdmin === false) {
