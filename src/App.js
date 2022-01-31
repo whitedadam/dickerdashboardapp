@@ -53,6 +53,7 @@ function App() {
                 </Route>
                 <Route exact path="/adminSettings">
                   <AdminSettings />
+                </Route>
                 <Route exact path='/security'>
                   <Security/>
                 </Route>
