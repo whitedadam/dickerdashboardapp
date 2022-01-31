@@ -19,11 +19,10 @@ function App() {
   
   const [userAuth, setUserAuth] = useState(true);
   
-  
     return (
     <Router>
       <Container className={"app"}>
-        {userAuth ? <Nav /> : <NavEmpty />}
+        {userAuth ? <Nav userAuth={userAuth} /> : <NavEmpty />}
         <Switch>
             <Row>
               <Col>
