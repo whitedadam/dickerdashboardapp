@@ -92,7 +92,7 @@ class Settings extends React.Component {
                 <Row>
                     <Col className="NavigationGeneralSettings">
                         <Button  className="GeneralSettingsButton" onClick={this.handleClickGeneralSettings}>
-                            <Link to ="/generalSettings/">General Settings</Link>
+                            <Link to ="/general">General Settings</Link>
                         </Button>
                     </Col>
                     <Col className="NavigationSecurity">

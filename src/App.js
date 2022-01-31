@@ -12,8 +12,8 @@ import AdminSettings from "./AdminSettings";
 import AdminDashboard from "./AdminDashboard";
 import Notifications from "./Settings/Notifications";
 import Security from "./Settings/Security";
-//import GeneralSettings from "./Settings/GeneralSettings"
 import NavEmpty from "./NavEmpty";
+import GeneralSettings from "./Settings/GeneralSettings";
 
 function App() {
   
@@ -59,6 +59,9 @@ function App() {
                 </Route>
                 <Route exact path='/notifications'>
                   <Notifications/>
+                </Route>
+                <Route exact path='/general'>
+                  <GeneralSettings/>
                 </Route>
               </Col>
             </Row>
