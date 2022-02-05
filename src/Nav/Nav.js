@@ -12,10 +12,11 @@ import dickerLogoSquare from "../images/dickerLogoSquare.png";
 import "./Nav.css";
 
 function Nav({ userAuth, isAdmin }) {
-    const location = {
-        pathname: '/settings',
-        state: { userAuth: userAuth, isAdmin: isAdmin } 
+
+    const clickHandler = (e) => {
+        e.preventdefault();
     }
+
   if (isAdmin === true && userAuth === true) {
     return (
       <Container className={"navbar"}>
@@ -40,10 +41,10 @@ function Nav({ userAuth, isAdmin }) {
               <NavLink href="/">Logout</NavLink>
             </NavItem>
             <NavItem className={"navDivider"}>
-              <p>______________________________________________________ </p>
+              <p>_____________________________ </p>
             </NavItem>
             <NavbarText className={"merchantWelcome"}>
-              Welcome, Merchant!
+              Welcome, Admin!
             </NavbarText>
           </Collapse>
         </Navbar>
@@ -61,13 +62,13 @@ function Nav({ userAuth, isAdmin }) {
               <NavLink href="/dashboard">Dashboard</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/settings">Settings</NavLink>
+              <NavLink href="/settings" onClick={clickHandler}>Settings</NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="/">Logout</NavLink>
             </NavItem>
             <NavItem className={"navDivider"}>
-              <p>______________________________________________________ </p>
+              <p>________________________________________________________________________ </p>
             </NavItem>
             <NavbarText className={"merchantWelcome"}>
               Welcome, Merchant!
