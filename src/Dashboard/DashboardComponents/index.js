@@ -1,3 +1,6 @@
-import PotentialDickersChart from './PotentialDickersChart';
+import PotentialDickersChart from "./PotentialDickersChart";
+import SuccessfulDickersChart from "./SuccessfulDickersChart";
+import DickersRedeemedChart from "./DickersRedeemedChart";
+import DickersParticipatedChart from "./DickersParticipatedChart";
 
-export default PotentialDickersChart;
+export { PotentialDickersChart, SuccessfulDickersChart, DickersRedeemedChart, DickersParticipatedChart };
