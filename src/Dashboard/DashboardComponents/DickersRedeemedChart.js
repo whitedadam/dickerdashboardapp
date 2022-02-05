@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import ResizableBox from "./ResizableBox";
+import ResizableBox from "./ResizableBoxSmall";
 import {ButtonDropdown, Col, Container, DropdownItem, DropdownMenu, DropdownToggle, Row} from "reactstrap";
 // import PropTypes from "prop-types";
 

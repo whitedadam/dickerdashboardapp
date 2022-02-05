@@ -6,6 +6,7 @@
     "phoneNumber": "111-1111-1111",
     "email": "coolestmerchant@merchant.com",
     "appUserId": "9128dajwe-awddj213fc-aw212f",
+    "password": "12345",
     "dateCreated": "06/3/1999",
     "loginAttempts": 0,
     "lockoutEnabled": false,
