@@ -3,9 +3,9 @@ import { ResizableBox as ReactResizableBox } from "react-resizable";
 
 import "react-resizable/css/styles.css";
 
-export default function ResizableBox({
+export default function ResizableBoxSmall({
                                          children,
-                                         width = 700,
+                                         width = 300,
                                          height = 300,
                                          resizable = false,
                                          style = {},

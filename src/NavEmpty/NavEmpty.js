@@ -19,10 +19,8 @@ function NavEmpty() {
             <img src={dickerLogoSquare} alt={"DICKER logo"} />
           </NavbarBrand>
           <NavItem className={"navDivider"}>
-            <p>______________________________________________________ </p>
           </NavItem>
           <NavbarText className={"merchantWelcome"}>
-            Welcome, Merchant!
           </NavbarText>
         </Collapse>
       </Navbar>
