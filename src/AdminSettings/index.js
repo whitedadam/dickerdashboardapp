@@ -1,3 +1,3 @@
-import AdminSettings from "./adminSettings.js";
+import AdminSettings from "./AdminSettings";
 
 export default AdminSettings;
