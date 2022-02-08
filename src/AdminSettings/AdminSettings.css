@@ -8,38 +8,3 @@
 .adminDashNav {
     list-style-type: none;
 }
-
-table {
-    border-collapse: collapse;
-    width: 100%;
-}
-
-th,
-td {
-    border: 1px solid #ffffff;
-    text-align: left;
-    padding: 8px;
-    font-size: 15px;
-}
-
-th {
-    background-color: rgb(217, 192, 124);
-}
-
-td {
-    background-color: rgb(217, 213, 204);
-}
-
-form {
-    display: flex;
-    gap: 5px;
-}
-
-form td:last-child {
-    display: flex;
-    justify-content: space-evenly;
-}
-
-form * {
-    font-size: 28px;
-}

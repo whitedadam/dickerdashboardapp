@@ -79,7 +79,7 @@ function Nav({ userAuth, isAdmin }) {
     );
   } else {
     return (
-      <Container className={"navbar"}>
+      <Container style={{visibility: 'hidden'}} className={"navbar"}>
         <Navbar color={"dark"} expand={"xl"}>
           <Collapse isOpen={true} navbar>
             <NavbarBrand>

@@ -1,3 +1,19 @@
 .loginPageBack{
     background-image: url("https://wallpaperaccess.com/full/1645175.jpg");
 }
+
+.col{
+    margin-right: auto;
+}
+
+.MuiTextField-root{
+    align-content: center;
+}
+
+.Login{
+    height: 100vh;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    background-color: red;
+}
