@@ -18,7 +18,7 @@ const AdminDashboard = ({ userAuth, isAdmin }) => {
 
           <NavItem className="adminDashNav">
             <NavLink
-              href={"/AdminSettings"}
+              href={"/adminSettings"}
             >
               Admin Settings
             </NavLink>

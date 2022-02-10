@@ -8,90 +8,67 @@ import {
   NavItem,
   NavLink,
 } from "reactstrap";
+import { Link } from "react-router-dom";
 import dickerLogoSquare from "../images/dickerLogoSquare.png";
 import "./Nav.css";
 
-function Nav({ userAuth, isAdmin }) {
+function Nav({ userAuth, isAdmin, setUserAuth, setIsAdmin }) {
+  const handleLogout = (e) => {
+    e.preventDefault();
+    setUserAuth(false);
+    setIsAdmin(false);
+  };
 
-    const clickHandler = (e) => {
-        e.preventdefault();
-    }
+  if (!userAuth) return null;
 
-  if (isAdmin === true && userAuth === true) {
-    return (
-      <Container className={"navbar"}>
-        <Navbar color={"dark"} expand={"xl"}>
-          <Collapse isOpen={true} navbar>
-            <NavbarBrand>
-              <img src={dickerLogoSquare} alt={"DICKER logo"} />
-            </NavbarBrand>
-            <NavItem>
-              <NavLink href="/dashboard" >Dashboard</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="/AdminDashboard">Admin Dashboard</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="/AdminSettings">Admin Settings</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="/settings">Settings</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="/">Logout</NavLink>
-            </NavItem>
-            <NavItem className={"navDivider"}>
-              <p>_____________________________ </p>
-            </NavItem>
-            <NavbarText className={"merchantWelcome"}>
-              Welcome, Admin!
-            </NavbarText>
-          </Collapse>
-        </Navbar>
-      </Container>
-    );
-  } else if (userAuth === true) {
-    return (
-      <Container className={"navbar"}>
-        <Navbar color={"dark"} expand={"xl"}>
-          <Collapse isOpen={true} navbar>
-            <NavbarBrand>
-              <img src={dickerLogoSquare} alt={"DICKER logo"} />
-            </NavbarBrand>
-            <NavItem>
-              <NavLink href="/dashboard">Dashboard</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="/settings" onClick={clickHandler}>Settings</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="/">Logout</NavLink>
-            </NavItem>
-            <NavItem className={"navDivider"}>
-              <p>________________________________________________________________________ </p>
-            </NavItem>
-            <NavbarText className={"merchantWelcome"}>
-              Welcome, Merchant!
-            </NavbarText>
-          </Collapse>
-        </Navbar>
-      </Container>
-    );
-  } else {
-    return (
-      <Container style={{visibility: 'hidden'}} className={"navbar"}>
-        <Navbar color={"dark"} expand={"xl"}>
-          <Collapse isOpen={true} navbar>
-            <NavbarBrand>
-              <img src={dickerLogoSquare} alt={"DICKER logo"} />
-            </NavbarBrand>
-            <NavItem className={"navDivider"}></NavItem>
-            <NavbarText className={"merchantWelcome"}>Welcome to the DICKER Dashboard App</NavbarText>
-          </Collapse>
-        </Navbar>
-      </Container>
-    );
-  }
+  return (
+    <Container className={"navbar"}>
+      <Navbar color={"dark"} expand={"xl"}>
+        <Collapse isOpen={true} navbar>
+          <NavbarBrand>
+            <img src={dickerLogoSquare} alt={"DICKER logo"} />
+          </NavbarBrand>
+          {isAdmin ? (
+            <>
+              <NavItem>
+                <NavLink tag={Link} to="/adminDashboard">
+                  Admin Dashboard
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink tag={Link} to="/adminSettings">
+                  Admin Settings
+                </NavLink>
+              </NavItem>
+            </>
+          ) : (
+            <>
+              <NavItem>
+                <NavLink tag={Link} to="/dashboard">
+                  Dashboard
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                {/* <NavLink to="/settings">Settings</NavLink> */}
+                <NavLink tag={Link} to="/settings">
+                  Settings
+                </NavLink>
+              </NavItem>
+            </>
+          )}
+          <NavItem>
+            <NavLink tag={Link} onClick={handleLogout}>
+              Logout
+            </NavLink>
+          </NavItem>
+          <NavItem className={"navDivider"}>
+            <p>_____________________________ </p>
+          </NavItem>
+          <NavbarText className={"merchantWelcome"}>Welcome, Admin!</NavbarText>
+        </Collapse>
+      </Navbar>
+    </Container>
+  );
 }
 
 export default Nav;
