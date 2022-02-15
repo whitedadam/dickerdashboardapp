@@ -25,17 +25,6 @@ function App() {
 
   console.log({ userAuth });
 
-  // if (!userAuth) {
-  //   return (
-  //     <Login
-  //       userAuth={userAuth}
-  //       setUserAuth={setUserAuth}
-  //       isAdmin={isAdmin}
-  //       setIsAdmin={setIsAdmin}
-  //     />
-  //   );
-  // }
-
   return (
     <Router>
       <Container className={"app"}>
@@ -44,52 +33,42 @@ function App() {
             <Nav userAuth={userAuth} isAdmin={isAdmin} setUserAuth={setUserAuth} setIsAdmin={setIsAdmin}/>
             <Switch>
               <Row>
-                <Col>
-                  {/* <Route exact path="/">
-                  <Login
-                    userAuth={userAuth}
-                    setUserAuth={setUserAuth}
-                    isAdmin={isAdmin}
-                    setIsAdmin={setIsAdmin}
-                  />
-                </Route> */}
-                  {/*function*/}
+                <Col>                  
                   <Route exact path="/dashboard">
-                    <Dashboard /> {/*function*/}
+                    <Dashboard /> 
                   </Route>
                   <Route exact path="/resetPassword">
-                    <Reset /> {/*function*/}
+                    <Reset /> 
                   </Route>
                   <Route exact path="/createAccount">
-                    <CreateAccount /> {/*function*/}
+                    <CreateAccount /> 
                   </Route>
                   <Route exact path="/adminDashboard">
-                    <AdminDashboard /> {/*function*/}
+                    <AdminDashboard /> 
                   </Route>
                   <Route exact path="/adminSettings">
-                    <AdminSettings /> {/*function*/}
+                    <AdminSettings /> 
                   </Route>
                   <Route exact path="/settings">
-                    <Settings userAuth={userAuth} isAdmin={isAdmin} />{" "}
-                    {/*function*/}
+                    <Settings userAuth={userAuth} isAdmin={isAdmin} />
                   </Route>
                   <Route exact path="/adminDash">
-                    <AdminDashboard /> {/*function*/}
+                    <AdminDashboard /> 
                   </Route>
                   <Route exact path="/adminSettings">
-                    <AdminSettings /> {/*function*/}
+                    <AdminSettings /> 
                   </Route>
                   <Route exact path="/security">
-                    <Security /> {/*function*/}
+                    <Security /> 
                   </Route>
                   <Route exact path="/notifications">
-                    <Notifications /> {/*function*/}
+                    <Notifications /> 
                   </Route>
                   <Route exact path="/general">
-                    <GeneralSettings /> {/*function*/}
+                    <GeneralSettings /> 
                   </Route>
                   <Route>
-                    <Redirect to="/dashboard" />
+                    <Redirect to={isAdmin ? "/adminDash" : "/dashboard"} />
                   </Route>
                 </Col>
               </Row>
