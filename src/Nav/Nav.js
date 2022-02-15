@@ -11,13 +11,23 @@ import {
 import { Link } from "react-router-dom";
 import dickerLogoSquare from "../images/dickerLogoSquare.png";
 import "./Nav.css";
+import users from '../mock-data.json'
 
 function Nav({ userAuth, isAdmin, setUserAuth, setIsAdmin }) {
+  const [userInfo] = useState(users);
+
   const handleLogout = (e) => {
     e.preventDefault();
     setUserAuth(false);
     setIsAdmin(false);
   };
+
+  // const fetchUserInfo = async () => {
+  //   const res = await fetch(`http://localhost:5000/user`);
+  //   const data = await res.json();
+
+  //   return data;
+  // };
 
   if (!userAuth) return null;
 
@@ -49,7 +59,6 @@ function Nav({ userAuth, isAdmin, setUserAuth, setIsAdmin }) {
                 </NavLink>
               </NavItem>
               <NavItem>
-                {/* <NavLink to="/settings">Settings</NavLink> */}
                 <NavLink tag={Link} to="/settings">
                   Settings
                 </NavLink>
@@ -62,9 +71,9 @@ function Nav({ userAuth, isAdmin, setUserAuth, setIsAdmin }) {
             </NavLink>
           </NavItem>
           <NavItem className={"navDivider"}>
-            <p>_____________________________ </p>
+            <p>__________________________________________________ </p>
           </NavItem>
-          <NavbarText className={"merchantWelcome"}>Welcome, Admin!</NavbarText>
+          <NavbarText className={"merchantWelcome"}>Welcome, {isAdmin ? userInfo[1].firstName : userInfo[2].firstName}!</NavbarText>
         </Collapse>
       </Navbar>
     </Container>

@@ -1,25 +1,17 @@
 import React, { useState } from "react";
-import { Form, FormGroup, Input, NavLink } from "reactstrap";
+import { Form, FormGroup, NavLink } from "reactstrap";
 import { Col, Row } from "reactstrap";
 import Dashboard from "../Dashboard";
 import AdminDashboard from "../AdminDashboard";
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Nav from "../Nav";
 import './Login.css'; // Tell webpack that Button.js uses these styles
 import { Card } from '@mui/material';
-import { positions } from '@mui/system';
 import dickerLogoSquare from "../images/dickerLogoSquare.png";
 import Paper from '@mui/material/Paper'
 import InputAdornment from '@mui/material/InputAdornment';
@@ -71,7 +63,6 @@ const Login = ({ userAuth, setUserAuth, isAdmin, setIsAdmin }) => {
     if (admin.email === email && admin.password === password) {
       event.preventDefault();
       console.log("login successful");
-      // setState({ ...state, auth: true, isAdmin: true });
       setUserAuth(true);
       setIsAdmin(true);
     }
@@ -84,7 +75,6 @@ const Login = ({ userAuth, setUserAuth, isAdmin, setIsAdmin }) => {
     if (merchant.email === email && merchant.password === password) {
       event.preventDefault();
       console.log("login successful");
-      // setState({ ...state, auth: true });
       setUserAuth(true);
     }
     if (merchant.email === email && merchant.password !== password) {
@@ -123,7 +113,7 @@ const Login = ({ userAuth, setUserAuth, isAdmin, setIsAdmin }) => {
             <body id="loginBody">
               <Container className={"loginContainer"}>
                 <Paper sx={{ boxShadow: 0, marginLeft: '166px', marginRight: 'auto', marginTop: '15px', marginBottom: '15px' }}>
-                  <img src={dickerLogoSquare} />
+                  <img src={dickerLogoSquare} alt={'dicker logo'}/>
                 </Paper>
                 <Form id="loginForm" onSubmit={login}>
                   <FormGroup style={{ backgroundColor: "", alignContent: "center" }}>

@@ -31,16 +31,26 @@ connection.on("connect", function (err) {
 connection.connect();
 
 const Request = require("tedious").Request;
+const userSQL =
+  "Select TOP (1000) [MerchantId],[FirstName],[LastName],[PhoneNumber],"+
+  "[Email],[AppUserId],[DateCreated] FROM [Merchant] WHERE MerchantId = 1";
+const acceptedOffersSQL =
+  "SELECT TOP (1000) [AcceptedOfferId],[OfferCode],[ExpirationDateTime],"+
+  "[IsRedeemed],[Business_FK],[Offer_FK],[Consumer_FK],[Created],[Discount]"+
+  ",[Updated] FROM [AcceptedOffer]";
+const offersSQL = 
+  "SELECT TOP (1000) [OfferId],[Disclaimer],[TargetDiscountPct],[LowestDiscountPct]"+
+  ",[HighestDiscountPct],[StartingDate],[EndingDate],[IsActive],[DateTimeCreated],"+
+  "[DateTimeUpdated],[Friday],[InitialQuantity],[Monday],[QuantityRemaining],"+
+  "[Saturday],[Sunday],[Thursday],[Tuesday],[Wednesday],[Business_FK] FROM [Offer]";
 
-async function executeStatement(cb) {
+async function executeStatement(sql, cb) {
   // const jsonArray = [];
 
   const newData = [];
   const dataset = [];
 
   //select * from dbo.Business Test Statement
-  let sql =
-    "Select TOP (1000) [MerchantId],[FirstName],[LastName],[PhoneNumber],[Email],[AppUserId],[DateCreated] FROM [Merchant] WHERE MerchantId = 1";
   let request = new Request(sql, function (err, rowCount, rows) {
     if (err) {
       console.log(err);
@@ -67,8 +77,8 @@ async function executeStatement(cb) {
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
 // create a GET route
-app.get("/backend", async (req, res) => {
-  let success = await executeStatement((rows, data) => {
+app.get("/user", async (req, res) => {
+  let success = await executeStatement(userSQL, (rows, data) => {
     console.log(data + " rows");
     res.json({
       data: data.flat(),
@@ -77,9 +87,25 @@ app.get("/backend", async (req, res) => {
   console.log(success);
 });
 
-// create a POST route
-
-// Sample of Sending JSON via Expresss
-app.get("/api/users", (req, res) => {
-  res.json(users); // imported data from json file
+// create a GET route
+app.get("/acceptedOffers", async (req, res) => {
+  let success = await executeStatement(acceptedOffersSQL, (rows, data) => {
+    console.log(data + " rows");
+    res.json({
+      data: data.flat(),
+    });
+  });
+  console.log(success);
 });
+
+// create a GET route
+app.get("/offers", async (req, res) => {
+  let success = await executeStatement(offersSQL, (rows, data) => {
+    console.log(data + " rows");
+    res.json({
+      data: data.flat(),
+    });
+  });
+  console.log(success);
+});
+

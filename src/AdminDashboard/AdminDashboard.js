@@ -4,7 +4,7 @@ import { Col, Container, NavItem, NavLink, Row } from "reactstrap";
 import adminData from "../mock-data.json";
 
 const AdminDashboard = ({ userAuth, isAdmin }) => {
-  const [merch, setMerch] = useState(adminData);
+  const [merch] = useState(adminData);
   return (
     <Container className="AdminDashboard">
       <Row>
