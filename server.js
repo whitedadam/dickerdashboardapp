@@ -2,8 +2,6 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT || 5000;
 const Connection = require("tedious").Connection;
-const path = require("path");
-const users = require("./src/mock-data.json");
 
 const config = {
   server: "codingwpride.database.windows.net",
