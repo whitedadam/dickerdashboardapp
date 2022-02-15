@@ -9,37 +9,115 @@ import {
   DropdownToggle,
   Row,
 } from "reactstrap";
-// import PropTypes from "prop-types";
-
-//
-// ReactStrap install
-// npm install --save bootstrap@^4.0.0 reactstrap
-//
+import acceptedOffers from "../../acceptedOffer-data.json";
 
 const SuccessfulDickersChart = () => {
+  const [newData] = useState(acceptedOffers.data);
+  const today = new Date();
+
+  // Filter Accepted Offer Data into YTD Offers
+  const filterDataYTD = () => {
+    let totalDickers = 0;
+
+    newData.forEach((element) => {
+      const offerDate = new Date(element.Created);
+      if (today.getFullYear() === offerDate.getFullYear()) {
+        totalDickers++;
+      }
+    });
+
+    return totalDickers;
+  };
+
+  // Output Filtered YTD Data
+  const YTD = filterDataYTD();
+
+  // Filter Accepted Offer Data into YTD Offers
+  const filterDataMonth = () => {
+    let totalDickers = 0;
+
+    newData.forEach((element) => {
+      const offerDate = new Date(element.Created);
+      if (
+        today.getMonth() === offerDate.getMonth() &&
+        today.getFullYear() === offerDate.getFullYear()
+      ) {
+        totalDickers++;
+      }
+    });
+
+    return totalDickers;
+  };
+
+  // Output Filtered Month Data
+  const monthOffers = filterDataMonth();
+
+  // Filter Accepted Offer Data into Weekly Offers
+  const filterDataWeek = () => {
+    let totalDickers = 0;
+    let pastDate = new Date(today);
+    pastDate.setDate(pastDate.getDate() - 7);
+
+    newData.forEach((element) => {
+      const offerDate = new Date(element.Created);
+      if (
+        pastDate.getDate() <= offerDate.getDate() &&
+        today.getDate() >= offerDate.getDate() &&
+        today.getMonth() === offerDate.getMonth() &&
+        today.getFullYear() === offerDate.getFullYear()
+      ) {
+        totalDickers++;
+      }
+    });
+
+    return totalDickers;
+  };
+
+  // Output Filtered Weekly Data
+  const weeklyOffers = filterDataWeek();
+
+  // Filter Accepted Offer Data into Todays Offers
+  const filterDataToday = () => {
+    let totalDickers = 0;
+
+    newData.forEach((element) => {
+      const offerDate = new Date(element.Created);
+      if (today.getDate() === offerDate.getDate()) {
+        totalDickers++;
+      }
+    });
+
+    return totalDickers;
+  };
+
+  // Output Filtered Today Data
+  const todayOffers = filterDataToday();
+
+  // Load Filtered data into output object
   let data = [
     {
       label: "Dickers",
       datum: [
         {
           timeframe: "YTD",
-          deals: 15,
+          deals: YTD,
         },
         {
           timeframe: "Past Month",
-          deals: 6,
+          deals: monthOffers,
         },
         {
           timeframe: "This Week",
-          deals: 4,
+          deals: weeklyOffers,
         },
         {
           timeframe: "Today",
-          deals: 2,
+          deals: todayOffers,
         },
       ],
     },
   ];
+
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggle = () => setDropdownOpen((prevState) => !prevState);
 
