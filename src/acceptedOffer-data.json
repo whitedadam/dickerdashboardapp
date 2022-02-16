@@ -4,7 +4,7 @@
            "AcceptedOfferId": 1,
            "OfferCode": null,
            "ExpirationDateTime": "2021-04-28T19:40:09.252Z",
-           "IsRedeemed": true,
+           "IsRedeemed": false,
            "Business_FK": 1,
            "Offer_FK": 2,
            "Consumer_FK": 1,
