@@ -46,26 +46,29 @@ async function executeStatement(sql, cb) {
   // const jsonArray = [];
 
   const newData = [];
-  const dataset = [];
+  let dataset = {};
 
   //select * from dbo.Business Test Statement
-  let request = new Request(sql, function (err, rowCount, rows) {
+  let request = new Request(sql, function (err) {
     if (err) {
       console.log(err);
     } else {
-      cb(rows, newData);
+      cb(newData);
       // console.log(rowCount + " rows");
     }
   });
 
   request.on("row", function (columns) {
+    // const row = []
     columns.forEach(function (column) {
       console.log(column.value);
-      dataset.push({
-        [column.metadata.colName]: column.value,
-      });
+      dataset[column.metadata.colName] = column.value
+      // dataset.push({
+      //   [column.metadata.colName]: column.value,
+      // });
     });
     newData.push(dataset);
+    dataset = {}
   });
 
   connection.execSql(request);
@@ -76,10 +79,10 @@ app.listen(port, () => console.log(`Listening on port ${port}`));
 
 // create a GET route
 app.get("/user", async (req, res) => {
-  let success = await executeStatement(userSQL, (rows, data) => {
-    console.log(data + " rows");
+  let success = await executeStatement(userSQL, (rows) => {
+    console.log(rows + " rows");
     res.json({
-      data: data.flat(),
+      data: rows,
     });
   });
   console.log(success);
@@ -87,10 +90,10 @@ app.get("/user", async (req, res) => {
 
 // create a GET route
 app.get("/acceptedOffers", async (req, res) => {
-  let success = await executeStatement(acceptedOffersSQL, (rows, data) => {
-    console.log(data + " rows");
+  let success = await executeStatement(acceptedOffersSQL, (rows) => {
+    console.log(rows + " rows");
     res.json({
-      data: data.flat(),
+      data: rows,
     });
   });
   console.log(success);
@@ -98,10 +101,10 @@ app.get("/acceptedOffers", async (req, res) => {
 
 // create a GET route
 app.get("/offers", async (req, res) => {
-  let success = await executeStatement(offersSQL, (rows, data) => {
-    console.log(data + " rows");
+  let success = await executeStatement(offersSQL, (rows) => {
+    console.log(rows + " rows");
     res.json({
-      data: data.flat(),
+      data: rows,
     });
   });
   console.log(success);
