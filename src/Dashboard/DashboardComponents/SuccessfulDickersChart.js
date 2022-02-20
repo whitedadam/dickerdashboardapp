@@ -1,15 +1,31 @@
-import React, { useState } from "react";
-import ResizableBox from "./ResizableBoxSmall";
-import {
-  ButtonDropdown,
-  Col,
-  Container,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
-  Row,
-} from "reactstrap";
-import acceptedOffers from "../../acceptedOffer-data.json";
+import React, { useState } from 'react';
+import ResizableBox from './ResizableBoxSmall';
+import { ButtonDropdown, Col, Container, DropdownItem, DropdownMenu, DropdownToggle, Row } from 'reactstrap';
+import acceptedOffers from '../../acceptedOffer-data.json';
+
+const getData = async () => {
+  const resp = await fetch('http://localhost:5000/user');
+
+  return resp.json();
+};
+
+const useGetData = () => {
+  const [data, setData] = React.useState();
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  React.useEffect(() => {
+    const getMyData = async () => {
+      setIsLoading(true);
+      const resp = await getData();
+      setData(resp);
+      setIsLoading(false);
+    };
+
+    getMyData();
+  }, []);
+
+  return [data, isLoading];
+};
 
 const SuccessfulDickersChart = () => {
   const [newData] = useState(acceptedOffers.data);
@@ -38,10 +54,7 @@ const SuccessfulDickersChart = () => {
 
     newData.forEach((element) => {
       const offerDate = new Date(element.Created);
-      if (
-        today.getMonth() === offerDate.getMonth() &&
-        today.getFullYear() === offerDate.getFullYear()
-      ) {
+      if (today.getMonth() === offerDate.getMonth() && today.getFullYear() === offerDate.getFullYear()) {
         totalDickers++;
       }
     });
@@ -96,22 +109,22 @@ const SuccessfulDickersChart = () => {
   // Load Filtered data into output object
   let data = [
     {
-      label: "Dickers",
+      label: 'Dickers',
       datum: [
         {
-          timeframe: "YTD",
+          timeframe: 'YTD',
           deals: YTD,
         },
         {
-          timeframe: "Past Month",
+          timeframe: 'Past Month',
           deals: monthOffers,
         },
         {
-          timeframe: "This Week",
+          timeframe: 'This Week',
           deals: weeklyOffers,
         },
         {
-          timeframe: "Today",
+          timeframe: 'Today',
           deals: todayOffers,
         },
       ],
@@ -121,28 +134,24 @@ const SuccessfulDickersChart = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggle = () => setDropdownOpen((prevState) => !prevState);
 
-  const [currentDataTimeFrame, setCurrentDataTimeFrame] = useState(
-    data[0].datum[0].timeframe
-  ); // data[0].datum[0];
-  const [currentDataDeals, setCurrentDataDeals] = useState(
-    data[0].datum[0].deals
-  );
+  const [currentDataTimeFrame, setCurrentDataTimeFrame] = useState(data[0].datum[0].timeframe); // data[0].datum[0];
+  const [currentDataDeals, setCurrentDataDeals] = useState(data[0].datum[0].deals);
   const handleClick = (e, currentData) => {
     let id = e.target.id;
     console.log(id);
-    if (id === "ytd") {
+    if (id === 'ytd') {
       setCurrentDataTimeFrame((prevState) => data[0].datum[0].timeframe);
       setCurrentDataDeals((prevState) => data[0].datum[0].deals);
     }
-    if (id === "month") {
+    if (id === 'month') {
       setCurrentDataTimeFrame((prevState) => data[0].datum[1].timeframe);
       setCurrentDataDeals((prevState) => data[0].datum[1].deals);
     }
-    if (id === "week") {
+    if (id === 'week') {
       setCurrentDataTimeFrame((prevState) => data[0].datum[2].timeframe);
       setCurrentDataDeals((prevState) => data[0].datum[2].deals);
     }
-    if (id === "today") {
+    if (id === 'today') {
       setCurrentDataTimeFrame((prevState) => data[0].datum[3].timeframe);
       setCurrentDataDeals((prevState) => data[0].datum[3].deals);
     }
@@ -176,40 +185,20 @@ const SuccessfulDickersChart = () => {
         <Col> </Col>
         <Col> </Col>
         <Col>
-          <ButtonDropdown
-            isOpen={dropdownOpen}
-            onClick={toggle}
-            id={"successDropdown"}
-          >
+          <ButtonDropdown isOpen={dropdownOpen} onClick={toggle} id={'successDropdown'}>
             <DropdownToggle caret>Filter Timeline</DropdownToggle>
             <DropdownMenu>
               <DropdownItem header>Select Date Filter</DropdownItem>
-              <DropdownItem
-                onClick={handleClick}
-                id={"ytd"}
-                value={data[0].datum[0]}
-              >
+              <DropdownItem onClick={handleClick} id={'ytd'} value={data[0].datum[0]}>
                 YTD
               </DropdownItem>
-              <DropdownItem
-                onClick={handleClick}
-                id={"month"}
-                value={data[0].datum[1]}
-              >
+              <DropdownItem onClick={handleClick} id={'month'} value={data[0].datum[1]}>
                 This Month
               </DropdownItem>
-              <DropdownItem
-                onClick={handleClick}
-                id={"week"}
-                value={data[0].datum[2]}
-              >
+              <DropdownItem onClick={handleClick} id={'week'} value={data[0].datum[2]}>
                 This Week
               </DropdownItem>
-              <DropdownItem
-                onClick={handleClick}
-                id={"today"}
-                value={data[0].datum[3]}
-              >
+              <DropdownItem onClick={handleClick} id={'today'} value={data[0].datum[3]}>
                 Today
               </DropdownItem>
             </DropdownMenu>
