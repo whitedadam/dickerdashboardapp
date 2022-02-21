@@ -1,6 +1,6 @@
 import React from "react";
 import { Chart } from "react-charts";
-import PotentialDickersSampleData from './SuccessfulDickersSampleData';
+import PotentialDickersSampleData from './PotentialDickersSampleData';
 import ResizableBox from "./ResizableBox";
 //
 // ReactStrap install

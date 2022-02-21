@@ -27,7 +27,7 @@ connection.on('connect', function (err) {
   console.log('Connected to Database :)');
 });
 
-// connection.connect();
+connection.connect();
 
 const Request = require('tedious').Request;
 
@@ -35,14 +35,14 @@ async function executeStatement(sql, cb) {
   // const jsonArray = [];
 
   const newData = [];
-  const dataset = [];
+  let dataset = {};
 
   //select * from dbo.Business Test Statement
-  let request = new Request(sql, function (err, rowCount, rows) {
+  let request = new Request(sql, function (err) {
     if (err) {
       console.log(err);
     } else {
-      cb(rows, newData);
+      cb(newData);
       // console.log(rowCount + " rows");
     }
   });
@@ -50,11 +50,10 @@ async function executeStatement(sql, cb) {
   request.on('row', function (columns) {
     columns.forEach(function (column) {
       console.log(column.value);
-      dataset.push({
-        [column.metadata.colName]: column.value,
-      });
+      dataset[column.metadata.colName] = column.value
     });
     newData.push(dataset);
+    dataset = {};
   });
 
   connection.execSql(request);
@@ -65,33 +64,35 @@ app.listen(port, () => console.log(`Listening on port ${port}`));
 
 // create a GET route
 app.get('/user', async (req, res) => {
-  // let success = await executeStatement(queries.USER, (rows, data) => {
-  //   console.log(data + ' rows');
-  //   res.json({
-  //     data: data.flat(),
-  //   });
-  // });
-  // console.log(success);
-  res.json({ hello: 'world2' });
+  let success = await executeStatement(queries.USER, (rows) => {
+    console.log(rows + ' rows');
+    res.json({
+      data: rows,
+    });
+  });
+  console.log(success);
+  // res.json({ hello: 'world2' });
 });
 
 // create a GET route
 app.get('/accepted-offers', async (req, res) => {
-  let success = await executeStatement(queries.ACCEPTED_OFFERS, (rows, data) => {
-    console.log(data + ' rows');
-    res.json({
-      data: data.flat(),
-    });
+  let success = await executeStatement(queries.ACCEPTED_OFFERS, (rows) => {
+    console.log(rows + ' rows');
+    // res.json({
+    //   data: rows,
+    // });
+    res.send(rows);
   });
   console.log(success);
+  return success
 });
 
 // create a GET route
 app.get('/offers', async (req, res) => {
-  let success = await executeStatement(queries.OFFERS, (rows, data) => {
-    console.log(data + ' rows');
+  let success = await executeStatement(queries.OFFERS, (rows) => {
+    console.log(rows + ' rows');
     res.json({
-      data: data.flat(),
+      data: rows,
     });
   });
   console.log(success);

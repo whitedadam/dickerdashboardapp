@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { React, useEffect, useState } from 'react';
 import { Form, FormGroup, NavLink } from 'reactstrap';
 import { Col, Row } from 'reactstrap';
 import Dashboard from '../Dashboard';
@@ -16,8 +16,44 @@ import dickerLogoSquare from '../images/dickerLogoSquare.png';
 import Paper from '@mui/material/Paper';
 import InputAdornment from '@mui/material/InputAdornment';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import TestComponent from './TestComponent';
+
+// const getData = async () => {
+//   const url = '/accepted-offers';
+//   let myHeaders = new Headers({
+//     'Content-Type': 'application/json'
+//   });
+//   const resp = await fetch(url,{
+//     headers: myHeaders
+//   })
+//     .then(resp => resp.json())
+//     .then((json) => {
+//     console.log('This is data from accepted-offers', json)
+//   });
+
+//   return resp;
+// };
+
+// const useGetData = () => {
+//   const [data, setData] = useState();
+//   const [isLoading, setIsLoading] = useState(false);
+
+//   useEffect(() => {
+//     const getMyData = async () => {
+//       setIsLoading(true);
+//       const resp = await getData();
+//       setData(resp);
+//       setIsLoading(false);
+//     };
+
+//     getMyData();
+//   }, []);
+
+//   return [data, isLoading];
+// };
 
 const Login = ({ userAuth, setUserAuth, isAdmin, setIsAdmin }) => {
+  // const [data, isLoading] = useGetData();
   const [state, setState] = useState({
     data: null,
     email: '',
@@ -111,6 +147,7 @@ const Login = ({ userAuth, setUserAuth, isAdmin, setIsAdmin }) => {
       <Card style={{ width: '500px', margin: 'auto' }} sx={{ boxShadow: 3 }}>
         <body id='loginBody'>
           <Container className={'loginContainer'}>
+            {/* <TestComponent /> */}
             <Paper
               sx={{ boxShadow: 0, marginLeft: '166px', marginRight: 'auto', marginTop: '15px', marginBottom: '15px' }}
             >

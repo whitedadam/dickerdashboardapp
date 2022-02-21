@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ResizableBox from "./ResizableBoxSmall";
 import {
   ButtonDropdown,
@@ -9,26 +9,67 @@ import {
   DropdownToggle,
   Row,
 } from "reactstrap";
-import acceptedOffers from "../../acceptedOffer-data.json";
+
+const getData = async () => {
+  const url = '/accepted-offers';
+  let myHeaders = new Headers({
+    'Content-Type': 'application/json'
+  });
+  const resp = await fetch(url,{
+    headers: myHeaders
+  })
+    .then(resp => resp.json())
+    .then((json) => {
+    return json;
+  });
+
+  return resp;
+};
+
+const useGetData = () => {
+  const [data, setData] = useState();
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+      const getMyData = async () => {
+      setIsLoading(true);
+      const resp = await getData();
+      setData(resp);
+      setIsLoading(false);
+      };
+
+      getMyData();
+  }, []);
+
+  return [data, isLoading];
+};
 
 const DickersRedeemedChart = () => {
-  const [newData] = useState(acceptedOffers.data);
+  const [newData, isLoading] = useGetData();
   const today = new Date();
 
   // Filter Accepted Offer Data into YTD Offers
   const filterDataYTD = () => {
     let totalDickers = 0;
-
-    newData.forEach((element) => {
-      const offerDate = new Date(element.Created);
-      if (
-        element.IsRedeemed === true &&
-        today.getFullYear() === offerDate.getFullYear()
-      ) {
-        totalDickers++;
-      }
-    });
-
+    let pastDate = new Date(today);
+    pastDate.setDate(pastDate.getDate() - 365);
+    
+    console.log(newData);
+    try {
+      newData.forEach((obj) => {
+        const offerDate = new Date(obj.Created);
+          if (
+            obj.IsRedeemed &&
+            pastDate <= offerDate
+          ) {
+            totalDickers++;
+          }
+      });  
+      console.log(newData);
+    } catch (err) {
+      console.log('err loading data');
+    }
+    
     return totalDickers;
   };
 
@@ -38,17 +79,23 @@ const DickersRedeemedChart = () => {
   // Filter Accepted Offer Data into YTD Offers
   const filterDataMonth = () => {
     let totalDickers = 0;
+    let pastDate = new Date(today);
+    pastDate.setDate(pastDate.getDate() - 31);
 
-    newData.forEach((element) => {
-      const offerDate = new Date(element.Created);
-      if (
-        element.IsRedeemed === true &&
-        today.getMonth() === offerDate.getMonth() &&
-        today.getFullYear() === offerDate.getFullYear()
-      ) {
-        totalDickers++;
-      }
-    });
+    try {
+      newData.forEach((obj) => {
+        const offerDate = new Date(obj.Created);
+        if (
+          obj.IsRedeemed &&
+          pastDate <= offerDate
+        ) {
+          totalDickers++;
+        }
+      });
+    } catch (err) {
+      console.log('err loading data');
+    }
+    
 
     return totalDickers;
   };
@@ -62,19 +109,20 @@ const DickersRedeemedChart = () => {
     let pastDate = new Date(today);
     pastDate.setDate(pastDate.getDate() - 7);
 
-    newData.forEach((element) => {
-      const offerDate = new Date(element.Created);
+    try {
+      newData.forEach((obj) => {
+      const offerDate = new Date(obj.Created);
       if (
-        element.IsRedeemed === true &&
-        pastDate.getDate() <= offerDate.getDate() &&
-        today.getDate() >= offerDate.getDate() &&
-        today.getMonth() === offerDate.getMonth() &&
-        today.getFullYear() === offerDate.getFullYear()
+        obj.IsRedeemed &&
+        pastDate <= offerDate
       ) {
         totalDickers++;
       }
     });
-
+    } catch (err) {
+      console.log('err loading data');
+    }
+    
     return totalDickers;
   };
 
@@ -85,15 +133,19 @@ const DickersRedeemedChart = () => {
   const filterDataToday = () => {
     let totalDickers = 0;
 
-    newData.forEach((element) => {
-      const offerDate = new Date(element.Created);
-      if (
-        element.IsRedeemed === true &&
-        today.getDate() === offerDate.getDate()
-      ) {
-        totalDickers++;
-      }
-    });
+    try {
+      newData.forEach((obj) => {
+        const offerDate = new Date(obj.Created);
+        if (
+          obj.IsRedeemed &&
+          today.getDate() === offerDate.getDate()
+        ) {
+          totalDickers++;
+        }
+      });
+    } catch (err) {
+      console.log('err loading data');
+    }
 
     return totalDickers;
   };
@@ -155,7 +207,9 @@ const DickersRedeemedChart = () => {
     }
   };
 
-  return (
+  if (isLoading) 
+    return <div>Loading Chart Data...</div>
+  return newData === undefined ? <div>Filtering Chart Data... </div> : (
     <Container>
       <Row>
         <ResizableBox>
