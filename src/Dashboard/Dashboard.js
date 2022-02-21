@@ -6,7 +6,6 @@ import {
   DickersRedeemedChart,
 } from "./DashboardComponents/index";
 import { Col, Container, Row } from "reactstrap";
-import TestComponent from '../Login/TestComponent'
 
 const getData = async () => {
   const url = '/accepted-offers';
@@ -58,7 +57,7 @@ const Dashboard = (userAuth, isAdmin) => {
       <Row>
         <Col xs={"auto"}>
           {/* <TestComponent /> */}
-          <PotentialDickersChart />
+          <DickersParticipatedChart />
         </Col>
         <Col xs={"auto"}>
           <DickersRedeemedChart />
@@ -69,7 +68,7 @@ const Dashboard = (userAuth, isAdmin) => {
           <SuccessfulDickersChart />
         </Col>
         <Col xs={"auto"}>
-          <DickersParticipatedChart />
+          <PotentialDickersChart />
         </Col>
       </Row>
     </Container>
