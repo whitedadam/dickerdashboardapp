@@ -114,7 +114,6 @@ const SuccessfulDickersChart = () => {
     try {
       newData.forEach((obj) => {
       const offerDate = new Date(obj.Created);
-      console.log('offerdate: ' + offerDate + ' pastdate: ' + pastDate)
       if (
         pastDate <= offerDate
       ) {
