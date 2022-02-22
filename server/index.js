@@ -66,12 +66,12 @@ app.listen(port, () => console.log(`Listening on port ${port}`));
 app.get('/user', async (req, res) => {
   let success = await executeStatement(queries.USER, (rows) => {
     console.log(rows + ' rows');
-    res.json({
-      data: rows,
-    });
+    // res.json({
+    //   data: rows,
+    // });
+    res.send(rows);
   });
-  console.log(success);
-  // res.json({ hello: 'world2' });
+  return success;
 });
 
 // create a GET route
@@ -91,9 +91,10 @@ app.get('/accepted-offers', async (req, res) => {
 app.get('/offers', async (req, res) => {
   let success = await executeStatement(queries.OFFERS, (rows) => {
     console.log(rows + ' rows');
-    res.json({
-      data: rows,
-    });
+    // res.json({
+    //   data: rows,
+    // });
+    res.send(rows);
   });
-  console.log(success);
+  return success;
 });

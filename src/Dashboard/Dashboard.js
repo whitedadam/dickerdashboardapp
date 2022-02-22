@@ -7,46 +7,47 @@ import {
 } from "./DashboardComponents/index";
 import { Col, Container, Row } from "reactstrap";
 
-const getData = async () => {
-  const url = '/accepted-offers';
-  let myHeaders = new Headers({
-    'Content-Type': 'application/json'
-  });
-  const resp = await fetch(url,{
-    headers: myHeaders
-  })
-    .then(resp => resp.json())
-    .then((json) => {
-    return json;
-  });
+// const getData = async () => {
+//   const url = '/accepted-offers';
+//   let myHeaders = new Headers({
+//     'Content-Type': 'application/json'
+//   });
+//   const resp = await fetch(url,{
+//     headers: myHeaders
+//   })
+//     .then(resp => resp.json())
+//     .then((json) => {
+//     return json;
+//   });
 
-  return resp;
-};
+//   return resp;
+// };
 
-const useGetData = () => {
-  const [data, setData] = useState();
-  const [isLoading, setIsLoading] = useState(false);
+// const useGetData = () => {
+//   const [data, setData] = useState();
+//   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-      const getMyData = async () => {
-      setIsLoading(true);
-      const resp = await getData();
-      setData(resp);
-      setIsLoading(false);
-      };
+//   useEffect(() => {
+//       const getMyData = async () => {
+//       setIsLoading(true);
+//       const resp = await getData();
+//       setData(resp);
+//       setIsLoading(false);
+//       };
 
-      getMyData();
-  }, []);
+//       getMyData();
+//   }, []);
 
-return [data, isLoading];
-};
+// return [data, isLoading];
+// };
+
 
 const Dashboard = (userAuth, isAdmin) => {
-  const [data, isLoading] = useGetData();
+  // const [data, isLoading] = useGetData();
 
-  if (isLoading)
-    return <>Loading chart data...</>
-  else
+  // if (isLoading)
+  //   return <>Loading chart data...</>
+  
   return (
     <Container className={"dashboardContainer"}>
       <Row>
@@ -54,20 +55,20 @@ const Dashboard = (userAuth, isAdmin) => {
           <h3>Dashboards</h3>
         </Col>
       </Row>
-      <Row>
-        <Col xs={"auto"}>
+      <Row className="mb-3">
+        <Col xs={"8"}>
           {/* <TestComponent /> */}
           <DickersParticipatedChart />
         </Col>
-        <Col xs={"auto"}>
+        <Col xs={"4"}>
           <DickersRedeemedChart />
         </Col>
       </Row>
-      <Row>
-        <Col xs={"auto"}>
+      <Row className="mb-3">
+        <Col xs={"4"}>
           <SuccessfulDickersChart />
         </Col>
-        <Col xs={"auto"}>
+        <Col xs={"8"}>
           <PotentialDickersChart />
         </Col>
       </Row>

@@ -1,0 +1,101 @@
+[
+    {
+        "label": "Series 1",
+        "data": [
+            {
+                "primary": "Ordinal Group 0",
+                "secondary": 92
+            },
+            {
+                "primary": "Ordinal Group 1",
+                "secondary": 73
+            },
+            {
+                "primary": "Ordinal Group 2",
+                "secondary": 96
+            },
+            {
+                "primary": "Ordinal Group 3",
+                "secondary": 41
+            },
+            {
+                "primary": "Ordinal Group 4",
+                "secondary": 90
+            },
+            {
+                "primary": "Ordinal Group 5",
+                "secondary": 84
+            },
+            {
+                "primary": "Ordinal Group 6",
+                "secondary": 13
+            }
+        ]
+    },
+    {
+        "label": "Series 2",
+        "data": [
+            {
+                "primary": "Ordinal Group 0",
+                "secondary": 48
+            },
+            {
+                "primary": "Ordinal Group 1",
+                "secondary": 79
+            },
+            {
+                "primary": "Ordinal Group 2",
+                "secondary": 91
+            },
+            {
+                "primary": "Ordinal Group 3",
+                "secondary": 75
+            },
+            {
+                "primary": "Ordinal Group 4",
+                "secondary": 3
+            },
+            {
+                "primary": "Ordinal Group 5",
+                "secondary": 88
+            },
+            {
+                "primary": "Ordinal Group 6",
+                "secondary": 52
+            }
+        ]
+    },
+    {
+        "label": "Series 3",
+        "data": [
+            {
+                "primary": "Ordinal Group 0",
+                "secondary": 36
+            },
+            {
+                "primary": "Ordinal Group 1",
+                "secondary": 82
+            },
+            {
+                "primary": "Ordinal Group 2",
+                "secondary": 80
+            },
+            {
+                "primary": "Ordinal Group 3",
+                "secondary": 21
+            },
+            {
+                "primary": "Ordinal Group 4",
+                "secondary": 67
+            },
+            {
+                "primary": "Ordinal Group 5",
+                "secondary": 60
+            },
+            {
+                "primary": "Ordinal Group 6",
+                "secondary": 55
+            }
+        ]
+    }
+]
