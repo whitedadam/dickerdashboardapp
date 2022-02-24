@@ -1,35 +1,35 @@
-const express = require('express');
+const express = require("express");
 const app = express();
 const port = process.env.PORT || 5000;
-const Connection = require('tedious').Connection;
-const queries = require('./queries');
+const Connection = require("tedious").Connection;
+const queries = require("./queries");
 
 const config = {
-  server: 'codingwpride.database.windows.net',
+  server: "codingwpride.database.windows.net",
   options: {
-    database: 'DICKERdashboard',
+    database: "DICKERdashboard",
   },
   authentication: {
-    type: 'default',
+    type: "default",
     options: {
-      userName: 'Adam',
-      password: 'CodingWPride2021',
+      userName: "Adam",
+      password: "CodingWPride2021",
     },
   },
 };
 
 const connection = new Connection(config);
 
-connection.on('connect', function (err) {
+connection.on("connect", function (err) {
   if (err) {
-    console.log('Error: ', err);
+    console.log("Error: ", err);
   }
-  console.log('Connected to Database :)');
+  console.log("Connected to Database :)");
 });
 
 connection.connect();
 
-const Request = require('tedious').Request;
+const Request = require("tedious").Request;
 
 async function executeStatement(sql, cb) {
   // const jsonArray = [];
@@ -47,10 +47,10 @@ async function executeStatement(sql, cb) {
     }
   });
 
-  request.on('row', function (columns) {
+  request.on("row", function (columns) {
     columns.forEach(function (column) {
-      console.log(column.value);
-      dataset[column.metadata.colName] = column.value
+      // console.log(column.value);
+      dataset[column.metadata.colName] = column.value;
     });
     newData.push(dataset);
     dataset = {};
@@ -63,37 +63,46 @@ async function executeStatement(sql, cb) {
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
 // create a GET route
-app.get('/user', async (req, res) => {
+app.get("/user", async (req, res) => {
   let success = await executeStatement(queries.USER, (rows) => {
-    console.log(rows + ' rows');
-    res.json({
-      data: rows,
-    });
-  });
-  console.log(success);
-  // res.json({ hello: 'world2' });
-});
-
-// create a GET route
-app.get('/accepted-offers', async (req, res) => {
-  let success = await executeStatement(queries.ACCEPTED_OFFERS, (rows) => {
-    console.log(rows + ' rows');
+    // console.log(rows + ' rows');
+    console.log(`Fetched ${rows.lenth} rows`);
+    console.log(`Data: ${JSON.stringify(rows, null, 2)}`);
     // res.json({
     //   data: rows,
     // });
     res.send(rows);
   });
-  console.log(success);
-  return success
+  return success;
 });
 
 // create a GET route
-app.get('/offers', async (req, res) => {
-  let success = await executeStatement(queries.OFFERS, (rows) => {
-    console.log(rows + ' rows');
-    res.json({
-      data: rows,
-    });
+app.get("/accepted-offers", async (req, res) => {
+  console.log("/accepted-offers endpoint hit");
+  let success = await executeStatement(queries.ACCEPTED_OFFERS, (rows) => {
+    console.log(`Fetched ${rows.lenth} rows`);
+    console.log(`Data: ${JSON.stringify(rows, null, 2)}`);
+    // res.json({
+    //   data: rows,
+    // });
+    res.send(rows);
   });
-  console.log(success);
+  // console.log()
+  // console.log(success);
+  return success;
+});
+
+// create a GET route
+app.get("/offers", async (req, res) => {
+  console.log("/offers endpoint hit");
+  let success = await executeStatement(queries.OFFERS, (rows) => {
+    // console.log(rows.length + ' rows');
+    console.log(`Fetched ${rows.lenth} rows`);
+    console.log(`Data: ${JSON.stringify(rows, null, 2)}`);
+    // res.json({
+    //   data: rows,
+    // });
+    res.send(rows);
+  });
+  return success;
 });

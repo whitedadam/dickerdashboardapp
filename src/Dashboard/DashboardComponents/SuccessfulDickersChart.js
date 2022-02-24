@@ -1,56 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import ResizableBox from './ResizableBoxSmall';
-import { ButtonDropdown, Col, Container, DropdownItem, DropdownMenu, DropdownToggle, Row } from 'reactstrap';
+import { ButtonDropdown, Col, Container, DropdownItem, DropdownMenu, DropdownToggle, Row, Spinner } from 'reactstrap';
 
-const getData = async () => {
-  const url = '/accepted-offers';
-  let myHeaders = new Headers({
-    'Content-Type': 'application/json'
-  });
-  const resp = await fetch(url,{
-    headers: myHeaders
-  })
-    .then(resp => resp.json())
-    .then((json) => {
-    return json;
-  });
-
-  return resp;
-};
-
-const useGetData = () => {
-  const [data, setData] = useState();
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-      const getMyData = async () => {
-      setIsLoading(true);
-      const resp = await getData();
-      setData(resp);
-      setIsLoading(false);
-      };
-
-      getMyData();
-  }, []);
-
-  return [data, isLoading];
-};
-
-const SuccessfulDickersChart = () => {
-  const [newData, isLoading] = useGetData();
+const SuccessfulDickersChart = ({data: newData}) => {
   const today = new Date();
-
-  // Test function to check if data has loaded.
-  const checkOffers = () => {
-    newData.forEach((obj) => {
-      console.log(obj);
-      for(let key in obj) {
-          let value = obj[key]
-          console.log(key + ': ' + value);
-      }
-    });
-    console.log('checking offers from successful chart');
-  }
 
   // Filter Accepted Offer Data into YTD Offers
   const filterDataYTD = () => {
@@ -58,7 +11,7 @@ const SuccessfulDickersChart = () => {
     let pastDate = new Date(today);
     pastDate.setDate(pastDate.getDate() - 365);
     
-    console.log(newData);
+    // console.log(newData);
     try {
       newData.forEach((obj) => {
         const offerDate = new Date(obj.Created);
@@ -68,9 +21,9 @@ const SuccessfulDickersChart = () => {
             totalDickers++;
           }
       });  
-      console.log(newData);
+      // console.log(newData);
     } catch (err) {
-      console.log('err loading data');
+      // console.log('err loading data');
     }
     
     return totalDickers;
@@ -95,7 +48,7 @@ const SuccessfulDickersChart = () => {
         }
       });
     } catch (err) {
-      console.log('err loading data');
+      // console.log('err loading data');
     }
     
 
@@ -121,7 +74,7 @@ const SuccessfulDickersChart = () => {
       }
     });
     } catch (err) {
-      console.log('err loading data');
+      // console.log('err loading data');
     }
 
     return totalDickers;
@@ -142,7 +95,7 @@ const SuccessfulDickersChart = () => {
         }
       });
     } catch (err) {
-      console.log('err loading data');
+      // console.log('err loading data');
     }
 
 
@@ -181,31 +134,23 @@ const SuccessfulDickersChart = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggle = () => setDropdownOpen((prevState) => !prevState);
 
-  const [currentDataTimeFrame, setCurrentDataTimeFrame] = useState(chartData[0].datum[0].timeframe); // chartData[0].datum[0];
-  const [currentDataDeals, setCurrentDataDeals] = useState(chartData[0].datum[0].deals);
-  const handleClick = (e, currentData) => {
-    let id = e.target.id;
-    console.log(id);
-    if (id === 'ytd') {
-      setCurrentDataTimeFrame((prevState) => chartData[0].datum[0].timeframe);
-      setCurrentDataDeals((prevState) => chartData[0].datum[0].deals);
-    }
-    if (id === 'month') {
-      setCurrentDataTimeFrame((prevState) => chartData[0].datum[1].timeframe);
-      setCurrentDataDeals((prevState) => chartData[0].datum[1].deals);
-    }
-    if (id === 'week') {
-      setCurrentDataTimeFrame((prevState) => chartData[0].datum[2].timeframe);
-      setCurrentDataDeals((prevState) => chartData[0].datum[2].deals);
-    }
-    if (id === 'today') {
-      setCurrentDataTimeFrame((prevState) => chartData[0].datum[3].timeframe);
-      setCurrentDataDeals((prevState) => chartData[0].datum[3].deals);
-    }
+  const [activeFilter, setActiveFilter] = useState("ytd");
+
+  const { timeframe } = chartData[0].datum[0];
+  useEffect(() => {
+    setActiveFilter(timeframe.toLowerCase());
+  }, [timeframe]);
+
+  const handleClick = (event) => {
+    setActiveFilter(event.target.id);
   };
+
+  const displayData = chartData[0].datum.find(
+    (item) => item.timeframe.toLowerCase() === activeFilter
+  );
+
+  // console.log(displayData, displayData.deals);
   
-  if (isLoading) 
-    return <div>Loading Chart Data...</div>
   return newData === undefined ? <div>Filtering Chart Data... </div> : (
     <Container>
       <Row>
@@ -218,24 +163,22 @@ const SuccessfulDickersChart = () => {
           </Row>
           <Row fluid>
             <Col lg={0}>
-              <h5>{currentDataTimeFrame}</h5>
+              <h5>{activeFilter.toUpperCase()}</h5>
             </Col>
           </Row>
           <Row>
             <Col xs={4}> </Col>
             <Col lg={0}>
-              <h1>{currentDataDeals}</h1>
+              <h1>{displayData.deals}</h1>
             </Col>
             <Col xs={4}> </Col>
           </Row>
         </ResizableBox>
       </Row>
       <Row>
-        <Col>{/*<button onClick={checkOffers}>click me</button>*/}</Col>
-        <Col> </Col>
         <Col>
           <ButtonDropdown isOpen={dropdownOpen} onClick={toggle} id={'successDropdown'}>
-            <DropdownToggle caret>Filter Timeline</DropdownToggle>
+            <DropdownToggle caret color={dropdownOpen ? "dark" : "warning"}>Filter Timeline</DropdownToggle>
             <DropdownMenu>
               <DropdownItem header>Select Date Filter</DropdownItem>
               <DropdownItem onClick={handleClick} id={'ytd'} value={chartData[0].datum[0]}>
