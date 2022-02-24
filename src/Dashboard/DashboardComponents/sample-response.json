@@ -19,7 +19,11 @@
         "Thursday": true,
         "Tuesday": true,
         "Wednesday": true,
-        "Business_FK": 1
+        "Business_FK": 1,
+        "DirectDICKER": true,
+        "Wildcard": false,
+        "SubCategory_FK": 1,
+        "InGrid": false
     },
     {
         "OfferId": 3,
@@ -41,7 +45,11 @@
         "Thursday": true,
         "Tuesday": true,
         "Wednesday": true,
-        "Business_FK": 1
+        "Business_FK": 1,
+        "DirectDICKER": false,
+        "Wildcard": true,
+        "SubCategory_FK": 1,
+        "InGrid": false
     },
     {
         "OfferId": 4,
@@ -63,7 +71,11 @@
         "Thursday": true,
         "Tuesday": true,
         "Wednesday": true,
-        "Business_FK": 1
+        "Business_FK": 1,
+        "DirectDICKER": false,
+        "Wildcard": false,
+        "SubCategory_FK": 2,
+        "InGrid": true
     },
     {
         "OfferId": 5,
@@ -85,7 +97,11 @@
         "Thursday": true,
         "Tuesday": true,
         "Wednesday": true,
-        "Business_FK": 2
+        "Business_FK": 2,
+        "DirectDICKER": false,
+        "Wildcard": true,
+        "SubCategory_FK": 3,
+        "InGrid": false
     },
     {
         "OfferId": 6,
@@ -107,6 +123,10 @@
         "Thursday": true,
         "Tuesday": true,
         "Wednesday": true,
-        "Business_FK": 3
+        "Business_FK": 3,
+        "DirectDICKER": true,
+        "Wildcard": false,
+        "SubCategory_FK": 4,
+        "InGrid": false
     }
 ]

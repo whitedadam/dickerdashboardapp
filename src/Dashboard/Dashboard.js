@@ -1,79 +1,57 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { Col, Container, Row, Spinner } from "reactstrap";
+import { useGetData } from "../api/useGetData";
 import {
   PotentialDickersChart,
   DickersParticipatedChart,
   SuccessfulDickersChart,
   DickersRedeemedChart,
-} from "./DashboardComponents/index";
-import { Col, Container, Row } from "reactstrap";
+} from "./DashboardComponents";
 
-// const getData = async () => {
-//   const url = '/accepted-offers';
-//   let myHeaders = new Headers({
-//     'Content-Type': 'application/json'
-//   });
-//   const resp = await fetch(url,{
-//     headers: myHeaders
-//   })
-//     .then(resp => resp.json())
-//     .then((json) => {
-//     return json;
-//   });
+const url = "/accepted-offers";
 
-//   return resp;
-// };
+// get all the data you need at once, and then pass down what is relevant to the component
 
-// const useGetData = () => {
-//   const [data, setData] = useState();
-//   const [isLoading, setIsLoading] = useState(false);
+const Dashboard = () => {
+  const [data, isLoading] = useGetData(url);
 
-//   useEffect(() => {
-//       const getMyData = async () => {
-//       setIsLoading(true);
-//       const resp = await getData();
-//       setData(resp);
-//       setIsLoading(false);
-//       };
+  if (isLoading)
+    return (
+      <Container>
+        <Col>
+          <Row></Row>
+          <Row>
+            <Spinner color={"warning"}></Spinner>Loading chart data...
+          </Row>
+          <Row></Row>
+        </Col>
+      </Container>
+    );
 
-//       getMyData();
-//   }, []);
-
-// return [data, isLoading];
-// };
-
-
-const Dashboard = (userAuth, isAdmin) => {
-  // const [data, isLoading] = useGetData();
-
-  // if (isLoading)
-  //   return <>Loading chart data...</>
-  
   return (
     <Container className={"dashboardContainer"}>
       <Row>
         <Col>
-          <h3>Dashboards</h3>
+          <h3>Dashboard</h3>
         </Col>
       </Row>
       <Row className="mb-3">
         <Col xs={"8"}>
-          {/* <TestComponent /> */}
-          <DickersParticipatedChart />
+          {data ? <DickersParticipatedChart /> : null}
         </Col>
-        <Col xs={"4"}>
-          <DickersRedeemedChart />
-        </Col>
+        <Col xs={"4"}>{data ? <DickersRedeemedChart data={data} /> : null}</Col>
       </Row>
+      <Row>{/* Spacer Row for Formatting */}</Row>
       <Row className="mb-3">
         <Col xs={"4"}>
-          <SuccessfulDickersChart />
+          {data ? <SuccessfulDickersChart data={data} /> : null}
         </Col>
         <Col xs={"8"}>
-          <PotentialDickersChart />
+          {data ? <PotentialDickersChart /> : null}
         </Col>
       </Row>
     </Container>
   );
-}
+};
 
 export default Dashboard;

@@ -7,45 +7,10 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownToggle,
-  Row,
+  Row
 } from "reactstrap";
 
-const getData = async () => {
-  const url = '/accepted-offers';
-  let myHeaders = new Headers({
-    'Content-Type': 'application/json'
-  });
-  const resp = await fetch(url,{
-    headers: myHeaders
-  })
-    .then(resp => resp.json())
-    .then((json) => {
-    return json;
-  });
-
-  return resp;
-};
-
-const useGetData = () => {
-  const [data, setData] = useState();
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-      const getMyData = async () => {
-      setIsLoading(true);
-      const resp = await getData();
-      setData(resp);
-      setIsLoading(false);
-      };
-
-      getMyData();
-  }, []);
-
-  return [data, isLoading];
-};
-
-const DickersRedeemedChart = () => {
-  const [newData, isLoading] = useGetData();
+const DickersRedeemedChart = ({ data: newData }) => {
   const today = new Date();
 
   // Filter Accepted Offer Data into YTD Offers
@@ -53,23 +18,20 @@ const DickersRedeemedChart = () => {
     let totalDickers = 0;
     let pastDate = new Date(today);
     pastDate.setDate(pastDate.getDate() - 365);
-    
-    console.log(newData);
+
+    // console.log(newData);
     try {
       newData.forEach((obj) => {
         const offerDate = new Date(obj.Created);
-          if (
-            obj.IsRedeemed &&
-            pastDate <= offerDate
-          ) {
-            totalDickers++;
-          }
-      });  
-      console.log(newData);
+        if (obj.IsRedeemed && pastDate <= offerDate) {
+          totalDickers++;
+        }
+      });
+      // console.log(newData);
     } catch (err) {
-      console.log('err loading data');
+      // console.log("err loading data");
     }
-    
+
     return totalDickers;
   };
 
@@ -85,17 +47,13 @@ const DickersRedeemedChart = () => {
     try {
       newData.forEach((obj) => {
         const offerDate = new Date(obj.Created);
-        if (
-          obj.IsRedeemed &&
-          pastDate <= offerDate
-        ) {
+        if (obj.IsRedeemed && pastDate <= offerDate) {
           totalDickers++;
         }
       });
     } catch (err) {
-      console.log('err loading data');
+      // console.log("err loading data");
     }
-    
 
     return totalDickers;
   };
@@ -111,18 +69,15 @@ const DickersRedeemedChart = () => {
 
     try {
       newData.forEach((obj) => {
-      const offerDate = new Date(obj.Created);
-      if (
-        obj.IsRedeemed &&
-        pastDate <= offerDate
-      ) {
-        totalDickers++;
-      }
-    });
+        const offerDate = new Date(obj.Created);
+        if (obj.IsRedeemed && pastDate <= offerDate) {
+          totalDickers++;
+        }
+      });
     } catch (err) {
-      console.log('err loading data');
+      // console.log("err loading data");
     }
-    
+
     return totalDickers;
   };
 
@@ -136,15 +91,12 @@ const DickersRedeemedChart = () => {
     try {
       newData.forEach((obj) => {
         const offerDate = new Date(obj.Created);
-        if (
-          obj.IsRedeemed &&
-          today.getDate() === offerDate.getDate()
-        ) {
+        if (obj.IsRedeemed && today.getDate() === offerDate.getDate()) {
           totalDickers++;
         }
       });
     } catch (err) {
-      console.log('err loading data');
+      // console.log("err loading data");
     }
 
     return totalDickers;
@@ -163,11 +115,11 @@ const DickersRedeemedChart = () => {
           deals: YTD,
         },
         {
-          timeframe: "Past Month",
+          timeframe: "Month",
           deals: monthOffers,
         },
         {
-          timeframe: "This Week",
+          timeframe: "Week",
           deals: weeklyOffers,
         },
         {
@@ -180,36 +132,26 @@ const DickersRedeemedChart = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggle = () => setDropdownOpen((prevState) => !prevState);
 
-  const [currentDataTimeFrame, setCurrentDataTimeFrame] = useState(
-    data[0].datum[0].timeframe
-  ); // data[0].datum[0];
-  const [currentDataDeals, setCurrentDataDeals] = useState(
-    data[0].datum[0].deals
-  );
-  const handleClick = (e, currentData) => {
-    let id = e.target.id;
-    console.log(id);
-    if (id === "ytd") {
-      setCurrentDataTimeFrame((prevState) => data[0].datum[0].timeframe);
-      setCurrentDataDeals((prevState) => data[0].datum[0].deals);
-    }
-    if (id === "month") {
-      setCurrentDataTimeFrame((prevState) => data[0].datum[1].timeframe);
-      setCurrentDataDeals((prevState) => data[0].datum[1].deals);
-    }
-    if (id === "week") {
-      setCurrentDataTimeFrame((prevState) => data[0].datum[2].timeframe);
-      setCurrentDataDeals((prevState) => data[0].datum[2].deals);
-    }
-    if (id === "today") {
-      setCurrentDataTimeFrame((prevState) => data[0].datum[3].timeframe);
-      setCurrentDataDeals((prevState) => data[0].datum[3].deals);
-    }
+  const [activeFilter, setActiveFilter] = useState("ytd");
+
+  const { timeframe } = data[0].datum[0];
+  useEffect(() => {
+    setActiveFilter(timeframe.toLowerCase());
+  }, [timeframe]);
+
+  const handleClick = (event) => {
+    setActiveFilter(event.target.id);
   };
 
-  if (isLoading) 
-    return <div>Loading Chart Data...</div>
-  return newData === undefined ? <div>Filtering Chart Data... </div> : (
+  const displayData = data[0].datum.find(
+    (item) => item.timeframe.toLowerCase() === activeFilter
+  );
+
+  // console.log(displayData, displayData.deals);
+
+  return newData === undefined ? (
+    <div>Filtering Chart Data... </div>
+  ) : (
     <Container>
       <Row>
         <ResizableBox>
@@ -221,28 +163,28 @@ const DickersRedeemedChart = () => {
           </Row>
           <Row fluid>
             <Col lg={0}>
-              <h5>{currentDataTimeFrame}</h5>
+              <h5>{activeFilter.toUpperCase()}</h5>
             </Col>
           </Row>
           <Row>
             <Col xs={4}> </Col>
             <Col lg={0}>
-              <h1>{currentDataDeals}</h1>
+              <h1>{displayData.deals}</h1>
             </Col>
             <Col xs={4}> </Col>
           </Row>
         </ResizableBox>
       </Row>
       <Row>
-        <Col> </Col>
-        <Col> </Col>
         <Col>
           <ButtonDropdown
             isOpen={dropdownOpen}
             onClick={toggle}
             id={"successDropdown"}
           >
-            <DropdownToggle caret>Filter Timeline</DropdownToggle>
+            <DropdownToggle caret color={dropdownOpen ? "dark" : "warning"}>
+              Filter Timeline
+            </DropdownToggle>
             <DropdownMenu>
               <DropdownItem header>Select Date Filter</DropdownItem>
               <DropdownItem

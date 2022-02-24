@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Chart } from "react-charts";
-import { Spinner } from "reactstrap";
+import { Table, Row, Button, Container, Col } from "reactstrap";
 import ResizableBox from "./ResizableBox";
-import DickersParticipatedSampleData from './DickersParticipatedSampleData';
+import DickersParticipatedSampleData from "./DickersParticipatedSampleData";
 // import acceptedOffers from '../../acceptedOffer-data'
-import testData from './sample-response.json'
+// import testData from './sample-response.json'
+import test from "./test.json";
+import { TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 
 const getData = async () => {
   const url = "/offers";
@@ -15,7 +17,7 @@ const getData = async () => {
     headers,
   });
 
-  console.log('getData', resp)
+  console.log("getData", resp);
 
   const data = await resp.json();
 
@@ -40,22 +42,23 @@ const useGetData = () => {
   return [data, isLoading];
 };
 
-// const foo = [{label: 'Test', data: [{primary: 'primary', secondary: 1},{primary: 'foo', secondary: 2},{primary: 'bar', secondary: 3}]}]
-const foo = [{label: 'Test', data: testData}]
+// const foo = test;
 
 const SampleChart = () => {
   const [data, isLoading] = useGetData();
+  const [drilldown, setDrilldown] = useState(false);
+  const today = new Date();
 
-  const { data: oldData } = DickersParticipatedSampleData({
-      series: 3,
-      dataType: "ordinal",
-  });
+//   const { data: oldData } = DickersParticipatedSampleData({
+//     series: 3,
+//     dataType: "ordinal",
+//   });
 
-  console.log(data, JSON.stringify(oldData))
+  //   console.log(data, JSON.stringify(oldData));
 
   const primaryAxis = React.useMemo(
     () => ({
-      getValue: (datum) => String(datum.OfferId),
+      getValue: (datum) => String(datum.primary),
     }),
     []
   );
@@ -63,17 +66,50 @@ const SampleChart = () => {
   const secondaryAxes = React.useMemo(
     () => [
       {
-        getValue: (datum) => datum.QuantityRemaining,
+        getValue: (datum) => datum.secondary,
       },
     ],
     []
   );
 
+  const handleDrilldown = () => {
+    setDrilldown(!drilldown);
+  };
+
+  const filterData = () => {
+    const directDickers = test[0].data;
+    const wildcardDickers = test[1].data;
+    const selectedDickers = test[2].data;
+    let totalDirect = 0;
+    let totalWildcard = 0;
+    let totalSelected = 0;
+
+    let arrOut = [];
+
+    const filterArr = (arr, total, out, arrName) => {
+      arr.forEach((obj) => {
+        total += obj.secondary;
+      });
+      out.push({ total });
+    };
+
+    filterArr(directDickers, totalDirect, arrOut, "directDickers");
+    filterArr(wildcardDickers, totalWildcard, arrOut, "wildcardDickers");
+    filterArr(selectedDickers, totalSelected, arrOut, "selectedDickers");
+
+    console.log(arrOut);
+
+    return arrOut;
+  };
+
+  const drilldownData = filterData();
+
   return (
-    <ResizableBox>
-      <h5>DICKERs Participated In</h5>
-      {/* {isLoading || !data ? (
-        <Spinner color="success" />
+    <Container>
+      <ResizableBox>
+        <h5>DICKERs Participated In</h5>
+        {/* {isLoading || !data ? (
+        <Spinner color="primary" />
       ) : (
         <Chart
           options={{
@@ -83,14 +119,50 @@ const SampleChart = () => {
           }}
         />
       )} */}
-      <Chart
+        <Chart
           options={{
-            data: foo,
+            data: test,
             primaryAxis,
             secondaryAxes,
           }}
         />
-    </ResizableBox>
+      </ResizableBox>
+      <Row>
+        <br></br>
+        <br></br>
+      </Row>
+      <Row>
+        <Col>
+          <Button onClick={handleDrilldown} color="warning">
+            Participated DICKERS Drilldown
+          </Button>
+        </Col>
+      </Row>
+      {drilldown && (
+        <Row>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Selected to DICKER Totals</TableCell>
+                <TableCell>Wildcard DICKERs Totals</TableCell>
+                <TableCell>Direct DICKERs Totals</TableCell>
+                <TableCell>Most Active Day</TableCell>
+                <TableCell>Least Active Day</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              <TableRow>
+                <TableCell>{drilldownData[2].total}</TableCell>
+                <TableCell>{drilldownData[1].total}</TableCell>
+                <TableCell>{drilldownData[0].total}</TableCell>
+                <TableCell>Monday</TableCell>
+                <TableCell>Sunday</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </Row>
+      )}
+    </Container>
   );
 };
 

@@ -1,99 +1,99 @@
 [
     {
-        "label": "Series 1",
+        "label": "Direct DICKERs",
         "data": [
             {
-                "primary": "Ordinal Group 0",
+                "primary": "Monday",
                 "secondary": 92
             },
             {
-                "primary": "Ordinal Group 1",
+                "primary": "Tuesday",
                 "secondary": 73
             },
             {
-                "primary": "Ordinal Group 2",
+                "primary": "Wednesday",
                 "secondary": 96
             },
             {
-                "primary": "Ordinal Group 3",
+                "primary": "Thursday",
                 "secondary": 41
             },
             {
-                "primary": "Ordinal Group 4",
+                "primary": "Friday",
                 "secondary": 90
             },
             {
-                "primary": "Ordinal Group 5",
+                "primary": "Saturday",
                 "secondary": 84
             },
             {
-                "primary": "Ordinal Group 6",
+                "primary": "Sunday",
                 "secondary": 13
             }
         ]
     },
     {
-        "label": "Series 2",
+        "label": "Wildcard DICKERs",
         "data": [
             {
-                "primary": "Ordinal Group 0",
+                "primary": "Monday",
                 "secondary": 48
             },
             {
-                "primary": "Ordinal Group 1",
+                "primary": "Tuesday",
                 "secondary": 79
             },
             {
-                "primary": "Ordinal Group 2",
+                "primary": "Wednesday",
                 "secondary": 91
             },
             {
-                "primary": "Ordinal Group 3",
+                "primary": "Thursday",
                 "secondary": 75
             },
             {
-                "primary": "Ordinal Group 4",
+                "primary": "Friday",
                 "secondary": 3
             },
             {
-                "primary": "Ordinal Group 5",
+                "primary": "Saturday",
                 "secondary": 88
             },
             {
-                "primary": "Ordinal Group 6",
+                "primary": "Sunday",
                 "secondary": 52
             }
         ]
     },
     {
-        "label": "Series 3",
+        "label": "Selected to DICKERs",
         "data": [
             {
-                "primary": "Ordinal Group 0",
+                "primary": "Monday",
                 "secondary": 36
             },
             {
-                "primary": "Ordinal Group 1",
+                "primary": "Tuesday",
                 "secondary": 82
             },
             {
-                "primary": "Ordinal Group 2",
+                "primary": "Wednesday",
                 "secondary": 80
             },
             {
-                "primary": "Ordinal Group 3",
+                "primary": "Thursday",
                 "secondary": 21
             },
             {
-                "primary": "Ordinal Group 4",
+                "primary": "Friday",
                 "secondary": 67
             },
             {
-                "primary": "Ordinal Group 5",
+                "primary": "Saturday",
                 "secondary": 60
             },
             {
-                "primary": "Ordinal Group 6",
+                "primary": "Sunday",
                 "secondary": 55
             }
         ]
