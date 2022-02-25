@@ -20,7 +20,7 @@ import Security from "./Settings/Security";
 import GeneralSettings from "./Settings/GeneralSettings";
 
 function App() {
-  const [userAuth, setUserAuth] = useState(true);
+  const [userAuth, setUserAuth] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
   console.log({ userAuth });
