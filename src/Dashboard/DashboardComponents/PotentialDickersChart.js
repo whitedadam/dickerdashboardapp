@@ -1,11 +1,11 @@
 import React from "react";
-import { AxisOptions, Chart } from "react-charts";
+import { Chart } from "react-charts";
 import ResizableBox from "./ResizableBox";
 import PotentialDickersSampleData from './PotentialDickersSampleData'
 
 const PotentialDickersChart = () => {
 
-    const { data, randomizeData } = PotentialDickersSampleData({
+    const { data } = PotentialDickersSampleData({
         series: 1,
         datatype: "ordinal"
     });

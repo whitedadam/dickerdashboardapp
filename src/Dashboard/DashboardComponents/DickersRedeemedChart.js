@@ -161,7 +161,7 @@ const DickersRedeemedChart = ({ data: newData }) => {
             </Col>
             <Col> </Col>
           </Row>
-          <Row fluid>
+          <Row> {/* fluid */}
             <Col lg={0}>
               <h5>{activeFilter.toUpperCase()}</h5>
             </Col>

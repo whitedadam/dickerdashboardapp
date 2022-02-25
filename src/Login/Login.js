@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from 'react';
+import { React, useState } from 'react';
 import { Form, FormGroup, NavLink } from 'reactstrap';
 import { Col, Row } from 'reactstrap';
 import Dashboard from '../Dashboard';
@@ -16,7 +16,6 @@ import dickerLogoSquare from '../images/dickerLogoSquare.png';
 import Paper from '@mui/material/Paper';
 import InputAdornment from '@mui/material/InputAdornment';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import TestComponent from './TestComponent';
 
 // const getData = async () => {
 //   const url = '/accepted-offers';
