@@ -66,7 +66,7 @@ function Nav({ userAuth, isAdmin, setUserAuth, setIsAdmin }) {
             </>
           )}
           <NavItem>
-            <NavLink tag={Link} onClick={handleLogout}>
+            <NavLink tag={Link} to={"/"} onClick={handleLogout}>
               Logout
             </NavLink>
           </NavItem>

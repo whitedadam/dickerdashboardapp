@@ -1,53 +1,50 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Chart } from "react-charts";
 import { Table, Row, Button, Container, Col } from "reactstrap";
 import ResizableBox from "./ResizableBox";
-import DickersParticipatedSampleData from "./DickersParticipatedSampleData";
-// import acceptedOffers from '../../acceptedOffer-data'
-// import testData from './sample-response.json'
 import test from "./test.json";
 import { TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 
-const getData = async () => {
-  const url = "/offers";
-  let headers = new Headers({
-    "Content-Type": "application/json",
-  });
-  const resp = await fetch(url, {
-    headers,
-  });
+// const getData = async () => {
+//   const url = "/offers";
+//   let headers = new Headers({
+//     "Content-Type": "application/json",
+//   });
+//   const resp = await fetch(url, {
+//     headers,
+//   });
 
-  console.log("getData", resp);
+//   console.log("getData", resp);
 
-  const data = await resp.json();
+//   const data = await resp.json();
 
-  return data;
-};
+//   return data;
+// };
 
-const useGetData = () => {
-  const [data, setData] = useState();
-  const [isLoading, setIsLoading] = useState(false);
+// const useGetData = () => {
+//   const [data, setData] = useState();
+//   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    const getMyData = async () => {
-      setIsLoading(true);
-      const resp = await getData();
-      setData(resp);
-      setIsLoading(false);
-    };
+//   useEffect(() => {
+//     const getMyData = async () => {
+//       setIsLoading(true);
+//       const resp = await getData();
+//       setData(resp);
+//       setIsLoading(false);
+//     };
 
-    getMyData();
-  }, []);
+//     getMyData();
+//   }, []);
 
-  return [data, isLoading];
-};
+//   return [data, isLoading];
+// };
 
 // const foo = test;
 
 const SampleChart = () => {
-  const [data, isLoading] = useGetData();
+  // const [data, isLoading] = useGetData();
   const [drilldown, setDrilldown] = useState(false);
-  const today = new Date();
+  // const today = new Date();
 
 //   const { data: oldData } = DickersParticipatedSampleData({
 //     series: 3,
@@ -108,17 +105,6 @@ const SampleChart = () => {
     <Container>
       <ResizableBox>
         <h5>DICKERs Participated In</h5>
-        {/* {isLoading || !data ? (
-        <Spinner color="primary" />
-      ) : (
-        <Chart
-          options={{
-            data: foo,
-            primaryAxis,
-            secondaryAxes,
-          }}
-        />
-      )} */}
         <Chart
           options={{
             data: test,

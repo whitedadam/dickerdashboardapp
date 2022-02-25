@@ -80,6 +80,7 @@ function App() {
             setUserAuth={setUserAuth}
             isAdmin={isAdmin}
             setIsAdmin={setIsAdmin}
+            exact path="/"
           />
         )}
       </Container>

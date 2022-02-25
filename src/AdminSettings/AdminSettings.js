@@ -5,7 +5,7 @@ import adminData from "../mock-data.json";
 import { Link } from "react-router-dom";
 
 const AdminSettings = () => {
-  const [merch, setMerch] = useState(adminData);
+  const [merch] = useState(adminData);
 
   return (
     <Container>

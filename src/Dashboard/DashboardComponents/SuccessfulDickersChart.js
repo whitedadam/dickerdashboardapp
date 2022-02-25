@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ResizableBox from './ResizableBoxSmall';
-import { ButtonDropdown, Col, Container, DropdownItem, DropdownMenu, DropdownToggle, Row, Spinner } from 'reactstrap';
+import { ButtonDropdown, Col, Container, DropdownItem, DropdownMenu, DropdownToggle, Row } from 'reactstrap';
 
 const SuccessfulDickersChart = ({data: newData}) => {
   const today = new Date();
@@ -161,7 +161,7 @@ const SuccessfulDickersChart = ({data: newData}) => {
             </Col>
             <Col> </Col>
           </Row>
-          <Row fluid>
+          <Row>{/* fluid */}
             <Col lg={0}>
               <h5>{activeFilter.toUpperCase()}</h5>
             </Col>
