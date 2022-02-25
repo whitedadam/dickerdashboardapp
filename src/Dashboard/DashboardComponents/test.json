@@ -1,0 +1,101 @@
+[
+    {
+        "label": "Direct DICKERs",
+        "data": [
+            {
+                "primary": "Monday",
+                "secondary": 92
+            },
+            {
+                "primary": "Tuesday",
+                "secondary": 73
+            },
+            {
+                "primary": "Wednesday",
+                "secondary": 96
+            },
+            {
+                "primary": "Thursday",
+                "secondary": 41
+            },
+            {
+                "primary": "Friday",
+                "secondary": 90
+            },
+            {
+                "primary": "Saturday",
+                "secondary": 84
+            },
+            {
+                "primary": "Sunday",
+                "secondary": 13
+            }
+        ]
+    },
+    {
+        "label": "Wildcard DICKERs",
+        "data": [
+            {
+                "primary": "Monday",
+                "secondary": 48
+            },
+            {
+                "primary": "Tuesday",
+                "secondary": 79
+            },
+            {
+                "primary": "Wednesday",
+                "secondary": 91
+            },
+            {
+                "primary": "Thursday",
+                "secondary": 75
+            },
+            {
+                "primary": "Friday",
+                "secondary": 3
+            },
+            {
+                "primary": "Saturday",
+                "secondary": 88
+            },
+            {
+                "primary": "Sunday",
+                "secondary": 52
+            }
+        ]
+    },
+    {
+        "label": "Selected to DICKERs",
+        "data": [
+            {
+                "primary": "Monday",
+                "secondary": 36
+            },
+            {
+                "primary": "Tuesday",
+                "secondary": 82
+            },
+            {
+                "primary": "Wednesday",
+                "secondary": 80
+            },
+            {
+                "primary": "Thursday",
+                "secondary": 21
+            },
+            {
+                "primary": "Friday",
+                "secondary": 67
+            },
+            {
+                "primary": "Saturday",
+                "secondary": 60
+            },
+            {
+                "primary": "Sunday",
+                "secondary": 55
+            }
+        ]
+    }
+]

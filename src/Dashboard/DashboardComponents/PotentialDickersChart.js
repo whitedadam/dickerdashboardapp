@@ -1,42 +1,13 @@
 import React from "react";
 import { Chart } from "react-charts";
-import PotentialDickersSampleData from './SuccessfulDickersSampleData';
 import ResizableBox from "./ResizableBox";
-//
-// ReactStrap install
-// npm install --save bootstrap@^4.0.0 reactstrap
-//
-
-/*const data = [
-    {
-        label: "React Charts",
-        data: [
-            {
-                date: 'January 1st, 2021',
-                stars: 202123,
-            }
-            // ...
-        ]
-    },
-    {
-        label: "React Query",
-        data: [
-            {
-                date: 'October 20th, 2021',
-                stars: 10234230,
-            }
-            // ...
-        ]
-    }
-]*/
-
-
+import PotentialDickersSampleData from './PotentialDickersSampleData'
 
 const PotentialDickersChart = () => {
 
     const { data } = PotentialDickersSampleData({
         series: 1,
-        dataType: "time",
+        datatype: "ordinal"
     });
 
     const primaryAxis = React.useMemo(

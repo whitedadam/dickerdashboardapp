@@ -1,38 +1,57 @@
 import React from "react";
+import { Col, Container, Row, Spinner } from "reactstrap";
+import { useGetData } from "../api/useGetData";
 import {
   PotentialDickersChart,
   DickersParticipatedChart,
   SuccessfulDickersChart,
   DickersRedeemedChart,
-} from "./DashboardComponents/index";
-import { Col, Container, Row } from "reactstrap";
+} from "./DashboardComponents";
 
-const Dashboard = (userAuth, isAdmin) => {
+const url = "/accepted-offers";
+
+// get all the data you need at once, and then pass down what is relevant to the component
+
+const Dashboard = () => {
+  const [data, isLoading] = useGetData(url);
+
+  if (isLoading)
+    return (
+      <Container>
+        <Col>
+          <Row></Row>
+          <Row>
+            <Spinner color={"warning"}></Spinner>Loading chart data...
+          </Row>
+          <Row></Row>
+        </Col>
+      </Container>
+    );
+
   return (
     <Container className={"dashboardContainer"}>
       <Row>
         <Col>
-          <h3>Dashboards</h3>
+          <h3>Dashboard</h3>
         </Col>
       </Row>
-      <Row>
-        <Col xs={"auto"}>
-          <PotentialDickersChart />
+      <Row className="mb-3">
+        <Col xs={"8"}>
+          {data ? <DickersParticipatedChart /> : null}
         </Col>
-        <Col xs={"auto"}>
-          <DickersRedeemedChart />
-        </Col>
+        <Col xs={"4"}>{data ? <DickersRedeemedChart data={data} /> : null}</Col>
       </Row>
-      <Row>
-        <Col xs={"auto"}>
-          <SuccessfulDickersChart />
+      <Row>{/* Spacer Row for Formatting */}</Row>
+      <Row className="mb-3">
+        <Col xs={"4"}>
+          {data ? <SuccessfulDickersChart data={data} /> : null}
         </Col>
-        <Col xs={"auto"}>
-          <DickersParticipatedChart />
+        <Col xs={"8"}>
+          {data ? <PotentialDickersChart /> : null}
         </Col>
       </Row>
     </Container>
   );
-}
+};
 
 export default Dashboard;
