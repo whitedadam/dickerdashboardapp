@@ -28,7 +28,7 @@ const PotentialDickersChart = () => {
 
     return (
         <ResizableBox>
-            <h5>Potential DICKERs</h5>
+            {/* <h5>Potential DICKERs</h5> */}
             <Chart
                 options={{
                     data,

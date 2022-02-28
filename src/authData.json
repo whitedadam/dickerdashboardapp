@@ -1,5 +1,6 @@
 [
   {
-    "isAdmin": false
+    "isAdmin": false,
+    "userAuthenticated": false
   }
 ]

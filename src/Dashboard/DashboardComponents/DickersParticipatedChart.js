@@ -194,19 +194,17 @@ const SampleChart = () => {
 
   return (
     <Container>
-      <ResizableBox>
-        <h5>DICKERs Participated In</h5>
-        <Chart
-          options={{
-            data: test,
-            primaryAxis,
-            secondaryAxes,
-          }}
-        />
-      </ResizableBox>
       <Row>
-        <br></br>
-        <br></br>
+        <ResizableBox>
+          {/* <h5>DICKERs Participated In</h5> */}
+          <Chart
+            options={{
+              data: test,
+              primaryAxis,
+              secondaryAxes,
+            }}
+          />
+        </ResizableBox>
       </Row>
       <Row>
         <Col>
