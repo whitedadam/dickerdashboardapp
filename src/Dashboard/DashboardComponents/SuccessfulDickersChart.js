@@ -155,16 +155,12 @@ const SuccessfulDickersChart = ({data: newData}) => {
     <Container>
       <Row>
         <ResizableBox>
-          <Row>
-            <Col>
-              <h5>Successful DICKERs</h5>
-            </Col>
-            <Col> </Col>
-          </Row>
           <Row>{/* fluid */}
+            <Col></Col>
             <Col lg={0}>
               <h5>{activeFilter.toUpperCase()}</h5>
             </Col>
+            <Col></Col>
           </Row>
           <Row>
             <Col xs={4}> </Col>

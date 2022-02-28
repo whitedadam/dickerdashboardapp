@@ -46,10 +46,10 @@ const SampleChart = () => {
   const [drilldown, setDrilldown] = useState(false);
   // const today = new Date();
 
-//   const { data: oldData } = DickersParticipatedSampleData({
-//     series: 3,
-//     dataType: "ordinal",
-//   });
+  //   const { data: oldData } = DickersParticipatedSampleData({
+  //     series: 3,
+  //     dataType: "ordinal",
+  //   });
 
   //   console.log(data, JSON.stringify(oldData));
 
@@ -103,19 +103,17 @@ const SampleChart = () => {
 
   return (
     <Container>
-      <ResizableBox>
-        <h5>DICKERs Participated In</h5>
-        <Chart
-          options={{
-            data: test,
-            primaryAxis,
-            secondaryAxes,
-          }}
-        />
-      </ResizableBox>
       <Row>
-        <br></br>
-        <br></br>
+        <ResizableBox>
+          {/* <h5>DICKERs Participated In</h5> */}
+          <Chart
+            options={{
+              data: test,
+              primaryAxis,
+              secondaryAxes,
+            }}
+          />
+        </ResizableBox>
       </Row>
       <Row>
         <Col>

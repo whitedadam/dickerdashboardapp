@@ -7,7 +7,7 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownToggle,
-  Row
+  Row,
 } from "reactstrap";
 
 const DickersRedeemedChart = ({ data: newData }) => {
@@ -156,15 +156,12 @@ const DickersRedeemedChart = ({ data: newData }) => {
       <Row>
         <ResizableBox>
           <Row>
-            <Col>
-              <h5>DICKERs Redeemed</h5>
-            </Col>
-            <Col> </Col>
-          </Row>
-          <Row> {/* fluid */}
+            {/* fluid */}
+            <Col></Col>
             <Col lg={0}>
               <h5>{activeFilter.toUpperCase()}</h5>
             </Col>
+            <Col></Col>
           </Row>
           <Row>
             <Col xs={4}> </Col>
