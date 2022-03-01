@@ -1,31 +1,25 @@
 import {Button, Col, Container, Form, Input, Label, Row} from "reactstrap";
 import React from "react";
-import CreateAccount from "../CreateAccount";
+import * as emailjs from 'emailjs-com';
 
-class Security extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            buttonColor: "secondary",
-        };
-        this.onHover = this.onHover.bind(this);
-        this.onHoverLeave = this.onHoverLeave.bind(this);
+export default function Security(){
+
+  const sendEmail = (e) =>{
+      e.preventDefault();
+
+    emailjs.sendForm('service_jjjq44n', 'template_8g7oem6', e.target ,
+        'user_8TRknzbUmpANb1CJDvJnJ')
+        .then((result) => {
+          console.log(result.text);
+        }, (error) => {
+          console.log(error.text);
+        });
+        e.target.reset()
     }
-  onHover() {
-    this.setState((state) => ({
-      buttonColor: "primary"
-    }));
-  }
-  onHoverLeave() {
-    this.setState((state) => ({
-      buttonColor: "secondary"
-    }));
-  }
 
-  render() {
     return (
       <Container className={"accountContainer"}>
-        <Form id="emailResetForm">
+        <form onSubmit={sendEmail}>
           <Col>
             <h1>
               <small>Reset Password</small>
@@ -63,18 +57,15 @@ class Security extends React.Component {
             </Row>
             <Row style={{ alignContent: "center" }}>
               <Col>
-                <Button
-                    onMouseEnter={this.onHover}
-                  onMouseLeave={this.onHoverLeave}
-                  color={this.state.buttonColor}>Submit</Button>
+              <div className = "col-8 pt-3 mx-auto">
+                <input type = "submit" className="btn btn info" value="Submit"></input>
+              </div>
               </Col>
             </Row>
           </Col>
-        </Form>
+        </form>
       </Container>
     );
   }
-}
 
-export default Security;
 
