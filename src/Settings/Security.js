@@ -1,11 +1,13 @@
 import {Button, Col, Container, Form, Input, Label, Row} from "reactstrap";
 import React from "react";
 import * as emailjs from 'emailjs-com';
+import {Link} from "react-router-dom";
 
 export default function Security(){
 
   const sendEmail = (e) =>{
-      e.preventDefault();
+    e.preventDefault();
+
 
     emailjs.sendForm('service_jjjq44n', 'template_8g7oem6', e.target ,
         'user_8TRknzbUmpANb1CJDvJnJ')
@@ -14,10 +16,11 @@ export default function Security(){
         }, (error) => {
           console.log(error.text);
         });
-        e.target.reset()
-    }
+    e.target.reset()
+  }
 
-    return (
+
+  return (
       <Container className={"accountContainer"}>
         <form onSubmit={sendEmail}>
           <Col>
@@ -35,11 +38,21 @@ export default function Security(){
             </Row>
             <Row>
               <Col>
+                <Label>Name: </Label>
+                <Input
+                    type="text"
+                    name="name"
+                    placeholder="Enter First Name..."
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col>
                 <Label>Username: </Label>
                 <Input
-                  type="text"
-                  name="username"
-                  placeholder="Enter username..."
+                    type="text"
+                    name="username"
+                    placeholder="Enter username..."
                 />
               </Col>
             </Row>
@@ -57,15 +70,16 @@ export default function Security(){
             </Row>
             <Row style={{ alignContent: "center" }}>
               <Col>
-              <div className = "col-8 pt-3 mx-auto">
-                <input type = "submit" className="btn btn info" value="Submit"></input>
-              </div>
+                <div className = "col-8 pt-3 mx-auto">
+                  <button>
+                    <input type = "submit" className="btn btn info"  value ='submit'></input>
+                  </button>
+                </div>
               </Col>
             </Row>
           </Col>
         </form>
       </Container>
-    );
-  }
-
+  );
+}
 
