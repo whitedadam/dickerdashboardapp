@@ -1,8 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import ResizableBox from './ResizableBoxSmall';
-import { ButtonDropdown, Col, Container, DropdownItem, DropdownMenu, DropdownToggle, Row } from 'reactstrap';
+import React, { useState, useEffect } from "react";
+import ResizableBox from "./ResizableBoxSmall";
+import {
+  ButtonDropdown,
+  Col,
+  Container,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  Row,
+} from "reactstrap";
 
-const SuccessfulDickersChart = ({data: newData}) => {
+const SuccessfulDickersChart = ({ data: newData }) => {
   const today = new Date();
 
   // Filter Accepted Offer Data into YTD Offers
@@ -10,22 +18,20 @@ const SuccessfulDickersChart = ({data: newData}) => {
     let totalDickers = 0;
     let pastDate = new Date(today);
     pastDate.setDate(pastDate.getDate() - 365);
-    
+
     // console.log(newData);
     try {
       newData.forEach((obj) => {
         const offerDate = new Date(obj.Created);
-          if (
-            pastDate <= offerDate
-          ) {
-            totalDickers++;
-          }
-      });  
+        if (pastDate <= offerDate) {
+          totalDickers++;
+        }
+      });
       // console.log(newData);
     } catch (err) {
       // console.log('err loading data');
     }
-    
+
     return totalDickers;
   };
 
@@ -41,16 +47,13 @@ const SuccessfulDickersChart = ({data: newData}) => {
     try {
       newData.forEach((obj) => {
         const offerDate = new Date(obj.Created);
-        if (
-          pastDate <= offerDate
-        ) {
+        if (pastDate <= offerDate) {
           totalDickers++;
         }
       });
     } catch (err) {
       // console.log('err loading data');
     }
-    
 
     return totalDickers;
   };
@@ -66,13 +69,11 @@ const SuccessfulDickersChart = ({data: newData}) => {
 
     try {
       newData.forEach((obj) => {
-      const offerDate = new Date(obj.Created);
-      if (
-        pastDate <= offerDate
-      ) {
-        totalDickers++;
-      }
-    });
+        const offerDate = new Date(obj.Created);
+        if (pastDate <= offerDate) {
+          totalDickers++;
+        }
+      });
     } catch (err) {
       // console.log('err loading data');
     }
@@ -98,7 +99,6 @@ const SuccessfulDickersChart = ({data: newData}) => {
       // console.log('err loading data');
     }
 
-
     return totalDickers;
   };
 
@@ -108,22 +108,22 @@ const SuccessfulDickersChart = ({data: newData}) => {
   // Load Filtered data into output object
   let chartData = [
     {
-      label: 'Dickers',
+      label: "Dickers",
       datum: [
         {
-          timeframe: 'YTD',
+          timeframe: "YTD",
           deals: YTD,
         },
         {
-          timeframe: 'Past Month',
+          timeframe: "Month",
           deals: monthOffers,
         },
         {
-          timeframe: 'This Week',
+          timeframe: "Week",
           deals: weeklyOffers,
         },
         {
-          timeframe: 'Today',
+          timeframe: "Today",
           deals: todayOffers,
         },
       ],
@@ -150,43 +150,60 @@ const SuccessfulDickersChart = ({data: newData}) => {
   );
 
   // console.log(displayData, displayData.deals);
-  
-  return newData === undefined ? <div>Filtering Chart Data... </div> : (
+
+  return newData === undefined ? (
+    <div>Filtering Chart Data... </div>
+  ) : (
     <Container>
       <Row>
         <ResizableBox>
-          <Row>{/* fluid */}
-            <Col></Col>
-            <Col lg={0}>
-              <h5>{activeFilter.toUpperCase()}</h5>
-            </Col>
-            <Col></Col>
-          </Row>
-          <Row>
-            <Col xs={4}> </Col>
-            <Col lg={0}>
-              <h1>{displayData.deals}</h1>
-            </Col>
-            <Col xs={4}> </Col>
-          </Row>
+          <Col>
+            <h5>{activeFilter.toUpperCase()}</h5>
+          </Col>
+          <Col lg={0}>
+            <p><strong>Accepted Total: </strong></p>
+            <p>{displayData.deals}</p>
+          </Col>
         </ResizableBox>
       </Row>
       <Row>
         <Col>
-          <ButtonDropdown isOpen={dropdownOpen} onClick={toggle} id={'successDropdown'}>
-            <DropdownToggle caret color={dropdownOpen ? "dark" : "warning"}>Filter Timeline</DropdownToggle>
+          <ButtonDropdown
+            isOpen={dropdownOpen}
+            onClick={toggle}
+            id={"successDropdown"}
+          >
+            <DropdownToggle caret color={dropdownOpen ? "dark" : "warning"}>
+              Filter Timeline
+            </DropdownToggle>
             <DropdownMenu>
               <DropdownItem header>Select Date Filter</DropdownItem>
-              <DropdownItem onClick={handleClick} id={'ytd'} value={chartData[0].datum[0]}>
+              <DropdownItem
+                onClick={handleClick}
+                id={"ytd"}
+                value={chartData[0].datum[0]}
+              >
                 YTD
               </DropdownItem>
-              <DropdownItem onClick={handleClick} id={'month'} value={chartData[0].datum[1]}>
+              <DropdownItem
+                onClick={handleClick}
+                id={"month"}
+                value={chartData[0].datum[1]}
+              >
                 This Month
               </DropdownItem>
-              <DropdownItem onClick={handleClick} id={'week'} value={chartData[0].datum[2]}>
+              <DropdownItem
+                onClick={handleClick}
+                id={"week"}
+                value={chartData[0].datum[2]}
+              >
                 This Week
               </DropdownItem>
-              <DropdownItem onClick={handleClick} id={'today'} value={chartData[0].datum[3]}>
+              <DropdownItem
+                onClick={handleClick}
+                id={"today"}
+                value={chartData[0].datum[3]}
+              >
                 Today
               </DropdownItem>
             </DropdownMenu>
