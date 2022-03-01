@@ -42,7 +42,7 @@ import { TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 
 // const foo = test;
 
-const SampleChart = () => {
+const AdminDickers = () => {
   // const [data, isLoading] = useGetData();
   const [drilldown, setDrilldown] = useState(false);
   // const today = new Date();
@@ -209,17 +209,17 @@ const SampleChart = () => {
       <Row>
         <Col>
           <Button onClick={handleDrilldown} color="warning">
-            Participated DICKERS Drilldown
+            DICKERS Drilldown
           </Button>
         </Col>
       </Row>
       {drilldown && (
         <Row>
-          <h5>Participated DICKER Totals</h5>
+          <h5>DICKER Totals</h5>
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>Total Participated DICKERs</TableCell>
+                <TableCell>Total DICKERs</TableCell>
                 <TableCell>Selected to DICKER Count</TableCell>
                 <TableCell>Selected to DICKER %</TableCell>
                 <TableCell>Wildcard DICKERs Count</TableCell>
@@ -250,4 +250,4 @@ const SampleChart = () => {
   );
 };
 
-export default SampleChart;
+export default AdminDickers;

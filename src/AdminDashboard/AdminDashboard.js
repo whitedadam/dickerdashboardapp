@@ -3,6 +3,7 @@ import "./AdminDashboard.css";
 import { Col, Container, NavItem, NavLink, Row } from "reactstrap";
 import adminData from "../mock-data.json";
 import { Link } from "react-router-dom";
+import AdminDickers from "./AdminDashboardComponents/AdminDickersChart"
 
 const AdminDashboard = ({ userAuth, isAdmin }) => {
   const [merch] = useState(adminData);
@@ -14,9 +15,11 @@ const AdminDashboard = ({ userAuth, isAdmin }) => {
         </Col>
       </Row>
       <Row>
+        <h5>DICKER Totals</h5>
+        <AdminDickers />
+      </Row>
+      <Row>
         <Col>
-          <p>Modules Coming Soon!</p>
-
           <NavItem className="adminDashNav">
             <NavLink tag={Link} to="/adminSettings">
               Admin Settings

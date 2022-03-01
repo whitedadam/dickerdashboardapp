@@ -63,10 +63,11 @@ async function executeStatement(sql, cb) {
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
 // create a GET route
-app.get("/user", async (req, res) => {
+app.get("/users", async (req, res) => {
+  console.log("/users endpoint hit");
   let success = await executeStatement(queries.USER, (rows) => {
     // console.log(rows + ' rows');
-    console.log(`Fetched ${rows.lenth} rows`);
+    console.log(`Fetched ${rows.length} rows`);
     console.log(`Data: ${JSON.stringify(rows, null, 2)}`);
     // res.json({
     //   data: rows,
@@ -80,7 +81,7 @@ app.get("/user", async (req, res) => {
 app.get("/accepted-offers", async (req, res) => {
   console.log("/accepted-offers endpoint hit");
   let success = await executeStatement(queries.ACCEPTED_OFFERS, (rows) => {
-    console.log(`Fetched ${rows.lenth} rows`);
+    console.log(`Fetched ${rows.length} rows`);
     console.log(`Data: ${JSON.stringify(rows, null, 2)}`);
     // res.json({
     //   data: rows,
@@ -97,7 +98,37 @@ app.get("/offers", async (req, res) => {
   console.log("/offers endpoint hit");
   let success = await executeStatement(queries.OFFERS, (rows) => {
     // console.log(rows.length + ' rows');
-    console.log(`Fetched ${rows.lenth} rows`);
+    console.log(`Fetched ${rows.length} rows`);
+    console.log(`Data: ${JSON.stringify(rows, null, 2)}`);
+    // res.json({
+    //   data: rows,
+    // });
+    res.send(rows);
+  });
+  return success;
+});
+
+// create a GET route
+app.get("/subcategories", async (req, res) => {
+  console.log("/subcategories endpoint hit");
+  let success = await executeStatement(queries.SUBCATEGORIES, (rows) => {
+    // console.log(rows.length + ' rows');
+    console.log(`Fetched ${rows.length} rows`);
+    console.log(`Data: ${JSON.stringify(rows, null, 2)}`);
+    // res.json({
+    //   data: rows,
+    // });
+    res.send(rows);
+  });
+  return success;
+});
+
+// create a GET route
+app.get("/businesses", async (req, res) => {
+  console.log("/businesses endpoint hit");
+  let success = await executeStatement(queries.BUSINESSES, (rows) => {
+    // console.log(rows.length + ' rows');
+    console.log(`Fetched ${rows.length} rows`);
     console.log(`Data: ${JSON.stringify(rows, null, 2)}`);
     // res.json({
     //   data: rows,
