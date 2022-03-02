@@ -125,8 +125,10 @@ const DickersRedeemedChart = ({ data: newData }) => {
       newData.forEach((obj) => {
         totalDickersWon++;
         const offerDate = new Date(obj.Created);
-        if (obj.IsRedeemed && today.getDate() === offerDate.getDate()) {
-          totalRedeemedDickers++;
+        if (today.getDate() === offerDate.getDate()) {
+          if (obj.IsRedeemed) {
+            totalRedeemedDickers++;
+          }
           categories.forEach((cat) => {
             if (cat.SubCategoryId === obj.SubCategory_FK) {
               cat.SubCategoryTotal += 1;
@@ -202,12 +204,18 @@ const DickersRedeemedChart = ({ data: newData }) => {
             <h5>{activeFilter.toUpperCase()}</h5>
           </Col>
           <Col lg={0}>
-            <p><strong>Redeemed Total: </strong></p>
+            <p>
+              <strong>Redeemed Total: </strong>
+            </p>
             <p>{displayData.deals[0]}</p>
           </Col>
           <Col>
-            <p><strong>Redeemed % of Won: </strong></p>
-            <p>{(displayData.deals[0] / displayData.deals[1]) * 100}%</p>
+            <p>
+              <strong>Redeemed % of Won: </strong>
+            </p>
+            <p>
+              {Math.round((displayData.deals[0] / displayData.deals[1]) * 100)}%
+            </p>
           </Col>
         </ResizableBox>
       </Row>
