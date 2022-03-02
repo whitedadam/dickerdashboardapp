@@ -209,7 +209,7 @@ const SampleChart = () => {
       <Row>
         <Col>
           <Button onClick={handleDrilldown} color="warning">
-            Participated DICKERS Drilldown
+            Drilldown
           </Button>
         </Col>
       </Row>
