@@ -413,22 +413,22 @@ const SuccessfulDickersChart = ({ data: newData }) => {
                   <TableCell>
                     {isNaN((displayData.deals[1] / displayData.deals[0]) * 100)
                       ? "No Data"
-                      : (displayData.deals[1] / displayData.deals[0]) * 100 +
+                      : Math.round((displayData.deals[1] / displayData.deals[0]) * 100) +
                         "%"}
                   </TableCell>
                   <TableCell>
                     {isNaN((displayData.deals[5] / displayData.deals[4]) * 100)
                       ? "No Data"
-                      : (displayData.deals[5] / displayData.deals[4]) * 100 +
+                      : Math.round((displayData.deals[5] / displayData.deals[4]) * 100) +
                         "%"}
                   </TableCell>
                   <TableCell>
                     {isNaN((displayData.deals[7] / displayData.deals[4]) * 100)
                       ? "No Data"
-                      : (displayData.deals[7] / displayData.deals[4]) * 100 +
+                      : Math.round((displayData.deals[7] / displayData.deals[4]) * 100) +
                         "%"}
                   </TableCell>
-                  <TableCell>{displayData.deals[8] + "%"}</TableCell>
+                  <TableCell>{Math.round((displayData.deals[8] / 100) * 100) + "%"}</TableCell>
                 </TableRow>
               </TableBody>
             </Table>
