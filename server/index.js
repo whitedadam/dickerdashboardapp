@@ -1,8 +1,10 @@
 const express = require("express");
+const Connection = require("tedious").Connection;
+const Request = require("tedious").Request;
+const queries = require("./queries");
+
 const app = express();
 const port = process.env.PORT || 5000;
-const Connection = require("tedious").Connection;
-const queries = require("./queries");
 
 const config = {
   server: "codingwpride.database.windows.net",
@@ -28,8 +30,6 @@ connection.on("connect", function (err) {
 });
 
 connection.connect();
-
-const Request = require("tedious").Request;
 
 async function executeStatement(sql, cb) {
   // const jsonArray = [];
@@ -59,10 +59,12 @@ async function executeStatement(sql, cb) {
   connection.execSql(request);
 }
 
+app.use(express.static('build'));
+
 // This displays message that the server running and listening to specified port
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
-// create a GET route
+// Users
 app.get("/users", async (req, res) => {
   console.log("/users endpoint hit");
   let success = await executeStatement(queries.USER, (rows) => {
@@ -77,8 +79,10 @@ app.get("/users", async (req, res) => {
   return success;
 });
 
-// create a GET route
+// Accepted Offers
 app.get("/accepted-offers", async (req, res) => {
+  // Pull dynamic params from req body
+  // Pass into function to generate sql
   console.log("/accepted-offers endpoint hit");
   let success = await executeStatement(queries.ACCEPTED_OFFERS, (rows) => {
     console.log(`Fetched ${rows.length} rows`);
@@ -93,7 +97,7 @@ app.get("/accepted-offers", async (req, res) => {
   return success;
 });
 
-// create a GET route
+// Offers
 app.get("/offers", async (req, res) => {
   console.log("/offers endpoint hit");
   let success = await executeStatement(queries.OFFERS, (rows) => {
@@ -108,7 +112,7 @@ app.get("/offers", async (req, res) => {
   return success;
 });
 
-// create a GET route
+// Subcategories
 app.get("/subcategories", async (req, res) => {
   console.log("/subcategories endpoint hit");
   let success = await executeStatement(queries.SUBCATEGORIES, (rows) => {
@@ -123,7 +127,7 @@ app.get("/subcategories", async (req, res) => {
   return success;
 });
 
-// create a GET route
+// Businesses
 app.get("/businesses", async (req, res) => {
   console.log("/businesses endpoint hit");
   let success = await executeStatement(queries.BUSINESSES, (rows) => {
