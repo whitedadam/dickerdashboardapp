@@ -18,6 +18,8 @@ const OFFERS =
 const SUBCATEGORIES =
   'SELECT TOP (1000) [SubCategoryId],[SubCategoryName],[Category_FK] FROM [SubCategory]';
 
+// const SUBCATEGORIES_EXAMPLE = (id) => `SELECT TOP (1000) [${id}],[SubCategoryName],[Category_FK] FROM [SubCategory]`;
+
 const BUSINESSES = 
   'SELECT TOP (1000) [BusinessId],[BusinessName],[StreetAddress1],[StreetAddress2]' +
   ',[City],[State],[ZipCode],[BusinessPhone],[BusinessEmail],[DateTimeCreated],[DateTimeUpdated]' +
