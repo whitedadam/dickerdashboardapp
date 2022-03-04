@@ -31,17 +31,17 @@ const DickersRedeemedChart = ({ data: newData }) => {
   const filterDataYTD = () => {
     let totalRedeemedDickers = 0;
     let totalDickersWon = 0;
+    let cats = categories;
     let pastDate = new Date(today);
     pastDate.setDate(pastDate.getDate() - 365);
 
-    // console.log(newData);
     try {
       newData.forEach((obj) => {
         totalDickersWon++;
         const offerDate = new Date(obj.Created);
         if (obj.IsRedeemed && pastDate <= offerDate) {
           totalRedeemedDickers++;
-          categories.forEach((cat) => {
+          cats.forEach((cat) => {
             if (cat.SubCategoryId === obj.SubCategory_FK) {
               cat.SubCategoryTotal += 1;
             }
@@ -50,7 +50,7 @@ const DickersRedeemedChart = ({ data: newData }) => {
       });
     } catch (err) {}
 
-    return [totalRedeemedDickers, totalDickersWon];
+    return [totalRedeemedDickers, totalDickersWon, cats];
   };
 
   // Output Filtered YTD Data
@@ -60,8 +60,13 @@ const DickersRedeemedChart = ({ data: newData }) => {
   const filterDataMonth = () => {
     let totalRedeemedDickers = 0;
     let totalDickersWon = 0;
+    let cats = categories;
     let pastDate = new Date(today);
     pastDate.setDate(pastDate.getDate() - 31);
+
+    categories.forEach((cat) => {
+      cat.SubCategoryTotal = 0;
+    });
 
     try {
       newData.forEach((obj) => {
@@ -69,7 +74,7 @@ const DickersRedeemedChart = ({ data: newData }) => {
         const offerDate = new Date(obj.Created);
         if (obj.IsRedeemed && pastDate <= offerDate) {
           totalRedeemedDickers++;
-          categories.forEach((cat) => {
+          cats.forEach((cat) => {
             if (cat.SubCategoryId === obj.SubCategory_FK) {
               cat.SubCategoryTotal += 1;
             }
@@ -80,7 +85,7 @@ const DickersRedeemedChart = ({ data: newData }) => {
       // console.log("err loading data");
     }
 
-    return [totalRedeemedDickers, totalDickersWon];
+    return [totalRedeemedDickers, totalDickersWon, cats];
   };
 
   // Output Filtered Month Data
@@ -90,6 +95,7 @@ const DickersRedeemedChart = ({ data: newData }) => {
   const filterDataWeek = () => {
     let totalRedeemedDickers = 0;
     let totalDickersWon = 0;
+    let cats = categories;
     let pastDate = new Date(today);
     pastDate.setDate(pastDate.getDate() - 7);
 
@@ -99,7 +105,7 @@ const DickersRedeemedChart = ({ data: newData }) => {
         const offerDate = new Date(obj.Created);
         if (obj.IsRedeemed && pastDate <= offerDate) {
           totalRedeemedDickers++;
-          categories.forEach((cat) => {
+          cats.forEach((cat) => {
             if (cat.SubCategoryId === obj.SubCategory_FK) {
               cat.SubCategoryTotal += 1;
             }
@@ -110,7 +116,7 @@ const DickersRedeemedChart = ({ data: newData }) => {
       // console.log("err loading data");
     }
 
-    return [totalRedeemedDickers, totalDickersWon];
+    return [totalRedeemedDickers, totalDickersWon, cats];
   };
 
   // Output Filtered Weekly Data
@@ -120,6 +126,7 @@ const DickersRedeemedChart = ({ data: newData }) => {
   const filterDataToday = () => {
     let totalRedeemedDickers = 0;
     let totalDickersWon = 0;
+    let cats = categories;
 
     try {
       newData.forEach((obj) => {
@@ -128,19 +135,19 @@ const DickersRedeemedChart = ({ data: newData }) => {
         if (today.getDate() === offerDate.getDate()) {
           if (obj.IsRedeemed) {
             totalRedeemedDickers++;
+            cats.forEach((cat) => {
+              if (cat.SubCategoryId === obj.SubCategory_FK) {
+                cat.SubCategoryTotal += 1;
+              }
+            });
           }
-          categories.forEach((cat) => {
-            if (cat.SubCategoryId === obj.SubCategory_FK) {
-              cat.SubCategoryTotal += 1;
-            }
-          });
         }
       });
     } catch (err) {
       // console.log("err loading data");
     }
 
-    return [totalRedeemedDickers, totalDickersWon];
+    return [totalRedeemedDickers, totalDickersWon, cats];
   };
 
   // Output Filtered Today Data
@@ -230,14 +237,14 @@ const DickersRedeemedChart = ({ data: newData }) => {
               <Table>
                 <TableHead>
                   <TableRow>
-                    {categories.map((cat) => (
+                    {displayData.deals[2].map((cat) => (
                       <TableCell>{cat.SubCategoryName}</TableCell>
                     ))}
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   <TableRow>
-                    {categories.map((cat) => (
+                    {displayData.deals[2].map((cat) => (
                       <TableCell>{cat.SubCategoryTotal}</TableCell>
                     ))}
                   </TableRow>
