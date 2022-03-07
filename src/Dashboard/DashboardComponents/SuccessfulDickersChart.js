@@ -13,7 +13,7 @@ import {
 } from "reactstrap";
 import { TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 
-const SuccessfulDickersChart = ({ data: newData }) => {
+const SuccessfulDickersChart = ({ acceptedOffersData: newData }) => {
   const today = new Date();
 
   // Filter Accepted Offer Data into YTD Offers

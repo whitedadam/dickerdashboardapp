@@ -14,26 +14,27 @@ import {
 import { TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import subcategories from "./SampleData/subcategory.json";
 
-const DickersRedeemedChart = ({ data: newData }) => {
-  const [drilldown, setDrilldown] = useState(false);
+const DickersRedeemedChart = ({ acceptedOffersData: newData }) => {
   const today = new Date();
-  let categories = subcategories;
 
-  // Building categories array to track SubCategories data
-  const buildCategories = () => {
-    categories.forEach((cat) => {
+  const prepCategories = (arr) => {
+    arr.forEach((cat) => {
       cat.SubCategoryTotal = 0;
-    });
-  };
-  buildCategories();
+    })
+    return arr;
+  } 
+  prepCategories(subcategories);
+
 
   // Filter Accepted Offer Data into YTD Offers
   const filterDataYTD = () => {
     let totalRedeemedDickers = 0;
     let totalDickersWon = 0;
-    let cats = categories;
+
     let pastDate = new Date(today);
     pastDate.setDate(pastDate.getDate() - 365);
+
+    let ytdCategories = JSON.parse(JSON.stringify(subcategories));
 
     try {
       newData.forEach((obj) => {
@@ -41,7 +42,7 @@ const DickersRedeemedChart = ({ data: newData }) => {
         const offerDate = new Date(obj.Created);
         if (obj.IsRedeemed && pastDate <= offerDate) {
           totalRedeemedDickers++;
-          cats.forEach((cat) => {
+          ytdCategories.forEach((cat) => {
             if (cat.SubCategoryId === obj.SubCategory_FK) {
               cat.SubCategoryTotal += 1;
             }
@@ -50,7 +51,7 @@ const DickersRedeemedChart = ({ data: newData }) => {
       });
     } catch (err) {}
 
-    return [totalRedeemedDickers, totalDickersWon, cats];
+    return [totalRedeemedDickers, totalDickersWon, ytdCategories];
   };
 
   // Output Filtered YTD Data
@@ -60,23 +61,21 @@ const DickersRedeemedChart = ({ data: newData }) => {
   const filterDataMonth = () => {
     let totalRedeemedDickers = 0;
     let totalDickersWon = 0;
-    let cats = categories;
+
     let pastDate = new Date(today);
     pastDate.setDate(pastDate.getDate() - 31);
 
-    categories.forEach((cat) => {
-      cat.SubCategoryTotal = 0;
-    });
-
+    let monthCategories = JSON.parse(JSON.stringify(subcategories));
+    
     try {
       newData.forEach((obj) => {
         totalDickersWon++;
         const offerDate = new Date(obj.Created);
         if (obj.IsRedeemed && pastDate <= offerDate) {
           totalRedeemedDickers++;
-          cats.forEach((cat) => {
+          monthCategories.forEach((cat) => {
             if (cat.SubCategoryId === obj.SubCategory_FK) {
-              cat.SubCategoryTotal += 1;
+              cat.SubCategoryTotal++;
             }
           });
         }
@@ -85,7 +84,7 @@ const DickersRedeemedChart = ({ data: newData }) => {
       // console.log("err loading data");
     }
 
-    return [totalRedeemedDickers, totalDickersWon, cats];
+    return [totalRedeemedDickers, totalDickersWon, monthCategories];
   };
 
   // Output Filtered Month Data
@@ -95,9 +94,11 @@ const DickersRedeemedChart = ({ data: newData }) => {
   const filterDataWeek = () => {
     let totalRedeemedDickers = 0;
     let totalDickersWon = 0;
-    let cats = categories;
+
     let pastDate = new Date(today);
     pastDate.setDate(pastDate.getDate() - 7);
+
+    let weekCategories = JSON.parse(JSON.stringify(subcategories));
 
     try {
       newData.forEach((obj) => {
@@ -105,9 +106,9 @@ const DickersRedeemedChart = ({ data: newData }) => {
         const offerDate = new Date(obj.Created);
         if (obj.IsRedeemed && pastDate <= offerDate) {
           totalRedeemedDickers++;
-          cats.forEach((cat) => {
+          weekCategories.forEach((cat) => {
             if (cat.SubCategoryId === obj.SubCategory_FK) {
-              cat.SubCategoryTotal += 1;
+              cat.SubCategoryTotal++;
             }
           });
         }
@@ -116,7 +117,7 @@ const DickersRedeemedChart = ({ data: newData }) => {
       // console.log("err loading data");
     }
 
-    return [totalRedeemedDickers, totalDickersWon, cats];
+    return [totalRedeemedDickers, totalDickersWon, weekCategories];
   };
 
   // Output Filtered Weekly Data
@@ -126,7 +127,8 @@ const DickersRedeemedChart = ({ data: newData }) => {
   const filterDataToday = () => {
     let totalRedeemedDickers = 0;
     let totalDickersWon = 0;
-    let cats = categories;
+
+    let todayCategories = JSON.parse(JSON.stringify(subcategories));
 
     try {
       newData.forEach((obj) => {
@@ -135,9 +137,9 @@ const DickersRedeemedChart = ({ data: newData }) => {
         if (today.getDate() === offerDate.getDate()) {
           if (obj.IsRedeemed) {
             totalRedeemedDickers++;
-            cats.forEach((cat) => {
+            todayCategories.forEach((cat) => {
               if (cat.SubCategoryId === obj.SubCategory_FK) {
-                cat.SubCategoryTotal += 1;
+                cat.SubCategoryTotal++;
               }
             });
           }
@@ -146,8 +148,7 @@ const DickersRedeemedChart = ({ data: newData }) => {
     } catch (err) {
       // console.log("err loading data");
     }
-
-    return [totalRedeemedDickers, totalDickersWon, cats];
+    return [totalRedeemedDickers, totalDickersWon, todayCategories];
   };
 
   // Output Filtered Today Data
@@ -188,13 +189,14 @@ const DickersRedeemedChart = ({ data: newData }) => {
   }, [timeframe]);
 
   const handleClick = (event) => {
-    setActiveFilter(event.target.id);
+      setActiveFilter(event.target.id);
   };
 
   const displayData = data[0].datum.find(
     (item) => item.timeframe.toLowerCase() === activeFilter
   );
 
+  const [drilldown, setDrilldown] = useState(false);
   const handleDrilldown = () => {
     setDrilldown(!drilldown);
   };

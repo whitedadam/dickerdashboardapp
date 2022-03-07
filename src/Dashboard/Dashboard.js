@@ -8,14 +8,14 @@ import {
   DickersRedeemedChart,
 } from "./DashboardComponents";
 
-const url = "/accepted-offers";
+const acceptedOffersUrl = "/accepted-offers";
 
 // get all the data you need at once, and then pass down what is relevant to the component
 
 const Dashboard = () => {
-  const [data, isLoading] = useGetData(url);
+  const [acceptedOffersData, acceptedOffersIsLoading] = useGetData(acceptedOffersUrl);
 
-  if (isLoading)
+  if (acceptedOffersIsLoading)
     return (
       <Container>
         <Col>
@@ -38,22 +38,22 @@ const Dashboard = () => {
       <Row className="mb-3">
         <Col xs={"8"}>
           <h5>DICKERs Participated In</h5>
-          {data ? <DickersParticipatedChart /> : null}
+          {acceptedOffersData ? <DickersParticipatedChart /> : null}
         </Col>
         <Col xs={"4"}>
           <h5>DICKERs Redeemed</h5>
-          {data ? <DickersRedeemedChart data={data} /> : null}
+          {acceptedOffersData ? <DickersRedeemedChart acceptedOffersData={acceptedOffersData} /> : null}
         </Col>
       </Row>
       <Row>{/* Spacer Row for Formatting */}</Row>
       <Row className="mb-3">
         <Col xs={"4"}>
           <h5>DICKERs Accepted</h5>
-          {data ? <SuccessfulDickersChart data={data} /> : null}
+          {acceptedOffersData ? <SuccessfulDickersChart acceptedOffersData={acceptedOffersData} /> : null}
         </Col>
         <Col xs={"8"}>
           <h5>Potential DICKERs</h5>
-          {data ? <PotentialDickersChart /> : null}
+          {acceptedOffersData ? <PotentialDickersChart /> : null}
         </Col>
       </Row>
     </Container>
