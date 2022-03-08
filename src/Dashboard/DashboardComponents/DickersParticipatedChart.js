@@ -195,6 +195,7 @@ const DickersParticipatedChart = () => {
       });
     } catch (err) {}
 
+    console.log(inputData);
     return inputData;
   };
   const displayData = buildInputData();
@@ -307,7 +308,9 @@ const DickersParticipatedChart = () => {
           offersData.forEach((row) => {
             if (row[day] === true) obj[day] += 1;
           });
-        } catch (err) {}
+        } catch {}
+        
+
       }
       return obj;
     };

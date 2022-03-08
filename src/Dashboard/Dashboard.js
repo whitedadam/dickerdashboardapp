@@ -9,11 +9,13 @@ import {
 } from "./DashboardComponents";
 
 const acceptedOffersUrl = "/accepted-offers";
+// const offersUrl = "/offers";
 
 // get all the data you need at once, and then pass down what is relevant to the component
 
 const Dashboard = () => {
   const [acceptedOffersData, acceptedOffersIsLoading] = useGetData(acceptedOffersUrl);
+  // const [offersData, offersDataIsLoading] = useGetData(offersUrl);
 
   if (acceptedOffersIsLoading)
     return (
