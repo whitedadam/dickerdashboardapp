@@ -1,5 +1,5 @@
-import { React, useState } from "react";
-import {Button, Col, Container, Form, Input, Label, Row} from "reactstrap";
+import { React, } from "react";
+import { Col, Container, Input, Label, Row} from "reactstrap";
 import * as emailjs from "emailjs-com";
 
 const Notifications = () => {
