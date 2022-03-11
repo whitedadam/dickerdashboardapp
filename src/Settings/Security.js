@@ -1,7 +1,7 @@
-import {Button, Col, Container, Form, Input, Label, Row} from "reactstrap";
+import { Col, Container, Input, Label, Row} from "reactstrap";
 import React from "react";
 import * as emailjs from 'emailjs-com';
-import {Link} from "react-router-dom";
+
 
 export default function Security(){
 
