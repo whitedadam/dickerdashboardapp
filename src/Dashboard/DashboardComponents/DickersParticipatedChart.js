@@ -7,7 +7,7 @@ import { useGetData } from "../../api/useGetData";
 
 const offersUrl = "/offers";
 
-const DickersParticipatedChart = () => {
+const DickersParticipatedChart = ({ filterDate }) => {
   const [drilldown, setDrilldown] = useState(false);
   const [offersData, offersDataisLoading] = useGetData(offersUrl);
 
@@ -117,7 +117,13 @@ const DickersParticipatedChart = () => {
 
     // Filtering Offer data between availble DICKER types
     try {
-      offersData.forEach((offer) => {
+      let filter = new Date(filterDate);
+      let offers = offersData.filter(offer => {
+        let offerDate = new Date(offer.StartingDate)
+        return offerDate >= filter
+      });
+
+      offers.forEach((offer) => {
         // Building Direct DICKERs Object
         if (offer.DirectDICKER) {
           if (offer.Monday) {
@@ -195,7 +201,7 @@ const DickersParticipatedChart = () => {
       });
     } catch (err) {}
 
-    console.log(inputData);
+    // console.log(inputData);
     return inputData;
   };
   const displayData = buildInputData();
@@ -408,11 +414,11 @@ const DickersParticipatedChart = () => {
               <TableRow>
                 <TableCell>{drilldownData[0]}</TableCell>
                 <TableCell>{drilldownData[1][2].total}</TableCell>
-                <TableCell>{drilldownData[2][2].percentage}%</TableCell>
+                <TableCell>{isNaN(drilldownData[2][2].percentage) ? "No Data" : drilldownData[2][2].percentage + "%"}</TableCell>
                 <TableCell>{drilldownData[1][1].total}</TableCell>
-                <TableCell>{drilldownData[2][1].percentage}%</TableCell>
+                <TableCell>{isNaN(drilldownData[2][1].percentage) ? "No Data" : drilldownData[2][1].percentage + "%"}</TableCell>
                 <TableCell>{drilldownData[1][0].total}</TableCell>
-                <TableCell>{drilldownData[2][0].percentage}%</TableCell>
+                <TableCell>{isNaN(drilldownData[2][0].percentage) ? "No Data" : drilldownData[2][0].percentage + "%"}</TableCell>
                 <TableCell>{drilldownData[3]}</TableCell>
                 <TableCell>{drilldownData[4]}</TableCell>
               </TableRow>

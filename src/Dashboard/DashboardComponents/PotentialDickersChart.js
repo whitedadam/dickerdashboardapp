@@ -7,7 +7,7 @@ import { TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 
 const offersUrl = "/offers";
 
-const PotentialDickersChart = () => {
+const PotentialDickersChart = ({ filterDate }) => {
   const [drilldown, setDrilldown] = useState(false);
   const [offersData, offersDataIsLoading] = useGetData(offersUrl);
 
@@ -117,7 +117,13 @@ const PotentialDickersChart = () => {
 
     // Filtering Offer data between availble DICKER types
     try {
-      offersData.forEach((offer) => {
+      let filter = new Date(filterDate);
+      let offers = offersData.filter((offer) => {
+        let offerDate = new Date(offer.StartingDate);
+        return offerDate >= filter;
+      });
+
+      offers.forEach((offer) => {
         // Building Direct DICKERs Object
         if (offer.DirectDICKER) {
           if (offer.SubCategory_FK === 1) {
@@ -386,7 +392,7 @@ const PotentialDickersChart = () => {
       </Row>
       {drilldown && (
         <Row>
-          <h5>Participated DICKER Totals</h5>
+          <h5>Potential DICKER Totals</h5>
           <Table>
             <TableHead>
               <TableRow>
@@ -405,11 +411,23 @@ const PotentialDickersChart = () => {
               <TableRow>
                 <TableCell>{drilldownData[0]}</TableCell>
                 <TableCell>{drilldownData[1][2].total}</TableCell>
-                <TableCell>{drilldownData[2][2].percentage}%</TableCell>
+                <TableCell>
+                  {isNaN(drilldownData[2][2].percentage)
+                    ? "No Data"
+                    : drilldownData[2][2].percentage + "%"}
+                </TableCell>
                 <TableCell>{drilldownData[1][1].total}</TableCell>
-                <TableCell>{drilldownData[2][1].percentage}%</TableCell>
+                <TableCell>
+                  {isNaN(drilldownData[2][1].percentage)
+                    ? "No Data"
+                    : drilldownData[2][1].percentage + "%"}
+                </TableCell>
                 <TableCell>{drilldownData[1][0].total}</TableCell>
-                <TableCell>{drilldownData[2][0].percentage}%</TableCell>
+                <TableCell>
+                  {isNaN(drilldownData[2][0].percentage)
+                    ? "No Data"
+                    : drilldownData[2][0].percentage + "%"}
+                </TableCell>
                 <TableCell>{drilldownData[3]}</TableCell>
                 <TableCell>{drilldownData[4]}</TableCell>
               </TableRow>
