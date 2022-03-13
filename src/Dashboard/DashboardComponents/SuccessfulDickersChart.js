@@ -1,17 +1,12 @@
 import React, { useState } from "react";
 import ResizableBox from "./ResizableBoxSmall";
-import {
-  Col,
-  Container,
-  Row,
-  Button,
-  Table,
-} from "reactstrap";
+import { Col, Container, Row, Button, Table } from "reactstrap";
 import { TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 
 const SuccessfulDickersChart = ({
   acceptedOffersData: newData,
-  filterDate,
+  filterStartDate,
+  filterEndDate,
 }) => {
   const today = new Date();
 
@@ -41,10 +36,11 @@ const SuccessfulDickersChart = ({
     let avgDiscount = 0;
 
     try {
-      let filter = new Date(filterDate);
+      let startFilter = new Date(filterStartDate);
+      let endFilter = new Date(filterEndDate);
       let offers = newData.filter((offer) => {
         let offerDate = new Date(offer.Created);
-        return offerDate >= filter;
+        return offerDate > startFilter && offerDate <= endFilter;
       });
 
       console.log(offers);

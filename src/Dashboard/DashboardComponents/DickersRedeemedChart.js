@@ -1,25 +1,21 @@
-import React, { useState, } from "react";
+import React, { useState } from "react";
 import ResizableBox from "./ResizableBoxSmall";
-import {
-  Col,
-  Container,
-  Row,
-  Button,
-  Table,
-} from "reactstrap";
+import { Col, Container, Row, Button, Table } from "reactstrap";
 import { TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import subcategories from "./SampleData/subcategory.json";
 
-const DickersRedeemedChart = ({ acceptedOffersData: newData, filterDate }) => {
-
+const DickersRedeemedChart = ({
+  acceptedOffersData: newData,
+  filterStartDate,
+  filterEndDate,
+}) => {
   const prepCategories = (arr) => {
     arr.forEach((cat) => {
       cat.SubCategoryTotal = 0;
-    })
+    });
     return arr;
-  } 
+  };
   prepCategories(subcategories);
-
 
   // Filter Accepted Offer Data into YTD Offers
   const filterData = () => {
@@ -30,10 +26,11 @@ const DickersRedeemedChart = ({ acceptedOffersData: newData, filterDate }) => {
 
     try {
 
-      let filter = new Date(filterDate);
-      let offers = newData.filter(offer => {
-        let offerDate = new Date(offer.Created)
-        return offerDate >= filter
+      let startFilter = new Date(filterStartDate);
+      let endFilter = new Date(filterEndDate);
+      let offers = newData.filter((offer) => {
+        let offerDate = new Date(offer.Created);
+        return offerDate > startFilter && offerDate <= endFilter;
       });
 
       offers.forEach((obj) => {
@@ -79,7 +76,9 @@ const DickersRedeemedChart = ({ acceptedOffersData: newData, filterDate }) => {
               <strong>Redeemed % of Won: </strong>
             </p>
             <p>
-              {isNaN(Math.round((data[0] / data[1]) * 100)) ? "No Data" : Math.round((data[0] / data[1]) * 100) + "%"}
+              {isNaN(Math.round((data[0] / data[1]) * 100))
+                ? "No Data"
+                : Math.round((data[0] / data[1]) * 100) + "%"}
             </p>
           </Col>
         </ResizableBox>

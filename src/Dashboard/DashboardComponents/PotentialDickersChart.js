@@ -7,7 +7,7 @@ import { TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 
 const offersUrl = "/offers";
 
-const PotentialDickersChart = ({ filterDate }) => {
+const PotentialDickersChart = ({ filterStartDate, filterEndDate }) => {
   const [drilldown, setDrilldown] = useState(false);
   const [offersData, offersDataIsLoading] = useGetData(offersUrl);
 
@@ -117,10 +117,11 @@ const PotentialDickersChart = ({ filterDate }) => {
 
     // Filtering Offer data between availble DICKER types
     try {
-      let filter = new Date(filterDate);
+      let startFilter = new Date(filterStartDate);
+      let endFilter = new Date(filterEndDate);
       let offers = offersData.filter((offer) => {
         let offerDate = new Date(offer.StartingDate);
-        return offerDate >= filter;
+        return offerDate > startFilter && offerDate <= endFilter;
       });
 
       offers.forEach((offer) => {
