@@ -1,5 +1,14 @@
 import React, { useState } from "react";
-import { Col, Container, Row, Spinner, Input } from "reactstrap";
+import {
+  Col,
+  Container,
+  Row,
+  Spinner,
+  Input,
+  Label,
+  Form,
+  FormGroup,
+} from "reactstrap";
 import { useGetData } from "../api/useGetData";
 import {
   PotentialDickersChart,
@@ -17,16 +26,30 @@ const Dashboard = () => {
   const [acceptedOffersData, acceptedOffersIsLoading] =
     useGetData(acceptedOffersUrl);
 
-  const setDefaultDateFilter = () => {
-    let pastDate = new Date();
-    pastDate.setDate(pastDate.getDate() - 365);
-    let pastDateString = pastDate.toISOString().split("T")[0];
-    return pastDateString;
+  const setDefaultStartDateFilter = () => {
+    let startDate = new Date();
+    startDate.setDate(startDate.getDate() - 365);
+    let startDateString = startDate.toISOString().split("T")[0];
+    return startDateString;
   };
-  const [filterDate, setFilterDate] = useState(setDefaultDateFilter);
+  const [filterStartDate, setFilterStartDate] = useState(
+    setDefaultStartDateFilter
+  );
 
-  const handleDateChange = (event) => {
-    setFilterDate(event.target.value);
+  const setDefaultEndDateFilter = () => {
+    let endDate = new Date();
+    endDate.setDate(endDate.getDate());
+    let endDateString = endDate.toISOString().split("T")[0];
+    return endDateString;
+  };
+  const [filterEndDate, setFilterEndDate] = useState(setDefaultEndDateFilter);
+
+  const handleStartDateChange = (event) => {
+    setFilterStartDate(event.target.value);
+  };
+
+  const handleEndDateChange = (event) => {
+    setFilterEndDate(event.target.value);
   };
 
   if (acceptedOffersIsLoading)
@@ -50,23 +73,48 @@ const Dashboard = () => {
         </Col>
         <Col>
           <h5>Date Filter:</h5>
-          <Input
-            type={"date"}
-            id={"dateFilter"}
-            name={"dateFilter"}
-            onChange={handleDateChange}
-          ></Input>
+          <Form inline>
+            <FormGroup className="mb-3">
+              <Label for={"startDateFilter"}>Start Date</Label>
+              <Input
+                type={"date"}
+                id={"startDateFilter"}
+                name={"startDateFilter"}
+                onChange={handleStartDateChange}
+                bsSize={"sm"}
+              />
+            </FormGroup>
+            <FormGroup className="mb-3">
+              <Label for={"endDateFilter"}>End Date</Label>
+              <Input
+                type={"date"}
+                id={"endDateFilter"}
+                name={"endDateFilter"}
+                onChange={handleEndDateChange}
+                bsSize={"sm"}
+              />
+            </FormGroup>
+          </Form>
         </Col>
       </Row>
       <Row className="mb-3">
         <Col xs={"8"}>
           <h5>DICKERs Participated In</h5>
-          {acceptedOffersData ? <DickersParticipatedChart filterDate={filterDate} /> : null}
+          {acceptedOffersData ? (
+            <DickersParticipatedChart
+              filterStartDate={filterStartDate}
+              filterEndDate={filterEndDate}
+            />
+          ) : null}
         </Col>
         <Col xs={"4"}>
           <h5>DICKERs Redeemed</h5>
           {acceptedOffersData ? (
-            <DickersRedeemedChart acceptedOffersData={acceptedOffersData} filterDate={filterDate} />
+            <DickersRedeemedChart
+              acceptedOffersData={acceptedOffersData}
+              filterStartDate={filterStartDate}
+              filterEndDate={filterEndDate}
+            />
           ) : null}
         </Col>
       </Row>
@@ -75,12 +123,21 @@ const Dashboard = () => {
         <Col xs={"4"}>
           <h5>DICKERs Accepted</h5>
           {acceptedOffersData ? (
-            <SuccessfulDickersChart acceptedOffersData={acceptedOffersData} filterDate={filterDate} />
+            <SuccessfulDickersChart
+              acceptedOffersData={acceptedOffersData}
+              filterStartDate={filterStartDate}
+              filterEndDate={filterEndDate}
+            />
           ) : null}
         </Col>
         <Col xs={"8"}>
           <h5>Potential DICKERs</h5>
-          {acceptedOffersData ? <PotentialDickersChart filterDate={filterDate} /> : null}
+          {acceptedOffersData ? (
+            <PotentialDickersChart
+              filterStartDate={filterStartDate}
+              filterEndDate={filterEndDate}
+            />
+          ) : null}
         </Col>
       </Row>
     </Container>
