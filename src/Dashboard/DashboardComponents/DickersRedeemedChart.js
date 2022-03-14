@@ -25,7 +25,7 @@ const DickersRedeemedChart = ({
     let categories = JSON.parse(JSON.stringify(subcategories));
 
     try {
-
+      // Filtering out offers that are not within specified date range
       let startFilter = new Date(filterStartDate);
       let endFilter = new Date(filterEndDate);
       let offers = newData.filter((offer) => {

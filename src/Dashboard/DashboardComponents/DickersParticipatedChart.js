@@ -356,7 +356,6 @@ const DickersParticipatedChart = ({ filterStartDate, filterEndDate }) => {
       leastActive,
     ];
   };
-
   const drilldownData = dataTotals();
 
   if (offersDataisLoading)

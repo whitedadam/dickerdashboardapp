@@ -1,0 +1,30 @@
+[
+    {
+        "SubCategoryId": 1,
+        "SubCategoryName": "Casual Dining"
+    },
+    {
+        "SubCategoryId": 2,
+        "SubCategoryName": "Fast Food"
+    },
+    {
+        "SubCategoryId": 3,
+        "SubCategoryName": "Restaurants General"
+    },
+    {
+        "SubCategoryId": 4,
+        "SubCategoryName": "Specialty"
+    },
+    {
+        "SubCategoryId": 5,
+        "SubCategoryName": "Hotels"
+    },
+    {
+        "SubCategoryId": 6,
+        "SubCategoryName": "Air Fare"
+    },
+    {
+        "SubCategoryId": 7,
+        "SubCategoryName": "Automotive General"
+    }
+]
