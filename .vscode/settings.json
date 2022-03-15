@@ -1,4 +1,3 @@
 {
-    "appService.defaultWebAppToDeploy": "/subscriptions/0d9c08e7-9506-4362-a3c2-0200b915f95d/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/dickerdashboardappcodingwpride2022",
     "appService.deploySubpath": "."
 }
