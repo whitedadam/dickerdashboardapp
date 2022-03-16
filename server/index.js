@@ -2,7 +2,6 @@ const express = require("express");
 const Connection = require("tedious").Connection;
 const Request = require("tedious").Request;
 const queries = require("./queries");
-const path = require("path");
 
 // Creating Express app and setting port value
 const app = express();
