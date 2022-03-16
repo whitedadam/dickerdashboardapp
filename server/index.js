@@ -2,6 +2,7 @@ const express = require("express");
 const Connection = require("tedious").Connection;
 const Request = require("tedious").Request;
 const queries = require("./queries");
+const path = require("path");
 
 // Creating Express app and setting port value
 const app = express();
@@ -62,7 +63,11 @@ async function executeStatement(sql, cb) {
   connection.execSql(request);
 }
 
+// Client Side Routing
 app.use(express.static("build"));
+app.get('/*', function (req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 // This displays message that the server running and listening to specified port
 app.listen(port, () => console.log(`Listening on port ${port}`));
