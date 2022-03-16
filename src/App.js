@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import {
   Switch,
   BrowserRouter as Router,
@@ -23,7 +23,7 @@ function App() {
   const [userAuth, setUserAuth] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
-  console.log({ userAuth });
+  // console.log({ userAuth });
 
   return (
     <Router>

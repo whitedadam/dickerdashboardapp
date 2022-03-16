@@ -17,40 +17,6 @@ import Paper from '@mui/material/Paper';
 import InputAdornment from '@mui/material/InputAdornment';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 
-// const getData = async () => {
-//   const url = '/accepted-offers';
-//   let myHeaders = new Headers({
-//     'Content-Type': 'application/json'
-//   });
-//   const resp = await fetch(url,{
-//     headers: myHeaders
-//   })
-//     .then(resp => resp.json())
-//     .then((json) => {
-//     console.log('This is data from accepted-offers', json)
-//   });
-
-//   return resp;
-// };
-
-// const useGetData = () => {
-//   const [data, setData] = useState();
-//   const [isLoading, setIsLoading] = useState(false);
-
-//   useEffect(() => {
-//     const getMyData = async () => {
-//       setIsLoading(true);
-//       const resp = await getData();
-//       setData(resp);
-//       setIsLoading(false);
-//     };
-
-//     getMyData();
-//   }, []);
-
-//   return [data, isLoading];
-// };
-
 const Login = ({ userAuth, setUserAuth, isAdmin, setIsAdmin }) => {
   // const [data, isLoading] = useGetData();
   const [state, setState] = useState({
