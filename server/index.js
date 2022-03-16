@@ -65,9 +65,6 @@ async function executeStatement(sql, cb) {
 
 // Client Side Routing
 app.use(express.static("build"));
-app.get('/*', function (req, res) {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
 
 // This displays message that the server running and listening to specified port
 app.listen(port, () => console.log(`Listening on port ${port}`));
