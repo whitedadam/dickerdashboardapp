@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import { Form, FormGroup, NavLink } from 'reactstrap';
 import { Col, Row } from 'reactstrap';
 import Dashboard from '../Dashboard';
@@ -18,7 +18,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 
 const Login = ({ userAuth, setUserAuth, isAdmin, setIsAdmin }) => {
-  // const [data, isLoading] = useGetData();
+  
   const [state, setState] = useState({
     data: null,
     email: '',
