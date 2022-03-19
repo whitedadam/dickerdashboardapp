@@ -5,7 +5,7 @@ import { useGetData } from "../../api/useGetData";
 import { Container, Row, Col, Spinner, Button, Table } from "reactstrap";
 import { TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 
-const offersUrl = "/offers";
+const offersUrl = "/api/offers";
 
 const PotentialDickersChart = ({ filterStartDate, filterEndDate }) => {
   const [drilldown, setDrilldown] = useState(false);

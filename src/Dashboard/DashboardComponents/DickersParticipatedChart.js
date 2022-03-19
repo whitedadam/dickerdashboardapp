@@ -5,7 +5,7 @@ import ResizableBox from "./ResizableBox";
 import { TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import { useGetData } from "../../api/useGetData";
 
-const offersUrl = "/offers";
+const offersUrl = "/api/offers";
 
 const DickersParticipatedChart = ({ filterStartDate, filterEndDate }) => {
   const [drilldown, setDrilldown] = useState(false);
