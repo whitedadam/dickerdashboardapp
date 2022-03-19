@@ -7,7 +7,6 @@
     "test": "echo \"No tests yet...\""
   },
   "dependencies": {
-    "tedious": "^14.0.0"
-  },
-  "devDependencies": {}
+    "tedious": "^14.3.0"
+  }
 }
