@@ -1,79 +1,76 @@
-const Connection = require("tedious").Connection;
-const Request = require("tedious").Request;
-const queries = require("../../server/queries");
+const Connection = require('tedious').Connection;
+const Request = require('tedious').Request;
+const queries = require('../../server/queries');
 
 // Setting configuration for accessing hosted SQL DB with tedious
 const config = {
-  server: "codingwpride.database.windows.net",
+  server: 'codingwpride.database.windows.net',
   options: {
-    database: "DICKERdashboard",
+    database: 'DICKERdashboard',
   },
   authentication: {
-    type: "default",
+    type: 'default',
     options: {
-      userName: "Adam",
-      password: "CodingWPride2021",
+      userName: 'Adam',
+      password: 'CodingWPride2021',
     },
   },
 };
 
-// Creating connection obj for accessing db data
-const connection = new Connection(config);
+const executeSql = (query, params) =>
+  new Promise((resolve, reject) => {
+    // Array for saving rows
+    const result = [];
 
-connection.on("connect", function (err) {
-  if (err) {
-    console.log("Error: ", err);
-  }
-  console.log("Connected to Database :)");
-});
+    // Create a connection to use later for executing query
+    const connection = new Connection(config);
 
-connection.connect();
-
-async function executeStatement(sql, cb) {
-  // const jsonArray = [];
-
-  const newData = [];
-  let dataset = {};
-
-  //select * from dbo.Business Test Statement
-  let request = new Request(sql, function (err) {
-    if (err) {
-      console.log(err);
-    } else {
-      cb(newData);
-      // console.log(rowCount + " rows");
-    }
-  });
-
-  request.on("row", function (columns) {
-    columns.forEach(function (column) {
-      // console.log(column.value);
-      dataset[column.metadata.colName] = column.value;
+    // Create the request
+    const request = new Request(query, (err) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result);
+      }
     });
-    newData.push(dataset);
-    dataset = {};
-  });
 
-  connection.execSql(request);
-}
+    // Put the columns into an object and store as a row
+    request.on('row', (columns) => {
+      let dataset = {};
+      columns.forEach((column) => {
+        dataset[column.metadata.colName] = column.value;
+      });
+      result.push(dataset);
+      dataset = {};
+    });
+
+    // Once connected, reject on error or execute query
+    connection.on('connect', (err) => {
+      if (err) {
+        reject(err);
+      } else {
+        connection.execSql(request);
+      }
+    });
+
+    connection.connect();
+  });
 
 module.exports = async function (context, req) {
-  context.log("JavaScript HTTP trigger function processed a request.");
+  context.log('Request to: /api/accepted-offers');
 
-  let data = undefined;
-  executeStatement(queries.ACCEPTED_OFFERS, (rows) => {
-    // console.log(`Fetched ${rows.length} rows`);
-    // console.log(`Data: ${JSON.stringify(rows, null, 2)}`);
-    data = rows;
-    console.log(rows);
-    context.res.send(JSON.stringify(rows));
-  });
+  try {
+    const data = await executeSql(queries.ACCEPTED_OFFERS);
 
-//   context.res = {
-//     // status: 200, /* Defaults to 200 */
-//     body: data,
-//     contentType: "application/json",
-//   };
+    context.res = {
+      body: data,
+    };
 
-  //console.log(context.res);
+    context.done();
+  } catch (error) {
+    context.res = {
+      status: 400,
+      body: error.message,
+    };
+  }
 };

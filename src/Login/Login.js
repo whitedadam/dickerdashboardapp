@@ -18,7 +18,6 @@ import InputAdornment from '@mui/material/InputAdornment';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 
 const Login = ({ userAuth, setUserAuth, isAdmin, setIsAdmin }) => {
-  
   const [state, setState] = useState({
     data: null,
     email: '',
