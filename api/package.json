@@ -6,6 +6,8 @@
     "start": "func start",
     "test": "echo \"No tests yet...\""
   },
-  "dependencies": {},
+  "dependencies": {
+    "tedious": "^14.0.0"
+  },
   "devDependencies": {}
 }
