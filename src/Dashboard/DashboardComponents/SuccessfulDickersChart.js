@@ -43,7 +43,7 @@ const SuccessfulDickersChart = ({
         return offerDate > startFilter && offerDate <= endFilter;
       });
 
-      console.log(offers);
+      // console.log(offers);
 
       offers.forEach((obj) => {
         totalAcceptedDickers++;

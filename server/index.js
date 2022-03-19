@@ -71,7 +71,7 @@ app.listen(port, () => console.log(`Listening on port ${port}`));
 // Users
 app.get("/users", async (req, res) => {
   console.log("/users endpoint hit");
-  let success = await executeStatement(queries.USER, (rows) => {
+  let success = await executeStatement(queries.USERS, (rows) => {
     console.log(`Fetched ${rows.length} rows`);
     console.log(`Data: ${JSON.stringify(rows, null, 2)}`);
     res.send(rows);

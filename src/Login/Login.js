@@ -90,13 +90,13 @@ const Login = ({ userAuth, setUserAuth, isAdmin, setIsAdmin }) => {
 
     if (admin.loginAttempts === 3) {
       event.preventDefault();
-      console.log("haha you're done for. >:3");
+      console.log("User locked out.");
       admin.lockoutEnabled = true;
     }
 
     if (merchant.loginAttempts === 3) {
       event.preventDefault();
-      console.log("haha you're done for. >:3");
+      console.log("User locked out.");
       merchant.lockoutEnabled = true;
     }
   };

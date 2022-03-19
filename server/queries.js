@@ -1,4 +1,4 @@
-const USER =
+const USERS =
   'Select TOP (1000) [MerchantId],[FirstName],[LastName],[PhoneNumber],' +
   '[Email],[AppUserId],[DateCreated],[PushNotificationsEnabled],' +
   '[EmailNotificationsEnabled] FROM [Merchant] WHERE MerchantId = 1';
@@ -26,4 +26,4 @@ const BUSINESSES =
   ',[Merchant_FK],[BusinessCode],[CategoryId],[SubCategoryId] FROM [dbo].[Business]' +
   ' WHERE Merchant_FK = 1';
 
-module.exports = { USER, ACCEPTED_OFFERS, OFFERS, SUBCATEGORIES, BUSINESSES };
+module.exports = { USERS, ACCEPTED_OFFERS, OFFERS, SUBCATEGORIES, BUSINESSES };
