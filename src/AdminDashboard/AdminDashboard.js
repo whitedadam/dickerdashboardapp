@@ -15,14 +15,14 @@ import {
 import adminData from "../mock-data.json";
 import { Link } from "react-router-dom";
 import AdminDickers from "./AdminDashboardComponents/AdminDickersChart";
-import { useGetData } from "../api/useGetData";
+import acceptedoffers from '../api/SampleData/accepted-offers.json'
 
-const acceptedOffersUrl = "/api/accepted-offers";
+// const acceptedOffersUrl = "/api/accepted-offers";
 
 const AdminDashboard = ({ userAuth, isAdmin }) => {
   const [merch] = useState(adminData);
   const [acceptedOffersData, acceptedOffersIsLoading] =
-    useGetData(acceptedOffersUrl);
+    [acceptedoffers, false];
 
   const setDefaultStartDateFilter = () => {
     let startDate = new Date();

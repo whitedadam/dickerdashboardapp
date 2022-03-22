@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
 import { Col, Container, Row, Spinner, Input, Label, Form, FormGroup } from 'reactstrap';
-import { useGetData } from '../api/useGetData';
 import {
   PotentialDickersChart,
   DickersParticipatedChart,
   SuccessfulDickersChart,
   DickersRedeemedChart,
 } from './DashboardComponents';
+import acceptedoffers from '../api/SampleData/accepted-offers.json';
 
-const acceptedOffersUrl = '/api/accepted-offers';
+// const acceptedOffersUrl = '/api/accepted-offers';
 // const offersUrl = "/offers";
 
 // get all the data you need at once, and then pass down what is relevant to the component
 
 const Dashboard = () => {
-  const [acceptedOffersData, acceptedOffersIsLoading] = useGetData(acceptedOffersUrl);
+  const [acceptedOffersData, acceptedOffersIsLoading] = [acceptedoffers, false];
 
   const setDefaultStartDateFilter = () => {
     let startDate = new Date();

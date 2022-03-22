@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { Chart } from "react-charts";
 import ResizableBox from "./ResizableBox";
-import { useGetData } from "../../api/useGetData";
 import { Container, Row, Col, Spinner, Button, Table } from "reactstrap";
 import { TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+import offers from '../../api/SampleData/offers.json';
 
-const offersUrl = "/api/offers";
+// const offersUrl = "/api/offers";
 
 const PotentialDickersChart = ({ filterStartDate, filterEndDate }) => {
   const [drilldown, setDrilldown] = useState(false);
-  const [offersData, offersDataIsLoading] = useGetData(offersUrl);
+  const [offersData, offersDataIsLoading] = [offers, false];
 
   const buildInputData = () => {
     // Array of Objects that will hold various datum based upon selected time intervals.

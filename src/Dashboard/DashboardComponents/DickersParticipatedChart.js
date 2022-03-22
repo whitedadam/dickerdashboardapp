@@ -3,13 +3,13 @@ import { Chart } from "react-charts";
 import { Table, Row, Button, Container, Col, Spinner } from "reactstrap";
 import ResizableBox from "./ResizableBox";
 import { TableBody, TableCell, TableHead, TableRow } from "@mui/material";
-import { useGetData } from "../../api/useGetData";
+import offers from '../../api/SampleData/offers.json'
 
-const offersUrl = "/api/offers";
+// const offersUrl = "/api/offers";
 
 const DickersParticipatedChart = ({ filterStartDate, filterEndDate }) => {
   const [drilldown, setDrilldown] = useState(false);
-  const [offersData, offersDataisLoading] = useGetData(offersUrl);
+  const [offersData, offersDataisLoading] = [offers, false];
 
   const buildInputData = () => {
     // Array of Objects that will hold various datum based upon selected time intervals.

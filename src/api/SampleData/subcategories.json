@@ -1,0 +1,37 @@
+[
+    {
+        "SubCategoryId": 1,
+        "SubCategoryName": "Casual Dining",
+        "Category_FK": 1
+    },
+    {
+        "SubCategoryId": 2,
+        "SubCategoryName": "Fast Food",
+        "Category_FK": 1
+    },
+    {
+        "SubCategoryId": 3,
+        "SubCategoryName": "General",
+        "Category_FK": 2
+    },
+    {
+        "SubCategoryId": 4,
+        "SubCategoryName": "Specialty",
+        "Category_FK": 2
+    },
+    {
+        "SubCategoryId": 5,
+        "SubCategoryName": "Hotels",
+        "Category_FK": 3
+    },
+    {
+        "SubCategoryId": 6,
+        "SubCategoryName": "Air Fare",
+        "Category_FK": 3
+    },
+    {
+        "SubCategoryId": 7,
+        "SubCategoryName": "General",
+        "Category_FK": 4
+    }
+]
