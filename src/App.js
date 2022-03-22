@@ -37,12 +37,6 @@ function App() {
                   <Route exact path="/dashboard">
                     <Dashboard /> 
                   </Route>
-                  <Route exact path="/resetPassword">
-                    <Reset /> 
-                  </Route>
-                  <Route exact path="/createAccount">
-                    <CreateAccount /> 
-                  </Route>
                   <Route exact path="/adminDashboard">
                     <AdminDashboard /> 
                   </Route>
@@ -75,13 +69,23 @@ function App() {
             </Switch>
           </>
         ) : (
-          <Login
-            userAuth={userAuth}
-            setUserAuth={setUserAuth}
-            isAdmin={isAdmin}
-            setIsAdmin={setIsAdmin}
-            exact path="/"
-          />
+
+            <Switch>
+              <Route exact path="/">
+                <Login
+                  userAuth={userAuth}
+                  setUserAuth={setUserAuth}
+                  isAdmin={isAdmin}
+                  setIsAdmin={setIsAdmin}
+                />
+              </Route>
+              <Route exact path="/resetPassword">
+                <Reset/>
+              </Route>
+              <Route exact path="/createAccount">
+                <CreateAccount/>
+              </Route>
+            </Switch>
         )}
       </Container>
     </Router>

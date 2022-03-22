@@ -16,6 +16,7 @@ import dickerLogoSquare from '../images/dickerLogoSquare.png';
 import Paper from '@mui/material/Paper';
 import InputAdornment from '@mui/material/InputAdornment';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import {Link} from "react-router-dom";
 
 // const getData = async () => {
 //   const url = '/accepted-offers';
@@ -235,6 +236,9 @@ const Login = ({ userAuth, setUserAuth, isAdmin, setIsAdmin }) => {
                   </NavLink>
                   <NavLink style={{ marginRight: 'auto' }} href='./CreateAccount'>
                     Create Account
+                  </NavLink>
+                  <NavLink tag={Link} to="/resetPassword">
+                    reset new
                   </NavLink>
                 </Row>
               </FormGroup>

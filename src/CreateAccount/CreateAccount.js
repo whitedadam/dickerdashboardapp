@@ -1,8 +1,23 @@
-import React from "react";
+import React, {useState} from "react";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import { Col, Container, Row } from "reactstrap";
 
 const CreateAccount = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPass, setConfirmPass] = useState("");
+  const handleOnSubmit = async() => {
+    const request = {
+      email, password
+    }
+    const response = await fetch('/register', {
+      method: 'POST',
+      body: JSON.stringify(request)
+    })
+    const data = await response.json()
+    console.log(data)
+  };
+
   return (
     <Container className={"accountContainer"}>
       <Form id="accountForm">
@@ -54,7 +69,7 @@ const CreateAccount = () => {
           </Row>
           <Row style={{ alignContent: "center" }}>
             <Col>
-              <Button>Submit</Button>
+              <Button type={"submit"} onSubmit={handleOnSubmit}>Submit</Button>
             </Col>
           </Row>
         </FormGroup>

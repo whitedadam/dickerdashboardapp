@@ -123,3 +123,16 @@ app.get("/businesses", async (req, res) => {
   });
   return success;
 });
+
+app.post("/register", async (req, res) => {
+  console.log("/register endpoint hit");
+  res.send({
+    message: "Success"
+  })
+  //let success = await executeStatement(queries.REGISTER, (rows) => {
+    //console.log(`Fetched ${rows.length} rows`);
+    //console.log(`Data: ${JSON.stringify(rows, null, 2)}`);
+    //res.send(rows);
+  //});
+  //return success;
+});
