@@ -1,3 +1,5 @@
+const {query} = require("express");
+
 const USER =
     'Select TOP (1000) [MerchantId],[FirstName],[LastName],[PhoneNumber],' +
     '[Email],[AppUserId],[DateCreated],[PushNotificationsEnabled],' +
@@ -26,25 +28,7 @@ const BUSINESSES =
     ',[Merchant_FK],[BusinessCode],[CategoryId],[SubCategoryId] FROM [dbo].[Business]' +
     ' WHERE Merchant_FK = 1';
 
-const REGISTER = 'INSERT INTO [dbo].[AspNetUsers]\n' +
-    '           ([Id]\n' +
-    '           ,[UserName]\n' +
-    '           ,[NormalizedUserName]\n' +
-    '           ,[Email]\n' +
-    '           ,[NormalizedEmail]\n' +
-    '           ,[EmailConfirmed]\n' +
-    '           ,[PasswordHash]\n' +
-    '           ,[SecurityStamp]\n' +
-    '           ,[ConcurrencyStamp]\n' +
-    '           ,[PhoneNumber]\n' +
-    '           ,[PhoneNumberConfirmed]\n' +
-    '           ,[TwoFactorEnabled]\n' +
-    '           ,[LockoutEnd]\n' +
-    '           ,[LockoutEnabled]\n' +
-    '           ,[AccessFailedCount]\n' +
-    '           ,[PushNotificationsEnabled]\n' +
-    '           ,[EmailNotificationsEnabled]\n' +
-    '           ,[Admin])\n';
+const REGISTER = 0;
 
 
 const REGISTERNEW = 'INSERT INTO [dbo].[AspNetUsers]\n' +
@@ -73,4 +57,4 @@ const REGISTERNEW = 'INSERT INTO [dbo].[AspNetUsers]\n' +
     '\n' +
     '\n';
 
-module.exports = {USER, ACCEPTED_OFFERS, OFFERS, SUBCATEGORIES, BUSINESSES, REGISTER, REGISTERNEW};
+module.exports = {USER, ACCEPTED_OFFERS, OFFERS, SUBCATEGORIES, REGISTER, BUSINESSES, REGISTERNEW};

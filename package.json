@@ -29,8 +29,14 @@
     "typescript": "^4.4.4",
     "web-vitals": "^1.1.2"
   },
+  "axios": {
+    "concurrently": "^0.26.1",
+    "type": "module"
+  },
   "devDependencies": {
+    "axios": "^0.26.1",
     "concurrently": "^7.0.0",
+    "cors": "^2.8.5",
     "emailjs-com": "^3.2.0",
     "prettier": "^2.5.1"
   },

@@ -3,6 +3,10 @@ const Connection = require("tedious").Connection;
 const Request = require("tedious").Request;
 const queries = require("./queries");
 
+
+
+
+
 // Creating Express app and setting port value
 const app = express();
 const port = process.env.PORT || 5000;
@@ -61,6 +65,9 @@ async function executeStatement(sql, cb) {
 
   connection.execSql(request);
 }
+
+var cors = require('cors')
+app.use(cors())
 
 app.use(express.static("build"));
 
@@ -124,15 +131,7 @@ app.get("/businesses", async (req, res) => {
   return success;
 });
 
-app.post("/register", async (req, res) => {
+app.post("/registerNew", async (req, res) => {
   console.log("/register endpoint hit");
-  res.send({
-    message: "Success"
-  })
-  //let success = await executeStatement(queries.REGISTER, (rows) => {
-    //console.log(`Fetched ${rows.length} rows`);
-    //console.log(`Data: ${JSON.stringify(rows, null, 2)}`);
-    //res.send(rows);
-  //});
-  //return success;
 });
+
