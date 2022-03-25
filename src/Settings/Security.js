@@ -1,73 +1,85 @@
-import { Button, Col, Container, Form, Input, Label, Row } from "reactstrap";
-import { React, useState } from "react";
+import { Col, Container, Input, Label, Row} from "reactstrap";
+import React from "react";
+import * as emailjs from 'emailjs-com';
 
-const Security = () => {
-  const [buttonColor, setButtonColor] = useState("secondary");
 
-  const onHover = () => {
-    setButtonColor("primary");
-  };
+export default function Security(){
 
-  const onHoverLeave = () => {
-    setButtonColor("secondary");
-  };
+  const sendEmail = (e) =>{
+    e.preventDefault();
+
+
+    emailjs.sendForm('service_jjjq44n', 'template_8g7oem6', e.target ,
+        'user_8TRknzbUmpANb1CJDvJnJ')
+        .then((result) => {
+          console.log(result.text);
+        }, (error) => {
+          console.log(error.text);
+        });
+    e.target.reset()
+  }
+
 
   return (
-    <Container className={"accountContainer"}>
-      <Form id="emailResetForm">
-        <Col>
-          <h1>
-            <small>Reset Password</small>
-          </h1>
-          <Row>
-            <br />
-            <Col>
-              <small>
-                Enter your account email address and username to reset password
-              </small>
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <Label>Username: </Label>
-              <Input
-                type="text"
-                name="username"
-                placeholder="Enter username..."
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <Label>Email:</Label>
-              <Input type="text" name="email" placeholder="Enter email..." />
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <Label>Confirm Email:</Label>
-              <Input
-                type="email"
-                name="confirmEmail"
-                placeholder="Enter email again..."
-              />
-            </Col>
-          </Row>
-          <Row style={{ alignContent: "center" }}>
-            <Col>
-              <Button
-                onMouseEnter={onHover}
-                onMouseLeave={onHoverLeave}
-                color={buttonColor}
-              >
-                Submit
-              </Button>
-            </Col>
-          </Row>
-        </Col>
-      </Form>
-    </Container>
+      <Container className={"accountContainer"}>
+        <form onSubmit={sendEmail}>
+          <Col>
+            <h1>
+              <small>Reset Password</small>
+            </h1>
+            <Row>
+              <br />
+              <Col>
+                <small>
+                  Enter your account email address and username to reset
+                  password
+                </small>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Label>Name: </Label>
+                <Input
+                    type="text"
+                    name="name"
+                    placeholder="Enter First Name..."
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Label>Username: </Label>
+                <Input
+                    type="text"
+                    name="username"
+                    placeholder="Enter username..."
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Label>Email:</Label>
+                <Input type="text" name="email" placeholder="Enter email..." />
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Label>Confirm Email:</Label>
+                <Input type="email" name="confirmEmail" placeholder="Enter email again..."/>
+              </Col>
+            </Row>
+            <Row style={{ alignContent: "center" }}>
+              <Col>
+                <div className = "col-8 pt-3 mx-auto">
+                  <button>
+                    <input type = "submit" className="btn btn info"  value ='submit'></input>
+                  </button>
+                </div>
+              </Col>
+            </Row>
+          </Col>
+        </form>
+      </Container>
   );
-};
+}
 
-export default Security;

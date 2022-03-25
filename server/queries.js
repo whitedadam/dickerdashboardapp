@@ -1,6 +1,7 @@
-const USER =
+const USERS =
   'Select TOP (1000) [MerchantId],[FirstName],[LastName],[PhoneNumber],' +
-  '[Email],[AppUserId],[DateCreated],[PushNotificationsEnabled],[EmailNotificationsEnabled] FROM [Merchant] WHERE MerchantId = 1';
+  '[Email],[AppUserId],[DateCreated],[PushNotificationsEnabled],' +
+  '[EmailNotificationsEnabled] FROM [Merchant] WHERE MerchantId = 1';
 
 const ACCEPTED_OFFERS =
   'SELECT TOP (1000) [AcceptedOfferId],[OfferCode],[ExpirationDateTime],' +
@@ -14,4 +15,15 @@ const OFFERS =
   '[DateTimeUpdated],[Friday],[InitialQuantity],[Monday],[QuantityRemaining],' +
   '[Saturday],[Sunday],[Thursday],[Tuesday],[Wednesday],[Business_FK],[DirectDICKER],[Wildcard],[SubCategory_FK],[InGrid] FROM [Offer]';
 
-module.exports = { USER, ACCEPTED_OFFERS, OFFERS };
+const SUBCATEGORIES =
+  'SELECT TOP (1000) [SubCategoryId],[SubCategoryName],[Category_FK] FROM [SubCategory]';
+
+// const SUBCATEGORIES_EXAMPLE = (id) => `SELECT TOP (1000) [${id}],[SubCategoryName],[Category_FK] FROM [SubCategory]`;
+
+const BUSINESSES = 
+  'SELECT TOP (1000) [BusinessId],[BusinessName],[StreetAddress1],[StreetAddress2]' +
+  ',[City],[State],[ZipCode],[BusinessPhone],[BusinessEmail],[DateTimeCreated],[DateTimeUpdated]' +
+  ',[Merchant_FK],[BusinessCode],[CategoryId],[SubCategoryId] FROM [dbo].[Business]' +
+  ' WHERE Merchant_FK = 1';
+
+module.exports = { USERS, ACCEPTED_OFFERS, OFFERS, SUBCATEGORIES, BUSINESSES };

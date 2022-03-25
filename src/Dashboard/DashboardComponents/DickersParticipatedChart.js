@@ -1,58 +1,211 @@
 import React, { useState } from "react";
 import { Chart } from "react-charts";
-import { Table, Row, Button, Container, Col } from "reactstrap";
+import { Table, Row, Button, Container, Col, Spinner } from "reactstrap";
 import ResizableBox from "./ResizableBox";
-import test from "./test.json";
-import offertest from "./sample-response.json";
 import { TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+import { useGetData } from "../../api/useGetData";
 
-// const getData = async () => {
-//   const url = "/offers";
-//   let headers = new Headers({
-//     "Content-Type": "application/json",
-//   });
-//   const resp = await fetch(url, {
-//     headers,
-//   });
+const offersUrl = "/api/offers";
 
-//   console.log("getData", resp);
-
-//   const data = await resp.json();
-
-//   return data;
-// };
-
-// const useGetData = () => {
-//   const [data, setData] = useState();
-//   const [isLoading, setIsLoading] = useState(false);
-
-//   useEffect(() => {
-//     const getMyData = async () => {
-//       setIsLoading(true);
-//       const resp = await getData();
-//       setData(resp);
-//       setIsLoading(false);
-//     };
-
-//     getMyData();
-//   }, []);
-
-//   return [data, isLoading];
-// };
-
-// const foo = test;
-
-const SampleChart = () => {
-  // const [data, isLoading] = useGetData();
+const DickersParticipatedChart = ({ filterStartDate, filterEndDate }) => {
   const [drilldown, setDrilldown] = useState(false);
-  // const today = new Date();
+  const [offersData, offersDataisLoading] = useGetData(offersUrl);
 
-  //   const { data: oldData } = DickersParticipatedSampleData({
-  //     series: 3,
-  //     dataType: "ordinal",
-  //   });
+  const buildInputData = () => {
+    // Array of Objects that will hold various datum based upon selected time intervals.
+    let inputData = [
+      {
+        label: "Direct DICKERs",
+        data: [
+          {
+            primary: "Monday",
+            secondary: 0,
+          },
+          {
+            primary: "Tuesday",
+            secondary: 0,
+          },
+          {
+            primary: "Wednesday",
+            secondary: 0,
+          },
+          {
+            primary: "Thursday",
+            secondary: 0,
+          },
+          {
+            primary: "Friday",
+            secondary: 0,
+          },
+          {
+            primary: "Saturday",
+            secondary: 0,
+          },
+          {
+            primary: "Sunday",
+            secondary: 0,
+          },
+        ],
+      },
+      {
+        label: "Wildcard DICKERs",
+        data: [
+          {
+            primary: "Monday",
+            secondary: 0,
+          },
+          {
+            primary: "Tuesday",
+            secondary: 0,
+          },
+          {
+            primary: "Wednesday",
+            secondary: 0,
+          },
+          {
+            primary: "Thursday",
+            secondary: 0,
+          },
+          {
+            primary: "Friday",
+            secondary: 0,
+          },
+          {
+            primary: "Saturday",
+            secondary: 0,
+          },
+          {
+            primary: "Sunday",
+            secondary: 0,
+          },
+        ],
+      },
+      {
+        label: "Selected to DICKERs",
+        data: [
+          {
+            primary: "Monday",
+            secondary: 0,
+          },
+          {
+            primary: "Tuesday",
+            secondary: 0,
+          },
+          {
+            primary: "Wednesday",
+            secondary: 0,
+          },
+          {
+            primary: "Thursday",
+            secondary: 0,
+          },
+          {
+            primary: "Friday",
+            secondary: 0,
+          },
+          {
+            primary: "Saturday",
+            secondary: 0,
+          },
+          {
+            primary: "Sunday",
+            secondary: 0,
+          },
+        ],
+      },
+    ];
 
-  //   console.log(data, JSON.stringify(oldData));
+    // Filtering Offer data between availble DICKER types
+    try {
+      let startFilter = new Date(filterStartDate);
+      let endFilter = new Date(filterEndDate);
+      let offers = offersData.filter((offer) => {
+        let offerDate = new Date(offer.StartingDate);
+        return offerDate > startFilter && offerDate <= endFilter;
+      });
+
+      offers.forEach((offer) => {
+        // Building Direct DICKERs Object
+        if (offer.DirectDICKER) {
+          if (offer.Monday) {
+            inputData[0].data[0].secondary++;
+          }
+          if (offer.Tuesday) {
+            inputData[0].data[1].secondary++;
+          }
+          if (offer.Wednesday) {
+            inputData[0].data[2].secondary++;
+          }
+          if (offer.Thursday) {
+            inputData[0].data[3].secondary++;
+          }
+          if (offer.Friday) {
+            inputData[0].data[4].secondary++;
+          }
+          if (offer.Saturday) {
+            inputData[0].data[5].secondary++;
+          }
+          if (offer.Sunday) {
+            inputData[0].data[6].secondary++;
+          }
+        }
+
+        // Building Wildcard DICKERs Object
+        if (offer.Wildcard) {
+          if (offer.Monday) {
+            inputData[1].data[0].secondary++;
+          }
+          if (offer.Tuesday) {
+            inputData[1].data[1].secondary++;
+          }
+          if (offer.Wednesday) {
+            inputData[1].data[2].secondary++;
+          }
+          if (offer.Thursday) {
+            inputData[1].data[3].secondary++;
+          }
+          if (offer.Friday) {
+            inputData[1].data[4].secondary++;
+          }
+          if (offer.Saturday) {
+            inputData[1].data[5].secondary++;
+          }
+          if (offer.Sunday) {
+            inputData[1].data[6].secondary++;
+          }
+        }
+
+        // Building Selected to DICKER Object
+        if (offer.InGrid) {
+          if (offer.Monday) {
+            inputData[2].data[0].secondary++;
+          }
+          if (offer.Tuesday) {
+            inputData[2].data[1].secondary++;
+          }
+          if (offer.Wednesday) {
+            inputData[2].data[2].secondary++;
+          }
+          if (offer.Thursday) {
+            inputData[2].data[3].secondary++;
+          }
+          if (offer.Friday) {
+            inputData[2].data[4].secondary++;
+          }
+          if (offer.Saturday) {
+            inputData[2].data[5].secondary++;
+          }
+          if (offer.Sunday) {
+            inputData[2].data[6].secondary++;
+          }
+        }
+      });
+    } catch (err) {}
+
+    // console.log(inputData);
+    return inputData;
+  };
+  const displayData = buildInputData();
 
   const primaryAxis = React.useMemo(
     () => ({
@@ -76,9 +229,9 @@ const SampleChart = () => {
 
   const dataTotals = () => {
     // Variables to hold all DICKER datatypes and data
-    const directDickers = test[0].data;
-    const wildcardDickers = test[1].data;
-    const selectedDickers = test[2].data;
+    const directDickers = displayData[0].data;
+    const wildcardDickers = displayData[1].data;
+    const selectedDickers = displayData[2].data;
 
     // Gathering all of the available DICKER type data into one place
     let totalDirect = 0;
@@ -94,9 +247,21 @@ const SampleChart = () => {
       out.push({ total });
       return total;
     };
-    totalDirect = countOfferTotals(directDickers, totalDirect, dickerTypeTotalsArrOut);
-    totalWildcard = countOfferTotals(wildcardDickers, totalWildcard, dickerTypeTotalsArrOut);
-    totalSelected = countOfferTotals(selectedDickers, totalSelected, dickerTypeTotalsArrOut);
+    totalDirect = countOfferTotals(
+      directDickers,
+      totalDirect,
+      dickerTypeTotalsArrOut
+    );
+    totalWildcard = countOfferTotals(
+      wildcardDickers,
+      totalWildcard,
+      dickerTypeTotalsArrOut
+    );
+    totalSelected = countOfferTotals(
+      selectedDickers,
+      totalSelected,
+      dickerTypeTotalsArrOut
+    );
 
     // Gathering total count of all Potential DICKERs
     let totalPotentialDickers = 0;
@@ -146,9 +311,11 @@ const SampleChart = () => {
 
     const countDayTotals = (obj) => {
       for (let day in obj) {
-        offertest.forEach((row) => {
-          if (row[day] === true) obj[day] += 1;
-        });
+        try {
+          offersData.forEach((row) => {
+            if (row[day] === true) obj[day] += 1;
+          });
+        } catch {}
       }
       return obj;
     };
@@ -189,17 +356,28 @@ const SampleChart = () => {
       leastActive,
     ];
   };
-
   const drilldownData = dataTotals();
+
+  if (offersDataisLoading)
+    return (
+      <Container>
+        <Col>
+          <Row></Row>
+          <Row>
+            <Spinner color={"warning"}></Spinner>Loading chart data...
+          </Row>
+          <Row></Row>
+        </Col>
+      </Container>
+    );
 
   return (
     <Container>
       <Row>
         <ResizableBox>
-          {/* <h5>DICKERs Participated In</h5> */}
           <Chart
             options={{
-              data: test,
+              data: displayData,
               primaryAxis,
               secondaryAxes,
             }}
@@ -209,16 +387,17 @@ const SampleChart = () => {
       <Row>
         <Col>
           <Button onClick={handleDrilldown} color="warning">
-            Participated DICKERS Drilldown
+            Drilldown
           </Button>
         </Col>
       </Row>
       {drilldown && (
         <Row>
+          <h5>Participated DICKER Totals</h5>
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>Total Potential DICKERs</TableCell>
+                <TableCell>Total Participated DICKERs</TableCell>
                 <TableCell>Selected to DICKER Count</TableCell>
                 <TableCell>Selected to DICKER %</TableCell>
                 <TableCell>Wildcard DICKERs Count</TableCell>
@@ -233,11 +412,23 @@ const SampleChart = () => {
               <TableRow>
                 <TableCell>{drilldownData[0]}</TableCell>
                 <TableCell>{drilldownData[1][2].total}</TableCell>
-                <TableCell>{drilldownData[2][2].percentage}%</TableCell>
+                <TableCell>
+                  {isNaN(drilldownData[2][2].percentage)
+                    ? "No Data"
+                    : drilldownData[2][2].percentage + "%"}
+                </TableCell>
                 <TableCell>{drilldownData[1][1].total}</TableCell>
-                <TableCell>{drilldownData[2][1].percentage}%</TableCell>
+                <TableCell>
+                  {isNaN(drilldownData[2][1].percentage)
+                    ? "No Data"
+                    : drilldownData[2][1].percentage + "%"}
+                </TableCell>
                 <TableCell>{drilldownData[1][0].total}</TableCell>
-                <TableCell>{drilldownData[2][0].percentage}%</TableCell>
+                <TableCell>
+                  {isNaN(drilldownData[2][0].percentage)
+                    ? "No Data"
+                    : drilldownData[2][0].percentage + "%"}
+                </TableCell>
                 <TableCell>{drilldownData[3]}</TableCell>
                 <TableCell>{drilldownData[4]}</TableCell>
               </TableRow>
@@ -249,4 +440,4 @@ const SampleChart = () => {
   );
 };
 
-export default SampleChart;
+export default DickersParticipatedChart;

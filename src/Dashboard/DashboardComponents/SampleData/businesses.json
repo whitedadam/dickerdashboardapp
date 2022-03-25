@@ -1,0 +1,53 @@
+[
+    {
+        "BusinessId": 1,
+        "BusinessName": "Sand Witches",
+        "StreetAddress1": "1 T'Be At The Beach Way",
+        "StreetAddress2": null,
+        "City": "Jacksonville Beach",
+        "State": "FL",
+        "ZipCode": "32082",
+        "BusinessPhone": "9045551455",
+        "BusinessEmail": "BUS@sandwitches.test",
+        "DateTimeCreated": "2021-04-27T17:31:07.690Z",
+        "DateTimeUpdated": "2021-04-27T17:31:07.690Z",
+        "Merchant_FK": 1,
+        "BusinessCode": "AAAAB ",
+        "CategoryId": 1,
+        "SubCategoryId": 1
+    },
+    {
+        "BusinessId": 2,
+        "BusinessName": "Jack Slacks",
+        "StreetAddress1": "4 Pantalones St",
+        "StreetAddress2": null,
+        "City": "Amelia Island",
+        "State": "FL",
+        "ZipCode": "32043",
+        "BusinessPhone": "9045551244",
+        "BusinessEmail": "jack@slacks.test",
+        "DateTimeCreated": "2021-04-28T21:57:19.343Z",
+        "DateTimeUpdated": "2021-04-28T21:57:19.343Z",
+        "Merchant_FK": 1,
+        "BusinessCode": "AAAAC ",
+        "CategoryId": 2,
+        "SubCategoryId": 3
+    },
+    {
+        "BusinessId": 3,
+        "BusinessName": "Ghost Sights",
+        "StreetAddress1": "666 West Elm St",
+        "StreetAddress2": null,
+        "City": "Middleburg",
+        "State": "FL",
+        "ZipCode": "32065",
+        "BusinessPhone": "9045552213",
+        "BusinessEmail": "ghost@Sights.test",
+        "DateTimeCreated": "2021-05-12T18:49:37.983Z",
+        "DateTimeUpdated": "2021-05-12T18:49:37.983Z",
+        "Merchant_FK": 1,
+        "BusinessCode": "AAAAD ",
+        "CategoryId": 3,
+        "SubCategoryId": 6
+    }
+]

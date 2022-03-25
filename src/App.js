@@ -23,7 +23,7 @@ function App() {
   const [userAuth, setUserAuth] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
-  console.log({ userAuth });
+  // console.log({ userAuth });
 
   return (
     <Router>

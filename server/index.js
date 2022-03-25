@@ -1,9 +1,13 @@
 const express = require("express");
-const app = express();
-const port = process.env.PORT || 5000;
 const Connection = require("tedious").Connection;
+const Request = require("tedious").Request;
 const queries = require("./queries");
 
+// Creating Express app and setting port value
+const app = express();
+const port = process.env.PORT || 5000;
+
+// Setting configuration for accessing hosted SQL DB with tedious
 const config = {
   server: "codingwpride.database.windows.net",
   options: {
@@ -18,6 +22,7 @@ const config = {
   },
 };
 
+// Creating connection obj for accessing db data
 const connection = new Connection(config);
 
 connection.on("connect", function (err) {
@@ -28,8 +33,6 @@ connection.on("connect", function (err) {
 });
 
 connection.connect();
-
-const Request = require("tedious").Request;
 
 async function executeStatement(sql, cb) {
   // const jsonArray = [];
@@ -59,49 +62,64 @@ async function executeStatement(sql, cb) {
   connection.execSql(request);
 }
 
+// Client Side Routing
+app.use(express.static("build"));
+
 // This displays message that the server running and listening to specified port
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
-// create a GET route
-app.get("/user", async (req, res) => {
-  let success = await executeStatement(queries.USER, (rows) => {
-    // console.log(rows + ' rows');
-    console.log(`Fetched ${rows.lenth} rows`);
+// Users
+app.get("/users", async (req, res) => {
+  console.log("/users endpoint hit");
+  let success = await executeStatement(queries.USERS, (rows) => {
+    console.log(`Fetched ${rows.length} rows`);
     console.log(`Data: ${JSON.stringify(rows, null, 2)}`);
-    // res.json({
-    //   data: rows,
-    // });
     res.send(rows);
   });
   return success;
 });
 
-// create a GET route
+// Accepted Offers
 app.get("/accepted-offers", async (req, res) => {
+  // Pull dynamic params from req body
+  // Pass into function to generate sql
   console.log("/accepted-offers endpoint hit");
   let success = await executeStatement(queries.ACCEPTED_OFFERS, (rows) => {
-    console.log(`Fetched ${rows.lenth} rows`);
+    console.log(`Fetched ${rows.length} rows`);
     console.log(`Data: ${JSON.stringify(rows, null, 2)}`);
-    // res.json({
-    //   data: rows,
-    // });
     res.send(rows);
   });
-  // console.log()
-  // console.log(success);
   return success;
 });
 
-// create a GET route
+// Offers
 app.get("/offers", async (req, res) => {
   console.log("/offers endpoint hit");
   let success = await executeStatement(queries.OFFERS, (rows) => {
-    // console.log(rows.length + ' rows');
-    console.log(`Fetched ${rows.lenth} rows`);
+    console.log(`Fetched ${rows.length} rows`);
     console.log(`Data: ${JSON.stringify(rows, null, 2)}`);
-    // res.json({
-    //   data: rows,
-    // });
+    res.send(rows);
+  });
+  return success;
+});
+
+// Subcategories
+app.get("/subcategories", async (req, res) => {
+  console.log("/subcategories endpoint hit");
+  let success = await executeStatement(queries.SUBCATEGORIES, (rows) => {
+    console.log(`Fetched ${rows.length} rows`);
+    console.log(`Data: ${JSON.stringify(rows, null, 2)}`);
+    res.send(rows);
+  });
+  return success;
+});
+
+// Businesses
+app.get("/businesses", async (req, res) => {
+  console.log("/businesses endpoint hit");
+  let success = await executeStatement(queries.BUSINESSES, (rows) => {
+    console.log(`Fetched ${rows.length} rows`);
+    console.log(`Data: ${JSON.stringify(rows, null, 2)}`);
     res.send(rows);
   });
   return success;
