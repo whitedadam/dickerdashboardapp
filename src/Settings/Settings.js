@@ -47,7 +47,7 @@ const Settings = () => {
             className="GeneralSettingsButton"
             onClick={handleClickGeneralSettings}
           >
-            <Link to="/general">General Settings</Link>
+            <Link to="/general">User Profile</Link>
           </Button>
         </Col>
         <Col className="NavigationSecurity">
