@@ -18,6 +18,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import {Link} from "react-router-dom";
 import EmailIcon from "@mui/icons-material/Email";
+import axios from "axios";
 
 // const getData = async () => {
 //   const url = '/accepted-offers';
@@ -75,6 +76,33 @@ const Login = ({ userAuth, setUserAuth, isAdmin, setIsAdmin }) => {
     let email = state.email;
     let password = state.password;
 
+    // call to server to authetnicat.
+
+    const user = {
+      username: email,
+      password: password
+    };
+console.log ("logging in ", user);
+    axios.post('/login', {user})
+        .then(res => {
+          console.log("response from server");
+          console.log(res);
+          console.log("DATA: ", res.data);
+          const data = res.data;
+          if(data.status===1)
+          {
+            console.log ("USER IS AUTHENTICI");
+            if(data.admin)
+            {
+              console.log ("ADMIN USER");
+            }
+            setUserAuth(true);
+            setIsAdmin(data.admin);
+
+          }
+
+        });
+/*
     const admin = {
       id: 1,
       email: 'admin@dicker.com',
@@ -136,6 +164,8 @@ const Login = ({ userAuth, setUserAuth, isAdmin, setIsAdmin }) => {
       console.log("haha you're done for. >:3");
       merchant.lockoutEnabled = true;
     }
+    */
+
   };
 
   const handleChange = (event) => {

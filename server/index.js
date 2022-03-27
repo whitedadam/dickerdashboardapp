@@ -135,18 +135,42 @@ app.post("/login",async (req,
                         res) => {
     const username = req.body.user.username;
     const password = req.body.user.password;
-    const select = `SELECT * FROM AspNetUsers2 WHERE UserName = '${username}' `;
+    console.log ("login:", username, " / ", password);
+    const select = `SELECT PasswordHash, Admin FROM AspNetUsers2 WHERE UserName = '${username}' `;
     let success = await executeStatement(select, (rows) => {
-
+      let obj=[];
+      console.log ("ADMIN VALUE: ", rows[0].Admin);
       if(rows.length===0 || rows[0].PasswordHash !== password)
-        res.send ({status: -1, message:"Invalid login"});
+        obj={status: -1, message:"Invalid login", admin:false};
       else
-        res.send({status: 1, message:"User logged in"});
+       obj={status: 1, message:"User logged in", admin: rows[0].Admin};
 
+    console.log("login result: ", obj);
+    res.send(obj);
     //console.log(`Fetched ${rows.length} rows`);
    // console.log(`Data: ${JSON.stringify(rows, null, 2)}`);
 
     });
+})
+app.get("/login/:username/:password",async (req,
+                         res) => {
+  const username = req.params.username;
+  const password = req.params.password;
+  console.log ("login:", username, " / ", password);
+  const select = `SELECT PasswordHash, Admin FROM AspNetUsers2 WHERE UserName = '${username}' `;
+  let success = await executeStatement(select, (rows) => {
+    let obj=[];
+    if(rows.length===0 || rows[0].PasswordHash !== password)
+      obj={status: -1, message:"Invalid login", admin:false};
+  else
+    obj={status: 1, message:"User logged in", admin: rows[0].Admin===1};
+
+    console.log("login result: ", obj);
+    res.send(obj);
+    //console.log(`Fetched ${rows.length} rows`);
+    // console.log(`Data: ${JSON.stringify(rows, null, 2)}`);
+
+  });
 })
 app.post("/registerNew", async (req,
                                 res) => {

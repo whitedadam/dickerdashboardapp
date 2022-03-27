@@ -40,6 +40,7 @@ function Nav({ userAuth, isAdmin, setUserAuth, setIsAdmin }) {
       position: 'absolute',
       right: '1280px',
       height: '100vh',
+      paddingTop: '0px'
     }}>
       <ProSidebar>
         <Menu iconShape="square">
