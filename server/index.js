@@ -2,10 +2,14 @@ const express = require("express");
 const Connection = require("tedious").Connection;
 const Request = require("tedious").Request;
 const queries = require("./queries");
+const bodyParser = require("body-parser");
 
 // Creating Express app and setting port value
 const app = express();
 const port = process.env.PORT || 5000;
+
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
 // Setting configuration for accessing hosted SQL DB with tedious
 const config = {
@@ -61,6 +65,10 @@ async function executeStatement(sql, cb) {
 
   connection.execSql(request);
 }
+
+var cors = require('cors')
+app.use(cors())
+
 
 // Client Side Routing
 app.use(express.static("build"));
@@ -118,6 +126,22 @@ app.get("/subcategories", async (req, res) => {
 app.get("/businesses", async (req, res) => {
   console.log("/businesses endpoint hit");
   let success = await executeStatement(queries.BUSINESSES, (rows) => {
+    console.log(`Fetched ${rows.length} rows`);
+    console.log(`Data: ${JSON.stringify(rows, null, 2)}`);
+    res.send(rows);
+  });
+  return success;
+});
+
+app.post("/newPasswordPage", async (req,
+                                res) => {
+  console.log("body", req.body.user);
+  const user = req.body.user;
+  const insert = `UPDATE [dbo].[AspNetUsers2] SET PasswordHash = '${user.createPass}' WHERE UserName = '${user.username}'`
+  //const insert = `UPDATE [dbo].[AspNetUsers2] (UserName, npmPasswordHash, Admin) VALUES('${user.regEmail}', '${user.createPass}', '0')`;
+
+  console.log("/register endpoint hit", insert);
+  let success = await executeStatement(insert, (rows) => {
     console.log(`Fetched ${rows.length} rows`);
     console.log(`Data: ${JSON.stringify(rows, null, 2)}`);
     res.send(rows);
