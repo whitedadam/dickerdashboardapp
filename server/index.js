@@ -152,26 +152,7 @@ app.post("/login",async (req,
 
     });
 })
-app.get("/login/:username/:password",async (req,
-                         res) => {
-  const username = req.params.username;
-  const password = req.params.password;
-  console.log ("login:", username, " / ", password);
-  const select = `SELECT PasswordHash, Admin FROM AspNetUsers2 WHERE UserName = '${username}' `;
-  let success = await executeStatement(select, (rows) => {
-    let obj=[];
-    if(rows.length===0 || rows[0].PasswordHash !== password)
-      obj={status: -1, message:"Invalid login", admin:false};
-  else
-    obj={status: 1, message:"User logged in", admin: rows[0].Admin===1};
 
-    console.log("login result: ", obj);
-    res.send(obj);
-    //console.log(`Fetched ${rows.length} rows`);
-    // console.log(`Data: ${JSON.stringify(rows, null, 2)}`);
-
-  });
-})
 app.post("/registerNew", async (req,
                                 res) => {
   console.log("body", req.body.user);
