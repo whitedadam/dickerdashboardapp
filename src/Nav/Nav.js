@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "react-pro-sidebar/dist/css/styles.css";
 import {
   Collapse,
   Container,
@@ -11,7 +12,10 @@ import {
 import { Link } from "react-router-dom";
 import dickerLogoSquare from "../images/dickerLogoSquare.png";
 import "./Nav.css";
-import users from '../mock-data.json'
+import { ProSidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
+import users from "../mock-data.json";
+import BarChartIcon from '@mui/icons-material/BarChart';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 function Nav({ userAuth, isAdmin, setUserAuth, setIsAdmin }) {
   const [userInfo] = useState(users);
@@ -32,50 +36,23 @@ function Nav({ userAuth, isAdmin, setUserAuth, setIsAdmin }) {
   if (!userAuth) return null;
 
   return (
-    <Container className={"navbar"}>
-      <Navbar color={"dark"} expand={"xl"}>
-        <Collapse isOpen={true} navbar>
-          <NavbarBrand>
-            <img src={dickerLogoSquare} alt={"DICKER logo"} />
-          </NavbarBrand>
-          {isAdmin ? (
-            <>
-              <NavItem>
-                <NavLink tag={Link} to="/adminDashboard">
-                  Admin Dashboard
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink tag={Link} to="/adminSettings">
-                  Admin Settings
-                </NavLink>
-              </NavItem>
-            </>
-          ) : (
-            <>
-              <NavItem>
-                <NavLink tag={Link} to="/dashboard">
-                  Dashboard
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink tag={Link} to="/settings">
-                  Settings
-                </NavLink>
-              </NavItem>
-            </>
-          )}
-          <NavItem>
-            <NavLink tag={Link} to={"/"} onClick={handleLogout}>
-              Logout
-            </NavLink>
-          </NavItem>
-          <NavItem className={"navDivider"}>
-            <p>__________________________________________________ </p>
-          </NavItem>
-          <NavbarText className={"merchantWelcome"}>Welcome, {isAdmin ? userInfo[1].firstName : userInfo[2].firstName}!</NavbarText>
-        </Collapse>
-      </Navbar>
+    <Container className={"navbar"} style={{
+      position: 'absolute',
+      right: '1280px',
+      height: '100vh',
+    }}>
+      <ProSidebar>
+        <Menu iconShape="square">
+            <MenuItem icon={<BarChartIcon/>} style={{
+              position: 'relative',
+              left: '40px',
+            }}>Dashboard<Link to ="/dashboard"/></MenuItem>
+          <MenuItem icon={<SettingsIcon/>} style={{
+            position: 'relative',
+            left: '40px'
+          }}>Settings<Link to ="/settings"/></MenuItem>
+        </Menu>
+      </ProSidebar>
     </Container>
   );
 }

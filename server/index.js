@@ -2,14 +2,15 @@ const express = require("express");
 const Connection = require("tedious").Connection;
 const Request = require("tedious").Request;
 const queries = require("./queries");
-
-
-
-
-
+const bodyParser = require('body-parser');
 // Creating Express app and setting port value
 const app = express();
 const port = process.env.PORT || 5000;
+
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
+
 
 // Setting configuration for accessing hosted SQL DB with tedious
 const config = {
@@ -72,7 +73,7 @@ app.use(cors())
 app.use(express.static("build"));
 
 // This displays message that the server running and listening to specified port
-app.listen(port, () => console.log(`Listening on port ${port}`));
+
 
 // Users
 app.get("/users", async (req, res) => {
@@ -130,8 +131,34 @@ app.get("/businesses", async (req, res) => {
   });
   return success;
 });
+app.post("/login",async (req,
+                        res) => {
+    const username = req.body.user.username;
+    const password = req.body.user.password;
+    const select = `SELECT * FROM AspNetUsers2 WHERE UserName = '${username}' `;
+    let success = await executeStatement(select, (rows) => {
 
-app.post("/registerNew", async (req, res) => {
-  console.log("/register endpoint hit");
+      if(rows.length===0 || rows[0].PasswordHash !== password)
+        res.send ({status: -1, message:"Invalid login"});
+      else
+        res.send({status: 1, message:"User logged in"});
+
+    //console.log(`Fetched ${rows.length} rows`);
+   // console.log(`Data: ${JSON.stringify(rows, null, 2)}`);
+
+    });
+})
+app.post("/registerNew", async (req,
+                                res) => {
+  console.log("body", req.body.user);
+  const user = req.body.user;
+  const insert = `INSERT INTO [dbo].[AspNetUsers2] (UserName, PasswordHash, Admin) VALUES('${user.regEmail}', '${user.createPass}', '0')`;
+
+  console.log("/register endpoint hit", insert);
+  let success = await executeStatement(insert, (rows) => {
+    console.log(`Fetched ${rows.length} rows`);
+    console.log(`Data: ${JSON.stringify(rows, null, 2)}`);
+    res.send(rows);
+  });
 });
-
+app.listen(port, () => console.log(`Listening on port ${port}`));

@@ -17,6 +17,7 @@ import Paper from '@mui/material/Paper';
 import InputAdornment from '@mui/material/InputAdornment';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import {Link} from "react-router-dom";
+import EmailIcon from "@mui/icons-material/Email";
 
 // const getData = async () => {
 //   const url = '/accepted-offers';
@@ -144,108 +145,105 @@ const Login = ({ userAuth, setUserAuth, isAdmin, setIsAdmin }) => {
 
   if (userAuth === false) {
     return (
-      <Card style={{ width: '500px', margin: 'auto' }} sx={{ boxShadow: 3 }}>
-        <body id='loginBody'>
-          <Container className={'loginContainer'}>
-            {/* <TestComponent /> */}
-            <Paper
-              sx={{ boxShadow: 0, marginLeft: '166px', marginRight: 'auto', marginTop: '15px', marginBottom: '15px' }}
-            >
-              <img src={dickerLogoSquare} alt={'dicker logo'} />
-            </Paper>
-            <Form id='loginForm' onSubmit={login}>
-              <FormGroup style={{ backgroundColor: '', alignContent: 'center' }}>
-                <Row>
-                  <Col>
-                    <Typography fontWeight='bold' id='loginHeader' component='h1' variant='h5' align='center'>
-                      Sign in
-                    </Typography>
-                  </Col>
-                </Row>
-                <br />
-                <Row>
-                  <Col>
-                    <TextField
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment position='start'>
-                            <AccountCircle />
-                          </InputAdornment>
-                        ),
-                      }}
-                      type='email'
-                      name='email'
-                      required
-                      autoFocus
-                      margin='normal'
-                      label='Email Address'
-                      id='email'
-                      fullWidth
-                      value={state.email}
-                      onChange={handleChange}
-                      placeholder='Enter email...'
-                    />
-                  </Col>
-                </Row>
-                <Row>
-                  <Col>
-                    <TextField
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment position='start'>
-                            <LockOutlinedIcon />
-                          </InputAdornment>
-                        ),
-                      }}
-                      type='password'
-                      name='password'
-                      id='password'
-                      required
-                      margin='normal'
-                      fullWidth
-                      label='Password'
-                      value={state.password}
-                      onChange={handleChange}
-                      placeholder='Enter password...'
-                    />
-                  </Col>
-                </Row>
-                <Row>
-                  <FormControlLabel
-                    sx={{ marginLeft: '6px' }}
-                    control={<Checkbox value='remember' color='primary' />}
-                    label='Remember me'
-                  />
-                </Row>
-                <Row style={{ marginTop: '-8px', alignContent: 'center' }}>
-                  <Col>
-                    <Button
-                      type='submit'
-                      fullWidth
-                      variant='contained'
-                      sx={{ backgroundColor: '#d9c07c', mt: 3, mb: 2 }}
-                    >
-                      Sign In
-                    </Button>
-                  </Col>
-                </Row>
-                <p className='App-intro'>{state.data}</p>
-                <Row>
-                  <NavLink style={{ marginLeft: '85px' }} href='./resetPassword'>
-                    Forgot Password?
-                  </NavLink>
-                  <NavLink style={{ marginRight: 'auto' }} href='./CreateAccount'>
-                    Create Account
-                  </NavLink>
-                  <NavLink tag={Link} to="/resetPassword">
-                    reset new
-                  </NavLink>
-                </Row>
-              </FormGroup>
-            </Form>
-          </Container>
-        </body>
-      </Card>
+          <Card style={{ width: '500px', margin: 'auto', marginTop: '300px' }} sx={{ boxShadow: 3 }}>
+            <body id='loginBody'>
+              <Container className={'loginContainer'}>
+                {/* <TestComponent /> */}
+                <Paper
+                  sx={{ boxShadow: 0, marginLeft: '166px', marginRight: 'auto', marginTop: '15px', marginBottom: '15px' }}
+                >
+                  <img src={dickerLogoSquare} alt={'dicker logo'} />
+                </Paper>
+                <Form id='loginForm' onSubmit={login}>
+                  <FormGroup style={{ backgroundColor: '', alignContent: 'center' }}>
+                    <Row>
+                      <Col>
+                        <Typography fontWeight='bold' id='loginHeader' component='h1' variant='h5' align='center'>
+                          Sign in
+                        </Typography>
+                      </Col>
+                    </Row>
+                    <br />
+                    <Row>
+                      <Col>
+                        <TextField
+                          InputProps={{
+                            startAdornment: (
+                              <InputAdornment position='start'>
+                                <EmailIcon />
+                              </InputAdornment>
+                            ),
+                          }}
+                          type='email'
+                          name='email'
+                          required
+                          autoFocus
+                          margin='normal'
+                          label='Email Address'
+                          id='email'
+                          fullWidth
+                          value={state.email}
+                          onChange={handleChange}
+                          placeholder='Enter email...'
+                        />
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col>
+                        <TextField
+                          InputProps={{
+                            startAdornment: (
+                              <InputAdornment position='start'>
+                                <LockOutlinedIcon />
+                              </InputAdornment>
+                            ),
+                          }}
+                          type='password'
+                          name='password'
+                          id='password'
+                          required
+                          margin='normal'
+                          fullWidth
+                          label='Password'
+                          value={state.password}
+                          onChange={handleChange}
+                          placeholder='Enter password...'
+                        />
+                      </Col>
+                    </Row>
+                    <Row>
+                      <FormControlLabel
+                        sx={{ marginLeft: '6px' }}
+                        control={<Checkbox value='remember' color='primary' />}
+                        label='Remember me'
+                      />
+                    </Row>
+                    <Row style={{ marginTop: '-8px', alignContent: 'center' }}>
+                      <Col>
+                        <Button
+                          type='submit'
+                          fullWidth
+                          variant='contained'
+                          sx={{ backgroundColor: '#d9c07c', mt: 3, mb: 2 }}
+                        >
+                          Sign In
+                        </Button>
+                      </Col>
+                    </Row>
+                    <p className='App-intro'>{state.data}</p>
+                    <Row>
+                      <NavLink style={{ marginLeft: '85px' }} href='./resetPassword'>
+                        Forgot Password?
+                      </NavLink>
+                      <NavLink style={{ marginRight: 'auto' }} href='./CreateAccount'>
+                        Create Account
+                      </NavLink>
+                    </Row>
+                  </FormGroup>
+                </Form>
+              </Container>
+            </body>
+          </Card>
     );
   } else if (userAuth === true) {
     if (isAdmin === false) {

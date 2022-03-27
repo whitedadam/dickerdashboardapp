@@ -16,6 +16,7 @@ import {
   SuccessfulDickersChart,
   DickersRedeemedChart,
 } from "./DashboardComponents";
+import AccountMenu from "../ProfileIcon/profileIcon";
 
 const acceptedOffersUrl = "/accepted-offers";
 // const offersUrl = "/offers";
@@ -66,16 +67,25 @@ const Dashboard = () => {
     );
 
   return (
-    <Container className={"dashboardContainer"}>
+    <Container style={{ position: 'relative', paddingTop: '125px', right: '150px', bottom: '90px'}} className={"dashboardContainer"}>
+      <AccountMenu/>
       <Row>
-        <Col>
-          <h3>Dashboard</h3>
+        <Col style={{
+          position: 'relative',
+          bottom: '90px'
+        }}>
+          <h3>Welcome to your dashboard!</h3>
         </Col>
-        <Col>
+        <Col style={{
+          right: '555px',
+          paddingBottom: '20px'
+        }}>
           <h5>Date Filter:</h5>
           <Form inline>
             <FormGroup className="mb-3">
-              <Label for={"startDateFilter"}>Start Date</Label>
+              <Label for={"startDateFilter"} style={{
+                paddingRight: '5px'
+              }}>Start Date:</Label>
               <Input
                 type={"date"}
                 id={"startDateFilter"}
@@ -85,7 +95,10 @@ const Dashboard = () => {
               />
             </FormGroup>
             <FormGroup className="mb-3">
-              <Label for={"endDateFilter"}>End Date</Label>
+              <Label for={"endDateFilter"} style={{
+                paddingRight: '5px',
+                paddingLeft: '20px'
+              }}>End Date:</Label>
               <Input
                 type={"date"}
                 id={"endDateFilter"}

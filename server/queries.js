@@ -30,8 +30,8 @@ const BUSINESSES =
 
 const REGISTER = 0;
 
-
-const REGISTERNEW = 'INSERT INTO [dbo].[AspNetUsers]\n' +
+const REGISTERNEW = 'INSERT INTO [dbo].[AspNetUsers] (UserName, PasswordHas) VALUES(?,?)';
+const REGISTERNEW_OLD = 'INSERT INTO [dbo].[AspNetUsers]\n' +
     '           ([Id]\n' +
     '           ,[UserName]\n' +
     '           ,[NormalizedUserName]\n' +
