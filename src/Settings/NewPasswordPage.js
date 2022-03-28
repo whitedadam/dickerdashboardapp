@@ -1,7 +1,6 @@
-import React, {useState} from "react";
-import { Form, FormGroup, Input, Label} from "reactstrap";
+import React from "react";
+import { Form, FormGroup} from "reactstrap";
 import {Col, Container, Row} from "reactstrap";
-import {render} from "react-dom";
 import axios from "axios";
 import { Card } from '@mui/material';
 import Paper from '@mui/material/Paper';
@@ -9,10 +8,8 @@ import dickerLogoSquare from "../images/dickerLogoSquare.png";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
-import AccountCircle from "@mui/icons-material/AccountCircle";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Button from '@mui/material/Button';
-import AddBusinessIcon from '@mui/icons-material/AddBusiness';
 import EmailIcon from "@mui/icons-material/Email";
 
 export default class NewPasswordPage extends React.Component {

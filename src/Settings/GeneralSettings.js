@@ -1,8 +1,7 @@
-import {Row, Table} from "reactstrap";
+import {Table} from "reactstrap";
 import userData from "../mock-data.json";
 import './GeneralSettings.css';
 import React, {useState, Fragment } from "react";
-import {use} from "express/lib/router";
 import {nanoid} from "nanoid";
 import ReadOnlyRow from "../components/ReadOnlyRow";
 import EditableRow from "../components/EditableRow";

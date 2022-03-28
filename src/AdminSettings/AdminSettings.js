@@ -1,6 +1,6 @@
 import React, {Fragment, useState} from "react";
 import "./AdminSettings.css";
-import {Container, NavItem, NavLink, Table} from "reactstrap";
+import {Container, Table} from "reactstrap";
 import adminData from "../mock-admindata.json";
 import {nanoid} from "nanoid";
 import ReadAdminRow from "../components/ReadAdminRow";
