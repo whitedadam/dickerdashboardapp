@@ -33,7 +33,7 @@ export default function Security() {
 
 
   return (
-      <Card style={{width: '500px', margin: 'auto', marginTop: '300px'}} sx={{boxShadow: 3}}>
+      <Card style={{width: '500px', margin: 'auto', marginTop: '25px'}} sx={{boxShadow: 3}}>
         <body id='loginBody'>
         <Container className={'loginContainer'}>
           {/* <TestComponent /> */}

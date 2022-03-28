@@ -5,7 +5,12 @@ import adminData from "../mock-admindata.json";
 import {nanoid} from "nanoid";
 import ReadAdminRow from "../components/ReadAdminRow";
 import EditableAdminRow from "../components/EditableAdminRow";
-
+import Paper from "@mui/material/Paper";
+import dickerLogoSquare from "../images/dickerLogoSquare.png";
+import Typography from "@mui/material/Typography";
+import {Card} from '@mui/material';
+import Button from "@mui/material/Button";
+import {Grid} from "@material-ui/core";
 
 
 const AdminSettings = () => {
@@ -21,7 +26,7 @@ const AdminSettings = () => {
         password: "",
         email: "",
         phoneNumber: "",
-    })
+    });
     const [editAdminId, setEditAdminId] = useState(null);
 
     const handleAddFormChange = (event) => {
@@ -70,7 +75,7 @@ const AdminSettings = () => {
             password: editForm.password,
             email: editForm.email,
             phoneNumber: editForm.phoneNumber
-        }
+        };
         const newAdmins = [...merchs];
 
         const index = merchs.findIndex((contact) =>contact.id === editAdminId);
@@ -106,11 +111,26 @@ const AdminSettings = () => {
         newContacts.splice(index, 1);
 
         setMerchs(newContacts);
-    }
+    };
 
     return (
         <div>
-            <h1>Admin Profile</h1>
+            <Card style={{width: '900px', margin: 'auto', marginTop: '25px'}} sx={{boxShadow: 3}}>
+                <Container className="AdminSettings">
+                    <Paper
+                        sx={{
+                            boxShadow: 0,
+                            marginLeft: '160px',
+                            marginRight: 'auto',
+                            marginTop: '15px',
+                            marginBottom: '15px'
+                        }}
+                    >
+                        <img src={dickerLogoSquare} alt={'dicker logo'} class="center"/>
+                    </Paper>
+                    <Typography fontWeight='bold' id='loginHeader' component='h1' variant='h5' align='center'>
+                        Admin Profile
+                    </Typography>
             <form onSubmit = {handleEditFormSubmit}>
                 <Table>
                     <thead>
@@ -138,41 +158,52 @@ const AdminSettings = () => {
                                 />
                             )}
                         </Fragment>
-                    ))};
+                    ))}
                     </tbody>
                 </Table>
             </form>
-            <h2 align = "center"> Add an Admin Profile</h2>
+                </Container>
+            </Card>
+            <Typography fontWeight='bold' id='loginHeader' component='h1' variant='h5' align='center'>
+               Add an Admin Profile
+            </Typography>
             <form onSubmit={handleAddFormSubmit}>
                 <input type = "text"
                        name="appUserId"
                        required="required"
                        placeholder="Enter your App User ID..."
-                       size= "50"
+                       size= "58"
                        onChange={handleAddFormChange}
                 />
                 <input type = "text"
                        name = "password"
                        required = "required"
                        placeholder = "Enter your password..."
-                       size = "50"
+                       size = "58"
                        onChange = {handleAddFormChange}
                        />
                 <input type = "text"
                        name = "email"
                        required="required"
                        placeholder="Enter your email..."
-                       size = "50"
+                       size = "58"
                        onChange={handleAddFormChange}
                 />
                 <input type="text"
                        name ="phoneNumber"
                        required="required"
                        placeholder="Enter your phone number.."
-                       size = "50"
+                       size = "58"
                        onChange={handleAddFormChange}
                 />
-                <button type = "submit">Add</button>
+                <Grid container justify="center">
+                <Button type = "submit"
+                        fullWidth
+                        className="btn btn info"
+                        variant='contained'
+                        sx={{backgroundColor: '#d9c07c', mt: 3, mb: 2}}
+                        style={{height: '30px',width: '250px' }}>Add</Button>
+                </Grid>
             </form>
         </div>
     );

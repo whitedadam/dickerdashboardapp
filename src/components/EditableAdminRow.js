@@ -1,3 +1,5 @@
+import Button from "@mui/material/Button";
+
 const EditableAdminRow = ({editForm,handleEditForm, handleCancel} ) => {
     return(
         <tr>
@@ -29,8 +31,12 @@ const EditableAdminRow = ({editForm,handleEditForm, handleCancel} ) => {
                 ></input>
             </td>
             <td>
-                <button type = "submit">Save</button>
-                <button type = "button" onClick = {handleCancel} >Cancel</button>
+                <Button type = "submit"
+                        sx={{backgroundColor: '#d9c07c', mt: 3, mb: 2}}
+                        style={{height: '30px',width: '100px' }}>Save</Button>
+                <Button type = "button" onClick = {handleCancel}
+                        sx={{backgroundColor: '#d9c07c', mt: 3, mb: 2}}
+                        style={{height: '30px',width: '100px' }}>Cancel</Button>
             </td>
         </tr>
     );

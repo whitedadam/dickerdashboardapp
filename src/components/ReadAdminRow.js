@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "@mui/material/Button";
 
 const ReadAdminRow = ({contact , handleEditClick, handleDelete}) => {
     return (
@@ -8,12 +9,17 @@ const ReadAdminRow = ({contact , handleEditClick, handleDelete}) => {
             <td>{contact.email}</td>
             <td>{contact.phoneNumber}</td>
             <td>
-                <button type = "button"
+                <Button type = "button"
                         onClick = {(event) => handleEditClick(event,contact)}
-                >Edit</button>
-                <button type = "button"
+                        sx={{backgroundColor: '#d9c07c', mt: 3, mb: 2}}
+                        style={{height: '30px',width: '100px' }}
+
+                >Edit</Button>
+                <Button type = "button"
                         onClick = {() => handleDelete(contact.id)}
-                >Delete</button>
+                        sx={{backgroundColor: '#d9c07c', mt: 3, mb: 2}}
+                        style={{height: '30px',width: '100px' }}
+                >Delete</Button>
             </td>
         </tr>
     );

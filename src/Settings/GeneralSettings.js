@@ -6,6 +6,13 @@ import {use} from "express/lib/router";
 import {nanoid} from "nanoid";
 import ReadOnlyRow from "../components/ReadOnlyRow";
 import EditableRow from "../components/EditableRow";
+import Paper from "@mui/material/Paper";
+import dickerLogoSquare from "../images/dickerLogoSquare.png";
+import {Card} from '@mui/material';
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import {Grid} from "@material-ui/core";
 
 
 
@@ -106,15 +113,30 @@ const handleEditFormSubmit = (event) => {
 
   return (
     <div>
-      <h1>User Profile</h1>
+        <Card style={{width: '900px', margin: 'auto', marginTop: '25px'}} sx={{boxShadow: 3}}>
+            <Container className="GeneralSettings">
+                <Paper
+                    sx={{
+                        boxShadow: 0,
+                        marginLeft: '160px',
+                        marginRight: 'auto',
+                        marginTop: '15px',
+                        marginBottom: '15px'
+                    }}
+                >
+                    <img src={dickerLogoSquare} alt={'dicker logo'} class="center"/>
+                </Paper>
+                <Typography fontWeight='bold' id='loginHeader' component='h1' variant='h5' align='center'>
+                    User Profile
+                </Typography>
         <form onSubmit = {handleEditFormSubmit}>
       <Table>
         <thead>
           <tr>
-            <th>appUserId</th>
-            <th>Email</th>
-            <th>Phone Number</th>
-              <th>Actions</th>
+            <th >appUserId</th>
+            <th  >Email</th>
+            <th  >Phone Number</th>
+              <th  >Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -133,31 +155,43 @@ const handleEditFormSubmit = (event) => {
                 />
                     )}
             </Fragment>
-            ))};
+            ))}
         </tbody>
       </Table>
         </form>
-      <h2> Add a Profile</h2>
+            </Container>
+        </Card>
+        <Typography fontWeight='bold' id='loginHeader' component='h1' variant='h5' align='center'>
+            Add a Profile
+        </Typography>
       <form onSubmit={handleAddFormSubmit}>
         <input type = "text"
                name="appUserId"
                required="required"
                placeholder="Enter your App User ID..."
+               size = "38"
                onChange={handleAddFormChange}
                />
         <input type = "text"
                name = "email"
                required="required"
                placeholder="Enter your email..."
+               size = "38"
+
                onChange={handleAddFormChange}
                />
         <input type="text"
                name ="phoneNumber"
                required="required"
                placeholder="Enter your phone number.."
+               size = "38"
                onChange={handleAddFormChange}
                />
-        <button type = "submit">Add</button>
+          <Grid container justify="center">
+        <Button type = "submit"
+                sx={{backgroundColor: '#d9c07c', mt: 3, mb: 2}}
+                style={{height: '30px',width: '250px' }}>Add</Button>
+          </Grid>
       </form>
     </div>
   );

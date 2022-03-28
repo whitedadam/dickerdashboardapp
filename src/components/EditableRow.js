@@ -1,4 +1,5 @@
 import {handle} from "express/lib/router";
+import Button from "@mui/material/Button";
 
 const EditableRow = ({editFormData,handleEditFormChange, handleCancelClick} ) => {
     return(
@@ -31,8 +32,13 @@ const EditableRow = ({editFormData,handleEditFormChange, handleCancelClick} ) =>
                 ></input>
             </td>
             <td>
-                <button type = "submit">Save</button>
-                <button type = "button" onClick = {handleCancelClick} >Cancel</button>
+                <Button type = "submit"
+                        sx={{backgroundColor: '#d9c07c', mt: 3, mb: 2}}
+                        style={{height: '30px',width: '100px' }}
+                        >Save</Button>
+                <Button type = "button" onClick = {handleCancelClick}
+                        sx={{backgroundColor: '#d9c07c', mt: 3, mb: 2}}
+                        style={{height: '30px',width: '100px' }}>Cancel</Button>
             </td>
         </tr>
     );
