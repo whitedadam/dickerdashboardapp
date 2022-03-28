@@ -1,0 +1,6 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "DATABASE_CONNECTION_STRING": "Server=tcp:codingwpride.database.windows.net,1433;Initial Catalog=DICKERdashboard;Persist Security Info=False;User ID=Adam;Password=CodingWPride2021;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+  }
+}
