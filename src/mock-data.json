@@ -1,5 +1,6 @@
 [
   {
+    "id": 1,
     "merchantId": "1",
     "firstName": "mr",
     "lastName": "dude",
@@ -13,6 +14,7 @@
     "isAdmin": false
   },
   {
+    "id": 2,
     "merchantId": "2",
     "firstName": "Admin",
     "lastName": "AdminLast",
@@ -26,10 +28,11 @@
     "isAdmin": true
   },
   {
+    "id": 3,
     "merchantId": "3",
     "firstName": "FirstBob",
     "lastName": "LastBob",
-    "phoneNumber": "904-555-1728",
+    "phoneNumber": "904-5554-1728",
     "email": "firstcheck@lastcheck.test",
     "appUserId": "cdfb55f7-0fc4-4854-8d3d-4139f40d647a",
     "password": "12345",

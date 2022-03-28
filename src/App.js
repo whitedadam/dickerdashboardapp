@@ -18,6 +18,7 @@ import AdminDashboard from "./AdminDashboard";
 import Notifications from "./Settings/Notifications";
 import Security from "./Settings/Security";
 import GeneralSettings from "./Settings/GeneralSettings";
+import NewPasswordPage from "./Settings/NewPasswordPage";
 
 function App() {
   const [userAuth, setUserAuth] = useState(false);
@@ -55,9 +56,6 @@ function App() {
                   <Route exact path="/adminDash">
                     <AdminDashboard /> 
                   </Route>
-                  <Route exact path="/adminSettings">
-                    <AdminSettings /> 
-                  </Route>
                   <Route exact path="/security">
                     <Security /> 
                   </Route>
@@ -75,13 +73,25 @@ function App() {
             </Switch>
           </>
         ) : (
-          <Login
-            userAuth={userAuth}
-            setUserAuth={setUserAuth}
-            isAdmin={isAdmin}
-            setIsAdmin={setIsAdmin}
-            exact path="/"
-          />
+            <Switch>
+              <Route exact path="/">
+                <Login
+                    userAuth={userAuth}
+                    setUserAuth={setUserAuth}
+                    isAdmin={isAdmin}
+                    setIsAdmin={setIsAdmin}
+                />
+              </Route>
+              <Route exact path="/resetPassword">
+                <Reset/>
+              </Route>
+              <Route exact path="/createAccount">
+                <CreateAccount/>
+              </Route>
+              <Route exact path="/newPasswordPage">
+                <NewPasswordPage/>
+              </Route>
+            </Switch>
         )}
       </Container>
     </Router>

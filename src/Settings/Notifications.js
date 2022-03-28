@@ -1,6 +1,12 @@
 import { React, } from "react";
 import { Col, Container, Input, Label, Row} from "reactstrap";
 import * as emailjs from "emailjs-com";
+import dickerLogoSquare from "../images/dickerLogoSquare.png";
+import {Card} from '@mui/material';
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
+import {Grid} from "@material-ui/core";
+import Button from "@mui/material/Button";
 
 const Notifications = () => {
 
@@ -19,13 +25,25 @@ const Notifications = () => {
   }
 
   return (
+      <Card style={{width: '500px', margin: 'auto', marginTop: '25px'}} sx={{boxShadow: 3}}>
     <Container className={"notificationOption"}>
+      <Paper
+          sx={{
+            boxShadow: 0,
+            marginLeft: '166px',
+            marginRight: 'auto',
+            marginTop: '15px',
+            marginBottom: '15px'
+          }}
+      >
+      <img src={dickerLogoSquare} alt={'dicker logo'}/>
+      </Paper>
       <form onSubmit={sendEmail}>
         <Col>
-          <h1>
-            <small>Update Notification Settings</small>
-          </h1>
-          <Row>
+          <Typography fontWeight='bold' id='loginHeader' component='h1' variant='h5'
+                      align='center'>Update Notification Settings
+          </Typography>
+          <Row style = {{marginTop: '15px', alignContent: 'center'}}>
             <br />
             <Col>
               <small>
@@ -33,7 +51,7 @@ const Notifications = () => {
               </small>
             </Col>
           </Row>
-          <Row>
+          <Row style = {{marginTop: '15px'}}>
             <Col>
               <Label>Name: </Label>
               <Input
@@ -43,36 +61,39 @@ const Notifications = () => {
               />
             </Col>
           </Row>
-          <Row>
+          <Row style = {{marginTop: '15px'}}>
             <Col>
               <Label>Email:</Label>
               <Input type="text" name="email" placeholder="Enter email..." />
             </Col>
           </Row>
-          <Row>
+          <Row style = {{marginTop: '15px'}}>
             <Col>
               <Input type="checkbox" name="directEmail" />
               <Label>Allow emails to be sent directly to you</Label>
             </Col>
           </Row>
-          <Row>
-            <Col>
-              <Input type="checkbox" name="pushNotifications" />
-              <Label> Allow push notifications from Dicker Dashboard</Label>
-            </Col>
-          </Row>
-          <Row style={{ alignContent: "center" }}>
+          <Row style={{marginTop: '-35px', alignContent: 'center'}}>
             <Col>
               <div className = "col-8 pt-3 mx-auto">
-                <button>
-                  <input type = "submit" className="btn btn info"  value ='submit'></input>
-                </button>
+                <Grid container justify="center">
+                  <Button
+                      type='submit'
+                      fullWidth
+                      className="btn btn info"
+                      variant='contained'
+                      sx={{backgroundColor: '#d9c07c', mt: 3, mb: 2}}
+                  >
+                    Update Notifications
+                  </Button>
+                </Grid>
               </div>
             </Col>
           </Row>
         </Col>
       </form>
     </Container>
+      </Card>
   );
 };
 
