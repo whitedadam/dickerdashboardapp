@@ -1,6 +1,6 @@
 const Connection = require('tedious').Connection;
 const Request = require('tedious').Request;
-const queries = require('../../server/queries');
+const queries = require('../queries');
 
 // Setting configuration for accessing hosted SQL DB with tedious
 const config = {
