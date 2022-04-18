@@ -24,11 +24,31 @@ function App() {
 
   return (
     <Router>
-      <Container className={"app"} style={{
-        width: "100vw",
-        height: "100vh",
-      }}>
-        {userAuth ? (
+      <Container
+        className={"app"}
+        style={{
+          width: "100vw",
+          height: "100vh",
+        }}
+      >
+        {!userAuth ? (
+          <Switch>
+            <Route exact path="/">
+              <Login
+                userAuth={userAuth}
+                setUserAuth={setUserAuth}
+                isAdmin={isAdmin}
+                setIsAdmin={setIsAdmin}
+              />
+            </Route>
+            <Route exact path="/resetPassword">
+              <Reset />
+            </Route>
+            <Route exact path="/createAccount">
+              <CreateAccount />
+            </Route>
+          </Switch>
+        ) : (
           <>
             <Switch>
               <Row>
@@ -72,27 +92,18 @@ function App() {
                   <Route>
                     <Redirect to={isAdmin ? "/adminDash" : "/dashboard"} />
                   </Route>
+                  <Route exact path="/">
+                    <Login
+                      userAuth={userAuth}
+                      setUserAuth={setUserAuth}
+                      isAdmin={isAdmin}
+                      setIsAdmin={setIsAdmin}
+                    />
+                  </Route>
                 </Col>
               </Row>
             </Switch>
           </>
-        ) : (
-          <Switch>
-            <Route exact path="/">
-              <Login
-                userAuth={userAuth}
-                setUserAuth={setUserAuth}
-                isAdmin={isAdmin}
-                setIsAdmin={setIsAdmin}
-              />
-            </Route>
-            <Route exact path="/resetPassword">
-              <Reset />
-            </Route>
-            <Route exact path="/createAccount">
-              <CreateAccount />
-            </Route>
-          </Switch>
         )}
       </Container>
     </Router>

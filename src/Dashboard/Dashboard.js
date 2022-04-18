@@ -74,8 +74,9 @@ const Dashboard = ({ userAuth, isAdmin, setUserAuth, setIsAdmin }) => {
         width: "100%",
       }}
     >
+      {/* Page Heading */}
       <Row>
-        <Col sm={10}>
+        <Col sm={10} style={{ margin: "auto" }}>
           <h3>Welcome to your dashboard!</h3>
         </Col>
         <Col sm={2}>
@@ -87,6 +88,7 @@ const Dashboard = ({ userAuth, isAdmin, setUserAuth, setIsAdmin }) => {
           />
         </Col>
       </Row>
+      {/* Date Filter Row */}
       <Row xs={12}>
         <Card
           style={{
@@ -138,13 +140,19 @@ const Dashboard = ({ userAuth, isAdmin, setUserAuth, setIsAdmin }) => {
           </CardBody>
         </Card>
       </Row>
-      <Row className="mb-3">
-        <Col lg={8}>
-          <Card
-            style={{
-              width: "750px",
-            }}
-          >
+      {/* Spacer Row for Formatting */}
+      <Row></Row>
+      {/* Participated & Redeemed Row */}
+      <Row
+        className="mb-3"
+        style={{
+          marginTop: "10px",
+          width: "100%",
+        }}
+      >
+        {/* Participated Col */}
+        <Col md={8}>
+          <Card>
             <CardHeader>
               <h5>DICKERs Participated In</h5>
             </CardHeader>
@@ -158,12 +166,9 @@ const Dashboard = ({ userAuth, isAdmin, setUserAuth, setIsAdmin }) => {
             </CardBody>
           </Card>
         </Col>
-        <Col lg={4}>
-          <Card
-            style={{
-              width: "350px",
-            }}
-          >
+        {/* Redeemed Col */}
+        <Col md={4}>
+          <Card>
             <CardHeader>
               <h5>DICKERs Redeemed</h5>
             </CardHeader>
@@ -179,14 +184,13 @@ const Dashboard = ({ userAuth, isAdmin, setUserAuth, setIsAdmin }) => {
           </Card>
         </Col>
       </Row>
-      <Row>{/* Spacer Row for Formatting */}</Row>
-      <Row className="mb-3">
+      {/* Spacer Row for Formatting */}
+      <Row></Row>
+      {/* Accepted and Potential Row */}
+      <Row className="mb-3" style={{ width: "100%" }}>
+        {/* Accepted Col */}
         <Col lg={4}>
-          <Card
-            style={{
-              width: "350px",
-            }}
-          >
+          <Card>
             <CardHeader>
               <h5>DICKERs Accepted</h5>
             </CardHeader>
@@ -201,12 +205,9 @@ const Dashboard = ({ userAuth, isAdmin, setUserAuth, setIsAdmin }) => {
             </CardBody>
           </Card>
         </Col>
+        {/* Potential Col */}
         <Col lg={8}>
-          <Card
-            style={{
-              width: "750px",
-            }}
-          >
+          <Card>
             <CardHeader>
               <h5>Potential DICKERs</h5>
             </CardHeader>
