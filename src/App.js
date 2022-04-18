@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { useState } from "react";
 import {
   Switch,
   BrowserRouter as Router,
@@ -18,7 +18,6 @@ import AdminDashboard from "./AdminDashboard";
 import Notifications from "./Settings/Notifications";
 import Security from "./Settings/Security";
 import GeneralSettings from "./Settings/GeneralSettings";
-import NewPasswordPage from "./Settings/NewPasswordPage";
 
 function App() {
   const [userAuth, setUserAuth] = useState(false);
