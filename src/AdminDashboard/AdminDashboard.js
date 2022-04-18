@@ -17,7 +17,7 @@ import { Link } from "react-router-dom";
 import AdminDickers from "./AdminDashboardComponents/AdminDickersChart";
 import { useGetData } from "../api/useGetData";
 
-const acceptedOffersUrl = "/accepted-offers";
+const acceptedOffersUrl = "/api/accepted-offers";
 
 const AdminDashboard = ({ userAuth, isAdmin }) => {
   const [merch] = useState(adminData);

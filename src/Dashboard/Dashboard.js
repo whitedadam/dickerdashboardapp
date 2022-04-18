@@ -1,15 +1,6 @@
-import React, { useState } from "react";
-import {
-  Col,
-  Container,
-  Row,
-  Spinner,
-  Input,
-  Label,
-  Form,
-  FormGroup,
-} from "reactstrap";
-import { useGetData } from "../api/useGetData";
+import React, { useState } from 'react';
+import { Col, Container, Row, Spinner, Input, Label, Form, FormGroup } from 'reactstrap';
+import { useGetData } from '../api/useGetData';
 import {
   PotentialDickersChart,
   DickersParticipatedChart,
@@ -18,29 +9,26 @@ import {
 } from "./DashboardComponents";
 import AccountMenu from "../ProfileIcon/profileIcon";
 
-const acceptedOffersUrl = "/accepted-offers";
+const acceptedOffersUrl = '/api/accepted-offers';
 // const offersUrl = "/offers";
 
 // get all the data you need at once, and then pass down what is relevant to the component
 
 const Dashboard = () => {
-  const [acceptedOffersData, acceptedOffersIsLoading] =
-    useGetData(acceptedOffersUrl);
+  const [acceptedOffersData, acceptedOffersIsLoading] = useGetData(acceptedOffersUrl);
 
   const setDefaultStartDateFilter = () => {
     let startDate = new Date();
     startDate.setDate(startDate.getDate() - 365);
-    let startDateString = startDate.toISOString().split("T")[0];
+    let startDateString = startDate.toISOString().split('T')[0];
     return startDateString;
   };
-  const [filterStartDate, setFilterStartDate] = useState(
-    setDefaultStartDateFilter
-  );
+  const [filterStartDate, setFilterStartDate] = useState(setDefaultStartDateFilter);
 
   const setDefaultEndDateFilter = () => {
     let endDate = new Date();
     endDate.setDate(endDate.getDate());
-    let endDateString = endDate.toISOString().split("T")[0];
+    let endDateString = endDate.toISOString().split('T')[0];
     return endDateString;
   };
   const [filterEndDate, setFilterEndDate] = useState(setDefaultEndDateFilter);
@@ -59,7 +47,7 @@ const Dashboard = () => {
         <Col>
           <Row></Row>
           <Row>
-            <Spinner color={"warning"}></Spinner>Loading chart data...
+            <Spinner color={'warning'}></Spinner>Loading chart data...
           </Row>
           <Row></Row>
         </Col>
@@ -87,11 +75,11 @@ const Dashboard = () => {
                 paddingRight: '5px'
               }}>Start Date:</Label>
               <Input
-                type={"date"}
-                id={"startDateFilter"}
-                name={"startDateFilter"}
+                type={'date'}
+                id={'startDateFilter'}
+                name={'startDateFilter'}
                 onChange={handleStartDateChange}
-                bsSize={"sm"}
+                bsSize={'sm'}
               />
             </FormGroup>
             <FormGroup className="mb-3">
@@ -100,27 +88,24 @@ const Dashboard = () => {
                 paddingLeft: '20px'
               }}>End Date:</Label>
               <Input
-                type={"date"}
-                id={"endDateFilter"}
-                name={"endDateFilter"}
+                type={'date'}
+                id={'endDateFilter'}
+                name={'endDateFilter'}
                 onChange={handleEndDateChange}
-                bsSize={"sm"}
+                bsSize={'sm'}
               />
             </FormGroup>
           </Form>
         </Col>
       </Row>
-      <Row className="mb-3">
-        <Col xs={"8"}>
+      <Row className='mb-3'>
+        <Col xs={'8'}>
           <h5>DICKERs Participated In</h5>
           {acceptedOffersData ? (
-            <DickersParticipatedChart
-              filterStartDate={filterStartDate}
-              filterEndDate={filterEndDate}
-            />
+            <DickersParticipatedChart filterStartDate={filterStartDate} filterEndDate={filterEndDate} />
           ) : null}
         </Col>
-        <Col xs={"4"}>
+        <Col xs={'4'}>
           <h5>DICKERs Redeemed</h5>
           {acceptedOffersData ? (
             <DickersRedeemedChart
@@ -132,8 +117,8 @@ const Dashboard = () => {
         </Col>
       </Row>
       <Row>{/* Spacer Row for Formatting */}</Row>
-      <Row className="mb-3">
-        <Col xs={"4"}>
+      <Row className='mb-3'>
+        <Col xs={'4'}>
           <h5>DICKERs Accepted</h5>
           {acceptedOffersData ? (
             <SuccessfulDickersChart
@@ -143,13 +128,10 @@ const Dashboard = () => {
             />
           ) : null}
         </Col>
-        <Col xs={"8"}>
+        <Col xs={'8'}>
           <h5>Potential DICKERs</h5>
           {acceptedOffersData ? (
-            <PotentialDickersChart
-              filterStartDate={filterStartDate}
-              filterEndDate={filterEndDate}
-            />
+            <PotentialDickersChart filterStartDate={filterStartDate} filterEndDate={filterEndDate} />
           ) : null}
         </Col>
       </Row>

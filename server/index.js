@@ -10,8 +10,6 @@ const port = process.env.PORT || 5000;
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-
-
 // Setting configuration for accessing hosted SQL DB with tedious
 const config = {
   server: "codingwpride.database.windows.net",
@@ -70,6 +68,8 @@ async function executeStatement(sql, cb) {
 var cors = require('cors')
 app.use(cors())
 
+
+// Client Side Routing
 app.use(express.static("build"));
 
 // This displays message that the server running and listening to specified port
@@ -78,7 +78,7 @@ app.use(express.static("build"));
 // Users
 app.get("/users", async (req, res) => {
   console.log("/users endpoint hit");
-  let success = await executeStatement(queries.USER, (rows) => {
+  let success = await executeStatement(queries.USERS, (rows) => {
     console.log(`Fetched ${rows.length} rows`);
     console.log(`Data: ${JSON.stringify(rows, null, 2)}`);
     res.send(rows);

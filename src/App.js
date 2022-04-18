@@ -18,12 +18,13 @@ import AdminDashboard from "./AdminDashboard";
 import Notifications from "./Settings/Notifications";
 import Security from "./Settings/Security";
 import GeneralSettings from "./Settings/GeneralSettings";
+import NewPasswordPage from "./Settings/NewPasswordPage";
 
 function App() {
   const [userAuth, setUserAuth] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
-  console.log({ userAuth });
+  // console.log({ userAuth });
 
   return (
     <Router>
@@ -48,9 +49,6 @@ function App() {
                   </Route>
                   <Route exact path="/adminDash">
                     <AdminDashboard /> 
-                  </Route>
-                  <Route exact path="/adminSettings">
-                    <AdminSettings /> 
                   </Route>
                   <Route exact path="/security">
                     <Security /> 

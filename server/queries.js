@@ -1,9 +1,7 @@
-const {query} = require("express");
-
-const USER =
-    'Select TOP (1000) [MerchantId],[FirstName],[LastName],[PhoneNumber],' +
-    '[Email],[AppUserId],[DateCreated],[PushNotificationsEnabled],' +
-    '[EmailNotificationsEnabled] FROM [Merchant] WHERE MerchantId = 1';
+const USERS =
+  'Select TOP (1000) [MerchantId],[FirstName],[LastName],[PhoneNumber],' +
+  '[Email],[AppUserId],[DateCreated],[PushNotificationsEnabled],' +
+  '[EmailNotificationsEnabled] FROM [Merchant] WHERE MerchantId = 1';
 
 const ACCEPTED_OFFERS =
     'SELECT TOP (1000) [AcceptedOfferId],[OfferCode],[ExpirationDateTime],' +
@@ -57,4 +55,4 @@ const REGISTERNEW_OLD = 'INSERT INTO [dbo].[AspNetUsers]\n' +
     '\n' +
     '\n';
 
-module.exports = {USER, ACCEPTED_OFFERS, OFFERS, SUBCATEGORIES, REGISTER, BUSINESSES, REGISTERNEW};
+module.exports = {USERS, ACCEPTED_OFFERS, OFFERS, SUBCATEGORIES, REGISTER, BUSINESSES, REGISTERNEW};
