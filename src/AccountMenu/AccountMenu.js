@@ -8,8 +8,9 @@ import Tooltip from '@mui/material/Tooltip';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { Link } from "react-router-dom";
 
-export default function AccountMenu() {
+export default function AccountMenu({ userAuth, isAdmin, setUserAuth, setIsAdmin }) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -18,12 +19,11 @@ export default function AccountMenu() {
     const handleClose = () => {
         setAnchorEl(null);
     };
+    const handleLogout = () => {
+        setUserAuth(false);
+      };
     return (
-        <div style={{
-            position: 'relative',
-            left: '950px',
-            bottom: '20px',
-        }}>
+        <div>
             <React.Fragment style>
                 <Box sx={{display: 'flex', alignItems: 'center', textAlign: 'center'}}>
 
@@ -81,11 +81,12 @@ export default function AccountMenu() {
                         </ListItemIcon>
                         Settings
                     </MenuItem>
-                    <MenuItem>
+                    <MenuItem onClick={handleLogout}>
                         <ListItemIcon>
                             <Logout  fontSize="small"/>
                         </ListItemIcon>
                         Logout
+                        <Link to="/" />
                     </MenuItem>
                 </Menu>
             </React.Fragment>

@@ -199,9 +199,9 @@ const Login = ({ userAuth, setUserAuth, isAdmin, setIsAdmin }) => {
     );
   } else if (userAuth === true) {
     if (isAdmin === false) {
-      return <Dashboard userAuth={userAuth} isAdmin={isAdmin} />;
+      return <Dashboard userAuth={userAuth} isAdmin={isAdmin} setUserAuth={setUserAuth} setIsAdmin={setIsAdmin} />;
     } else {
-      return <AdminDashboard userAuth={userAuth} isAdmin={isAdmin} />;
+      return <AdminDashboard userAuth={userAuth} isAdmin={isAdmin} setUserAuth={setUserAuth} setIsAdmin={setIsAdmin} />;
     }
   }
 };

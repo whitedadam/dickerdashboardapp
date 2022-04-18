@@ -1,34 +1,47 @@
-import React, { useState } from 'react';
-import { Col, Container, Row, Spinner, Input, Label, Form, FormGroup } from 'reactstrap';
-import { useGetData } from '../api/useGetData';
+import React, { useState } from "react";
+import {
+  Col,
+  Container,
+  Row,
+  Spinner,
+  Input,
+  Label,
+  Form,
+  FormGroup,
+  Card,
+  CardHeader,
+  CardBody,
+} from "reactstrap";
+import { useGetData } from "../api/useGetData";
 import {
   PotentialDickersChart,
   DickersParticipatedChart,
   SuccessfulDickersChart,
   DickersRedeemedChart,
 } from "./DashboardComponents";
-import AccountMenu from "../ProfileIcon/profileIcon";
+import AccountMenu from "../AccountMenu/AccountMenu";
 
-const acceptedOffersUrl = '/api/accepted-offers';
-// const offersUrl = "/offers";
-
+const acceptedOffersUrl = "/api/accepted-offers";
 // get all the data you need at once, and then pass down what is relevant to the component
 
-const Dashboard = () => {
-  const [acceptedOffersData, acceptedOffersIsLoading] = useGetData(acceptedOffersUrl);
+const Dashboard = ({ userAuth, isAdmin, setUserAuth, setIsAdmin }) => {
+  const [acceptedOffersData, acceptedOffersIsLoading] =
+    useGetData(acceptedOffersUrl);
 
   const setDefaultStartDateFilter = () => {
     let startDate = new Date();
     startDate.setDate(startDate.getDate() - 365);
-    let startDateString = startDate.toISOString().split('T')[0];
+    let startDateString = startDate.toISOString().split("T")[0];
     return startDateString;
   };
-  const [filterStartDate, setFilterStartDate] = useState(setDefaultStartDateFilter);
+  const [filterStartDate, setFilterStartDate] = useState(
+    setDefaultStartDateFilter
+  );
 
   const setDefaultEndDateFilter = () => {
     let endDate = new Date();
     endDate.setDate(endDate.getDate());
-    let endDateString = endDate.toISOString().split('T')[0];
+    let endDateString = endDate.toISOString().split("T")[0];
     return endDateString;
   };
   const [filterEndDate, setFilterEndDate] = useState(setDefaultEndDateFilter);
@@ -47,7 +60,7 @@ const Dashboard = () => {
         <Col>
           <Row></Row>
           <Row>
-            <Spinner color={'warning'}></Spinner>Loading chart data...
+            <Spinner color={"warning"}></Spinner>Loading chart data...
           </Row>
           <Row></Row>
         </Col>
@@ -55,84 +68,157 @@ const Dashboard = () => {
     );
 
   return (
-    <Container style={{ position: 'relative', paddingTop: '125px', right: '150px', bottom: '90px'}} className={"dashboardContainer"}>
-      <AccountMenu/>
+    <Container
+      className={"dashboardContainer"}
+      style={{
+        width: "100%",
+      }}
+    >
       <Row>
-        <Col style={{
-          position: 'relative',
-          bottom: '90px'
-        }}>
+        <Col sm={10}>
           <h3>Welcome to your dashboard!</h3>
         </Col>
-        <Col style={{
-          right: '555px',
-          paddingBottom: '20px'
-        }}>
-          <h5>Date Filter:</h5>
-          <Form inline>
-            <FormGroup className="mb-3">
-              <Label for={"startDateFilter"} style={{
-                paddingRight: '5px'
-              }}>Start Date:</Label>
-              <Input
-                type={'date'}
-                id={'startDateFilter'}
-                name={'startDateFilter'}
-                onChange={handleStartDateChange}
-                bsSize={'sm'}
-              />
-            </FormGroup>
-            <FormGroup className="mb-3">
-              <Label for={"endDateFilter"} style={{
-                paddingRight: '5px',
-                paddingLeft: '20px'
-              }}>End Date:</Label>
-              <Input
-                type={'date'}
-                id={'endDateFilter'}
-                name={'endDateFilter'}
-                onChange={handleEndDateChange}
-                bsSize={'sm'}
-              />
-            </FormGroup>
-          </Form>
+        <Col sm={2}>
+          <AccountMenu
+            userAuth={userAuth}
+            isAdmin={isAdmin}
+            setUserAuth={setUserAuth}
+            setIsAdmin={setIsAdmin}
+          />
         </Col>
       </Row>
-      <Row className='mb-3'>
-        <Col xs={'8'}>
-          <h5>DICKERs Participated In</h5>
-          {acceptedOffersData ? (
-            <DickersParticipatedChart filterStartDate={filterStartDate} filterEndDate={filterEndDate} />
-          ) : null}
+      <Row xs={12}>
+        <Card
+          style={{
+            width: "100%",
+          }}
+        >
+          <CardHeader>
+            <h5>Date Filter</h5>
+            <p>Default setting is last 365 days</p>
+          </CardHeader>
+          <CardBody>
+            <Form inline>
+              <FormGroup className="mb-3">
+                <Label
+                  for={"startDateFilter"}
+                  style={{
+                    paddingRight: "5px",
+                  }}
+                >
+                  Start Date:
+                </Label>
+                <Input
+                  type={"date"}
+                  id={"startDateFilter"}
+                  name={"startDateFilter"}
+                  onChange={handleStartDateChange}
+                  bsSize={"sm"}
+                />
+              </FormGroup>
+              <FormGroup className="mb-3">
+                <Label
+                  for={"endDateFilter"}
+                  style={{
+                    paddingRight: "5px",
+                    paddingLeft: "20px",
+                  }}
+                >
+                  End Date:
+                </Label>
+                <Input
+                  type={"date"}
+                  id={"endDateFilter"}
+                  name={"endDateFilter"}
+                  onChange={handleEndDateChange}
+                  bsSize={"sm"}
+                />
+              </FormGroup>
+            </Form>
+          </CardBody>
+        </Card>
+      </Row>
+      <Row className="mb-3">
+        <Col lg={8}>
+          <Card
+            style={{
+              width: "750px",
+            }}
+          >
+            <CardHeader>
+              <h5>DICKERs Participated In</h5>
+            </CardHeader>
+            <CardBody>
+              {acceptedOffersData ? (
+                <DickersParticipatedChart
+                  filterStartDate={filterStartDate}
+                  filterEndDate={filterEndDate}
+                />
+              ) : null}
+            </CardBody>
+          </Card>
         </Col>
-        <Col xs={'4'}>
-          <h5>DICKERs Redeemed</h5>
-          {acceptedOffersData ? (
-            <DickersRedeemedChart
-              acceptedOffersData={acceptedOffersData}
-              filterStartDate={filterStartDate}
-              filterEndDate={filterEndDate}
-            />
-          ) : null}
+        <Col lg={4}>
+          <Card
+            style={{
+              width: "350px",
+            }}
+          >
+            <CardHeader>
+              <h5>DICKERs Redeemed</h5>
+            </CardHeader>
+            <CardBody>
+              {acceptedOffersData ? (
+                <DickersRedeemedChart
+                  acceptedOffersData={acceptedOffersData}
+                  filterStartDate={filterStartDate}
+                  filterEndDate={filterEndDate}
+                />
+              ) : null}
+            </CardBody>
+          </Card>
         </Col>
       </Row>
       <Row>{/* Spacer Row for Formatting */}</Row>
-      <Row className='mb-3'>
-        <Col xs={'4'}>
-          <h5>DICKERs Accepted</h5>
-          {acceptedOffersData ? (
-            <SuccessfulDickersChart
-              acceptedOffersData={acceptedOffersData}
-              filterStartDate={filterStartDate}
-              filterEndDate={filterEndDate}
-            />
-          ) : null}
+      <Row className="mb-3">
+        <Col lg={4}>
+          <Card
+            style={{
+              width: "350px",
+            }}
+          >
+            <CardHeader>
+              <h5>DICKERs Accepted</h5>
+            </CardHeader>
+            <CardBody>
+              {acceptedOffersData ? (
+                <SuccessfulDickersChart
+                  acceptedOffersData={acceptedOffersData}
+                  filterStartDate={filterStartDate}
+                  filterEndDate={filterEndDate}
+                />
+              ) : null}
+            </CardBody>
+          </Card>
         </Col>
-        <Col xs={'8'}>
-          <h5>Potential DICKERs</h5>
-          {acceptedOffersData ? (
-            <PotentialDickersChart filterStartDate={filterStartDate} filterEndDate={filterEndDate} />
-          ) : null}
+        <Col lg={8}>
+          <Card
+            style={{
+              width: "750px",
+            }}
+          >
+            <CardHeader>
+              <h5>Potential DICKERs</h5>
+            </CardHeader>
+            <CardBody>
+              {acceptedOffersData ? (
+                <PotentialDickersChart
+                  filterStartDate={filterStartDate}
+                  filterEndDate={filterEndDate}
+                />
+              ) : null}
+            </CardBody>
+          </Card>
         </Col>
       </Row>
     </Container>
