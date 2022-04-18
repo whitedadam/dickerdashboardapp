@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { useState } from "react";
 import {
   Switch,
   BrowserRouter as Router,
@@ -18,52 +18,56 @@ import AdminDashboard from "./AdminDashboard";
 import Notifications from "./Settings/Notifications";
 import Security from "./Settings/Security";
 import GeneralSettings from "./Settings/GeneralSettings";
-import NewPasswordPage from "./Settings/NewPasswordPage";
 
 function App() {
   const [userAuth, setUserAuth] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
-  // console.log({ userAuth });
-
   return (
     <Router>
-      <Container className={"app"}>
+      <Container className={"app"} style={{
+        width: "100vw",
+        height: "100vh",
+      }}>
         {userAuth ? (
           <>
-            <Nav userAuth={userAuth} isAdmin={isAdmin} setUserAuth={setUserAuth} setIsAdmin={setIsAdmin}/>
             <Switch>
               <Row>
-                <Col>                  
+                {/* <Col xs={3}>
+                  <Nav
+                    userAuth={userAuth}
+                    isAdmin={isAdmin}
+                    setUserAuth={setUserAuth}
+                    setIsAdmin={setIsAdmin}
+                  />
+                </Col> */}
+                <Col>
                   <Route exact path="/dashboard">
-                    <Dashboard /> 
-                  </Route>
-                  <Route exact path="/resetPassword">
-                    <Reset /> 
-                  </Route>
-                  <Route exact path="/createAccount">
-                    <CreateAccount /> 
+                    <Dashboard />
                   </Route>
                   <Route exact path="/adminDashboard">
-                    <AdminDashboard /> 
+                    <AdminDashboard />
                   </Route>
                   <Route exact path="/adminSettings">
-                    <AdminSettings /> 
+                    <AdminSettings />
                   </Route>
                   <Route exact path="/settings">
                     <Settings userAuth={userAuth} isAdmin={isAdmin} />
                   </Route>
                   <Route exact path="/adminDash">
-                    <AdminDashboard /> 
+                    <AdminDashboard />
                   </Route>
                   <Route exact path="/security">
-                    <Security /> 
+                    <Security />
                   </Route>
                   <Route exact path="/notifications">
-                    <Notifications /> 
+                    <Notifications />
                   </Route>
                   <Route exact path="/general">
-                    <GeneralSettings /> 
+                    <GeneralSettings />
+                  </Route>
+                  <Route exact path="/createAccount">
+                    <CreateAccount />
                   </Route>
                   <Route>
                     <Redirect to={isAdmin ? "/adminDash" : "/dashboard"} />
@@ -73,25 +77,22 @@ function App() {
             </Switch>
           </>
         ) : (
-            <Switch>
-              <Route exact path="/">
-                <Login
-                    userAuth={userAuth}
-                    setUserAuth={setUserAuth}
-                    isAdmin={isAdmin}
-                    setIsAdmin={setIsAdmin}
-                />
-              </Route>
-              <Route exact path="/resetPassword">
-                <Reset/>
-              </Route>
-              <Route exact path="/createAccount">
-                <CreateAccount/>
-              </Route>
-              <Route exact path="/newPasswordPage">
-                <NewPasswordPage/>
-              </Route>
-            </Switch>
+          <Switch>
+            <Route exact path="/">
+              <Login
+                userAuth={userAuth}
+                setUserAuth={setUserAuth}
+                isAdmin={isAdmin}
+                setIsAdmin={setIsAdmin}
+              />
+            </Route>
+            <Route exact path="/resetPassword">
+              <Reset />
+            </Route>
+            <Route exact path="/createAccount">
+              <CreateAccount />
+            </Route>
+          </Switch>
         )}
       </Container>
     </Router>

@@ -1,82 +1,75 @@
-import React, { useState } from "react";
-import {
-  Collapse,
-  Container,
-  Navbar,
-  NavbarBrand,
-  NavbarText,
-  NavItem,
-  NavLink,
-} from "reactstrap";
 import { Link } from "react-router-dom";
-import dickerLogoSquare from "../images/dickerLogoSquare.png";
-import "./Nav.css";
-import users from '../mock-data.json'
+import 'react-pro-sidebar/dist/css/styles.css';
+import {
+  ProSidebar,
+  Menu,
+  MenuItem,
+  SidebarContent,
+  SidebarFooter,
+  SidebarHeader,
+} from "react-pro-sidebar";
+import BarChartIcon from "@mui/icons-material/BarChart";
+import SettingsIcon from "@mui/icons-material/Settings";
+import { Logout } from "@mui/icons-material";
 
 function Nav({ userAuth, isAdmin, setUserAuth, setIsAdmin }) {
-  const [userInfo] = useState(users);
-
-  const handleLogout = (e) => {
-    e.preventDefault();
+  const handleLogout = () => {
     setUserAuth(false);
-    setIsAdmin(false);
   };
-
-  // const fetchUserInfo = async () => {
-  //   const res = await fetch(`http://localhost:5000/user`);
-  //   const data = await res.json();
-
-  //   return data;
-  // };
 
   if (!userAuth) return null;
 
   return (
-    <Container className={"navbar"}>
-      <Navbar color={"dark"} expand={"xl"}>
-        <Collapse isOpen={true} navbar>
-          <NavbarBrand>
-            <img src={dickerLogoSquare} alt={"DICKER logo"} />
-          </NavbarBrand>
-          {isAdmin ? (
-            <>
-              <NavItem>
-                <NavLink tag={Link} to="/adminDashboard">
-                  Admin Dashboard
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink tag={Link} to="/adminSettings">
-                  Admin Settings
-                </NavLink>
-              </NavItem>
-            </>
-          ) : (
-            <>
-              <NavItem>
-                <NavLink tag={Link} to="/dashboard">
-                  Dashboard
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink tag={Link} to="/settings">
-                  Settings
-                </NavLink>
-              </NavItem>
-            </>
-          )}
-          <NavItem>
-            <NavLink tag={Link} to={"/"} onClick={handleLogout}>
+    <div style={{
+      height: "100vh",
+    }}>
+      <ProSidebar style={{
+        height: "100vh",
+      }}>
+        <SidebarHeader>
+          <p>    DICKER Dashboard</p>
+        </SidebarHeader>
+        <SidebarContent>
+          <Menu iconShape="square">
+            <MenuItem
+              icon={<BarChartIcon />}
+              style={{
+                position: "relative",
+                left: "40px",
+              }}
+            >
+              Dashboard
+              <Link to="/dashboard" />
+            </MenuItem>
+            <MenuItem
+              icon={<SettingsIcon />}
+              style={{
+                position: "relative",
+                left: "40px",
+              }}
+            >
+              Settings
+              <Link to="/settings" />
+            </MenuItem>
+          </Menu>
+        </SidebarContent>
+        <SidebarFooter>
+          <Menu>
+            <MenuItem
+              icon={<Logout />}
+              style={{
+                position: "relative",
+                left: "40px",
+              }}
+              onClick={handleLogout}
+            >
               Logout
-            </NavLink>
-          </NavItem>
-          <NavItem className={"navDivider"}>
-            <p>__________________________________________________ </p>
-          </NavItem>
-          <NavbarText className={"merchantWelcome"}>Welcome, {isAdmin ? userInfo[1].firstName : userInfo[2].firstName}!</NavbarText>
-        </Collapse>
-      </Navbar>
-    </Container>
+              <Link to="/" />
+            </MenuItem>
+          </Menu>
+        </SidebarFooter>
+      </ProSidebar>
+    </div>
   );
 }
 

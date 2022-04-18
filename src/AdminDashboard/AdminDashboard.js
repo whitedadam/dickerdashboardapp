@@ -64,7 +64,7 @@ const AdminDashboard = ({ userAuth, isAdmin }) => {
     );
 
   return (
-    <Container className="AdminDashboard">
+    <Container className="AdminDashboard" >
       <Row>
         <Col>
           <h3>Welcome, {merch[1].firstName}!</h3>

@@ -1,24 +1,11 @@
 import React from "react";
-import { Button, Form, FormGroup, Input, Label } from "reactstrap";
-import { Col, Container, Row } from "reactstrap";
+import { Container} from "reactstrap";
+import Security from "../Settings/Security";
 
 const Reset = () => {
   return (
     <Container className={"resetPassContainer"}>
-      <Form id="resetForm">
-        <FormGroup>
-          <Row>
-            <Col>
-              <h2>
-                Enter your account email address to the receive reset email!
-              </h2>
-            </Col>
-          </Row>
-          <Label for={"resetEmail"}>Email:</Label>
-          <Input type="email" name="resetEmail" placeholder="Enter email..." />
-          <Button>Submit</Button>
-        </FormGroup>
-      </Form>
+      <Security />
     </Container>
   );
 };
