@@ -1,6 +1,5 @@
 import React from "react";
-import { Button, Form, FormGroup, Input, Label } from "reactstrap";
-import { Col, Container, Row } from "reactstrap";
+import { Container} from "reactstrap";
 import Security from "../Settings/Security";
 
 const Reset = () => {

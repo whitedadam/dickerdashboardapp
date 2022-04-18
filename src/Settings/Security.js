@@ -1,4 +1,4 @@
-import {Col, Container, Form, Input, Label, NavLink, Row} from "reactstrap";
+import {Col, Container, Form, Row} from "reactstrap";
 import React from "react";
 import * as emailjs from 'emailjs-com';
 import {Card, FormGroup} from '@mui/material';
@@ -7,10 +7,6 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
 import EmailIcon from '@mui/icons-material/Email';
 

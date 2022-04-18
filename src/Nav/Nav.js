@@ -1,30 +1,14 @@
-import React, { useState } from "react";
 import "react-pro-sidebar/dist/css/styles.css";
 import {
-  Collapse,
   Container,
-  Navbar,
-  NavbarBrand,
-  NavbarText,
-  NavItem,
-  NavLink,
 } from "reactstrap";
 import { Link } from "react-router-dom";
-import dickerLogoSquare from "../images/dickerLogoSquare.png";
 import "./Nav.css";
-import { ProSidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
-import users from "../mock-data.json";
+import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import BarChartIcon from '@mui/icons-material/BarChart';
 import SettingsIcon from '@mui/icons-material/Settings';
 
 function Nav({ userAuth, isAdmin, setUserAuth, setIsAdmin }) {
-  const [userInfo] = useState(users);
-
-  const handleLogout = (e) => {
-    e.preventDefault();
-    setUserAuth(false);
-    setIsAdmin(false);
-  };
 
   // const fetchUserInfo = async () => {
   //   const res = await fetch(`http://localhost:5000/user`);

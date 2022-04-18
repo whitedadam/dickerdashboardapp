@@ -15,8 +15,6 @@ import { Card } from '@mui/material';
 import dickerLogoSquare from '../images/dickerLogoSquare.png';
 import Paper from '@mui/material/Paper';
 import InputAdornment from '@mui/material/InputAdornment';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import {Link} from "react-router-dom";
 import EmailIcon from "@mui/icons-material/Email";
 import axios from "axios";
 
