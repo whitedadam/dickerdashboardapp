@@ -58,6 +58,9 @@ function App() {
                   <Route exact path="/general">
                     <GeneralSettings /> 
                   </Route>
+                  <Route exact path="/createAccount">
+                    <CreateAccount /> 
+                  </Route>
                   <Route>
                     <Redirect to={isAdmin ? "/adminDash" : "/dashboard"} />
                   </Route>

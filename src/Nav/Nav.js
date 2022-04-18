@@ -21,10 +21,10 @@ function Nav({ userAuth, isAdmin, setUserAuth, setIsAdmin }) {
 
   return (
     <Container className={"navbar"} style={{
-      position: 'absolute',
-      right: '1280px',
-      height: '100vh',
-      paddingTop: '0px'
+      position: 'relatve',
+      // right: '1280px',
+      // height: '100vh',
+      // paddingTop: '0px'
     }}>
       <ProSidebar>
         <Menu iconShape="square">

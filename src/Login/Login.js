@@ -1,6 +1,6 @@
-import { React, useState } from "react";
-import { Form, FormGroup, NavLink } from "reactstrap";
-import { Col, Row } from "reactstrap";
+import { useState } from "react";
+import { Form, FormGroup, NavLink, Col, Row } from "reactstrap";
+import { Link } from "react-router-dom";
 import Dashboard from "../Dashboard";
 import AdminDashboard from "../AdminDashboard";
 import Button from "@mui/material/Button";
@@ -178,13 +178,15 @@ const Login = ({ userAuth, setUserAuth, isAdmin, setIsAdmin }) => {
                 <Row>
                   <NavLink
                     style={{ marginLeft: "85px" }}
-                    href="./resetPassword"
+                    to="/resetPassword"
+                    tag={Link}
                   >
                     Forgot Password?
                   </NavLink>
                   <NavLink
                     style={{ marginRight: "auto" }}
-                    href="./CreateAccount"
+                    to="/createAccount"
+                    tag={Link}
                   >
                     Create Account
                   </NavLink>
