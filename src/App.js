@@ -8,7 +8,6 @@ import {
 import { Col, Container, Row } from "reactstrap";
 import "./App.css";
 import Login from "./Login";
-import Nav from "./Nav";
 import Dashboard from "./Dashboard";
 import Settings from "./Settings";
 import Reset from "./Reset";
@@ -33,7 +32,8 @@ function App() {
           <>
             <Switch>
               <Row>
-                {/* <Col xs={3}>
+                {/* We may not use a nav bar. Just the AccountMenu nav.
+                <Col xs={3}> 
                   <Nav
                     userAuth={userAuth}
                     isAdmin={isAdmin}
