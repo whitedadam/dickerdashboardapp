@@ -20,6 +20,7 @@ import {
   DickersRedeemedChart,
 } from "./DashboardComponents";
 import AccountMenu from "../AccountMenu/AccountMenu";
+import dickerLogoSquare from "../images/dickerLogoSquare.png";
 
 const acceptedOffersUrl = "/api/accepted-offers";
 // get all the data you need at once, and then pass down what is relevant to the component
@@ -76,8 +77,13 @@ const Dashboard = ({ userAuth, isAdmin, setUserAuth, setIsAdmin }) => {
     >
       {/* Page Heading */}
       <Row>
-        <Col sm={10} style={{ margin: "auto" }}>
-          <h3>Welcome to your dashboard!</h3>
+        <Col sm={10} style={{ margin: "auto", display: "inline-flex" }}>
+          <img src={dickerLogoSquare} alt={"dicker logo"} style={{
+            height: "35px",
+            width: "35px",
+            "margin-right": "5px"
+          }}/>
+          <h3>Welcome to your DICKER dashboard!</h3>
         </Col>
         <Col sm={2}>
           <AccountMenu
@@ -93,6 +99,7 @@ const Dashboard = ({ userAuth, isAdmin, setUserAuth, setIsAdmin }) => {
         <Card
           style={{
             width: "100%",
+            "box-shadow": "3px 3px 3px",
           }}
         >
           <CardHeader>
@@ -152,7 +159,7 @@ const Dashboard = ({ userAuth, isAdmin, setUserAuth, setIsAdmin }) => {
       >
         {/* Participated Col */}
         <Col md={8}>
-          <Card>
+          <Card style={{ "box-shadow": "3px 3px 3px" }}>
             <CardHeader>
               <h5>DICKERs Participated In</h5>
             </CardHeader>
@@ -168,7 +175,7 @@ const Dashboard = ({ userAuth, isAdmin, setUserAuth, setIsAdmin }) => {
         </Col>
         {/* Redeemed Col */}
         <Col md={4}>
-          <Card>
+          <Card style={{ "box-shadow": "3px 3px 3px" }}>
             <CardHeader>
               <h5>DICKERs Redeemed</h5>
             </CardHeader>
@@ -190,7 +197,7 @@ const Dashboard = ({ userAuth, isAdmin, setUserAuth, setIsAdmin }) => {
       <Row className="mb-3" style={{ width: "100%" }}>
         {/* Accepted Col */}
         <Col lg={4}>
-          <Card>
+          <Card style={{ "box-shadow": "3px 3px 3px" }}>
             <CardHeader>
               <h5>DICKERs Accepted</h5>
             </CardHeader>
@@ -207,7 +214,7 @@ const Dashboard = ({ userAuth, isAdmin, setUserAuth, setIsAdmin }) => {
         </Col>
         {/* Potential Col */}
         <Col lg={8}>
-          <Card>
+          <Card style={{ "box-shadow": "3px 3px 3px" }}>
             <CardHeader>
               <h5>Potential DICKERs</h5>
             </CardHeader>
