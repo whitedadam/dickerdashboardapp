@@ -17,6 +17,7 @@ import AdminDashboard from "./AdminDashboard";
 import Notifications from "./Settings/Notifications";
 import Security from "./Settings/Security";
 import GeneralSettings from "./Settings/GeneralSettings";
+import Footer from "./Footer/Footer";
 
 function App() {
   const [userAuth, setUserAuth] = useState(false);
@@ -105,6 +106,11 @@ function App() {
             </Switch>
           </>
         )}
+        <Row>
+          <Col style={{ alignContent: "right"}}>
+            <Footer />
+          </Col>
+        </Row>
       </Container>
     </Router>
   );
