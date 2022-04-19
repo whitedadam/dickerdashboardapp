@@ -1,11 +1,11 @@
 import React from "react";
-import { Container} from "reactstrap";
+import { Container } from "reactstrap";
 import Security from "../Settings/Security";
 
-const Reset = () => {
+const Reset = ({ userAuth }) => {
   return (
     <Container className={"resetPassContainer"}>
-      <Security />
+      <Security userAuth={userAuth} />
     </Container>
   );
 };

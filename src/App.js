@@ -42,7 +42,7 @@ function App() {
               />
             </Route>
             <Route exact path="/resetPassword">
-              <Reset />
+              <Reset userAuth={userAuth} />
             </Route>
             <Route exact path="/createAccount">
               <CreateAccount />
