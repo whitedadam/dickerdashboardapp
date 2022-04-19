@@ -9,6 +9,7 @@ import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Button from "@mui/material/Button";
+import { Link } from "react-router-dom";
 
 const AccountMenu = ({ userAuth, isAdmin, setUserAuth, setIsAdmin }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -78,7 +79,7 @@ const AccountMenu = ({ userAuth, isAdmin, setUserAuth, setIsAdmin }) => {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <MenuItem>
-          <Button href="/settings">
+          <Button component={Link} to="/settings">
             <ListItemIcon>
               <Settings fontSize="small" />
             </ListItemIcon>
