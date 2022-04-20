@@ -48,7 +48,7 @@ export default class registerUser extends React.Component {
       confirmPass: this.state.confirmPass,
     };
 
-    axios.post("/registerNew", { user }).then((res) => {
+    axios.post("/api/register-new", { user }).then((res) => {
       console.log(res);
       console.log(res.data);
     });
