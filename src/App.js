@@ -106,8 +106,6 @@ function App() {
             </Switch>
           </>
         )}
-        {/* Spacer Row for Formatting */}
-        <Row sm={2}></Row>
         <Row>
           <Col style={{ alignContent: "right"}}>
             <Footer />
