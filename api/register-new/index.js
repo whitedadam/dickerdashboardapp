@@ -56,28 +56,23 @@ const executeSql = (query, params) =>
   });
 
 module.exports = async function (context, req) {
-  context.log("POST Request to: /api/login");
-  // Variables we're passing to db
-  const username = req.body.user.username;
-  const password = req.body.user.password;
-  console.log("login:", username, " / ", password); //tracking data capture
+  context.log("POST Request to: /api/register-new");
 
-  const select = `SELECT PasswordHash, Admin FROM AspNetUsers2 WHERE UserName = '${username}' `;
+  console.log("body", req.body.user);
+  const user = req.body.user;
+  const insert = `INSERT INTO [dbo].[AspNetUsers2] (UserName, PasswordHash, Admin) VALUES('${user.regEmail}', '${user.createPass}', '0')`;
 
-  // Try to post data
+  console.log("/register-new endpoint hit", insert);
+
   try {
-    const data = await executeSql(select, (rows) => {
-      let obj = [];
-      console.log("ADMIN VALUE: ", rows[0].Admin);
-      if (rows.length === 0 || rows[0].PasswordHash !== password)
-        obj = { status: -1, message: "Invalid login", admin: false };
-      else obj = { status: 1, message: "User logged in", admin: rows[0].Admin };
-      console.log("login result: ", obj);
-      return obj;
+    let success = await executeSql(insert, (rows) => {
+      console.log(`Fetched ${rows.length} rows`);
+      console.log(`Data: ${JSON.stringify(rows, null, 2)}`);
+      context.send(rows);
     });
-
     context.res = {
-      body: data,
+      // status: 200, /* Defaults to 200 */
+      body: success,
     };
     context.done();
   } catch (error) {
