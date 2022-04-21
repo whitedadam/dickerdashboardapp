@@ -25,7 +25,7 @@ import dickerLogoSquare from "../images/dickerLogoSquare.png";
 const acceptedOffersUrl = "/api/accepted-offers";
 // get all the data you need at once, and then pass down what is relevant to the component
 
-const Dashboard = ({ userAuth, isAdmin, setUserAuth, setIsAdmin }) => {
+const Dashboard = ({ userAuth, isAdmin, setUserAuth, setIsAdmin, merchantId, setMerchantId }) => {
   const [acceptedOffersData, acceptedOffersIsLoading] =
     useGetData(acceptedOffersUrl);
 
@@ -61,6 +61,7 @@ const Dashboard = ({ userAuth, isAdmin, setUserAuth, setIsAdmin }) => {
         <Col>
           <Row></Row>
           <Row>
+            <p>Hello, we're grabbing your data!</p>
             <Spinner color={"warning"}></Spinner>Loading chart data...
           </Row>
           <Row></Row>

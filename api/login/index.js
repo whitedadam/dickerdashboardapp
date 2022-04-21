@@ -62,22 +62,16 @@ module.exports = async function (context, req) {
   const password = req.body.user.password;
   console.log("login:", username, " / ", password); //tracking data capture
 
-  const select = `SELECT PasswordHash, Admin FROM AspNetUsers2 WHERE UserName = '${username}' `;
+  const select = `SELECT PasswordHash, Admin, MerchantId FROM AspNetUsers2 WHERE UserName = '${username}' `;
 
   // Try to post data
   try {
     const data = await executeSql(select, (rows) => {
-      let obj = [];
       console.log("ADMIN VALUE: ", rows[0].Admin);
-      if (rows.length === 0 || rows[0].PasswordHash !== password)
-        obj = { status: -1, message: "Invalid login", admin: false };
-      else obj = { status: 1, message: "User logged in", admin: rows[0].Admin };
-      console.log("login result: ", obj);
-      return obj;
     });
 
     context.res = {
-      body: data,
+      body: { data },
     };
     context.done();
   } catch (error) {

@@ -18,22 +18,56 @@ import InputAdornment from "@mui/material/InputAdornment";
 import EmailIcon from "@mui/icons-material/Email";
 import axios from "axios";
 
-const Login = ({ userAuth, setUserAuth, isAdmin, setIsAdmin }) => {
+// import { useGetPostData } from "../api/useGetPostData";
+// import { Spinner } from "reactstrap";
+// const loginUrl = "/api/login";
+
+const Login = ({
+  userAuth,
+  setUserAuth,
+  isAdmin,
+  setIsAdmin,
+  merchantId,
+  setMerchantId,
+}) => {
   const [state, setState] = useState({
-    data: null,
+    // submitted with login form
     email: "",
     password: "",
-    auth: false,
-    isAdmin: false,
-    admin: {
-      name: "Admin",
-    },
-    merchant: {
-      name: "Bob",
-    },
   });
 
-  const login = (event) => {
+  // Post route used to log user in.
+  const axiosPost = async () => {
+    // Grabbing user inputs as args for POST
+    const user = {
+      username: state.email,
+      password: state.password,
+    };
+    // Post Route returns PasswordHash, Admin, and MerchantId
+    let data = await axios.post("/api/login", { user }).then((res) => res.data);
+    let userInfo = data.data[0];
+    console.log(userInfo);
+
+    // Set of validations that will determine if user is Authenticated and which Dashboard to display.
+    if (user.password !== userInfo.PasswordHash) {
+      // User Password incorrect
+      alert("Invalid login info! Check your password or email and try again.");
+    } else {
+      // Password is correct, logging user in. Taking user to Merchant dash.
+      setUserAuth(true);
+      if (userInfo.Admin) {
+        // User is admin, taking user to Admin dash.
+        setIsAdmin(true);
+      }
+      if (userInfo.MerchantId !== null) {
+        // If user has MerchantId, assigning that to state value.
+        setMerchantId(userInfo.MerchantId);
+      }
+    }
+  };
+
+  // Called when login form is submitted
+  const useLogin = (event) => {
     event.preventDefault();
 
     let email = state.email;
@@ -49,27 +83,17 @@ const Login = ({ userAuth, setUserAuth, isAdmin, setIsAdmin }) => {
     console.log("logging in ", user);
 
     // Axios method to post login to server
-    axios.post("/api/login", { user }).then((res) => {
-      console.log(res);
-      const data = res.data[0];
-      console.log();
-      if (res.status === 200) {
-        console.log("USER IS AUTHENTIC"); // if response is good we have user
-        if (data.Admin) {
-          // if user admin property is true, we have admin
-          console.log("ADMIN USER");
-        }
-        setUserAuth(true);
-        setIsAdmin(data.Admin);
-      }
-    });
+    axiosPost();
+
   };
 
+  // Capturing form inputs within state.
   const handleChange = (event) => {
     event.preventDefault();
     setState({ ...state, [event.target.name]: event.target.value });
   };
 
+  // If user not authorized then displaying login form.
   if (userAuth === false) {
     return (
       <Card
@@ -90,7 +114,7 @@ const Login = ({ userAuth, setUserAuth, isAdmin, setIsAdmin }) => {
             >
               <img src={dickerLogoSquare} alt={"dicker logo"} />
             </Paper>
-            <Form id="loginForm" onSubmit={login}>
+            <Form id="loginForm" onSubmit={useLogin}>
               <FormGroup
                 style={{ backgroundColor: "", alignContent: "center" }}
               >
@@ -174,7 +198,6 @@ const Login = ({ userAuth, setUserAuth, isAdmin, setIsAdmin }) => {
                     </Button>
                   </Col>
                 </Row>
-                <p className="App-intro">{state.data}</p>
                 <Row>
                   <NavLink
                     style={{ marginLeft: "85px" }}
@@ -198,10 +221,30 @@ const Login = ({ userAuth, setUserAuth, isAdmin, setIsAdmin }) => {
       </Card>
     );
   } else if (userAuth === true) {
+    // If user authorized but not admin, displaying merchant dashboard.
     if (isAdmin === false) {
-      return <Dashboard userAuth={userAuth} isAdmin={isAdmin} setUserAuth={setUserAuth} setIsAdmin={setIsAdmin} />;
+      return (
+        // Merchant Dashboard
+        <Dashboard
+          userAuth={userAuth}
+          isAdmin={isAdmin}
+          setUserAuth={setUserAuth}
+          setIsAdmin={setIsAdmin}
+          merchantId={merchantId}
+          setMerchantId={setMerchantId}
+        />
+      );
     } else {
-      return <AdminDashboard userAuth={userAuth} isAdmin={isAdmin} setUserAuth={setUserAuth} setIsAdmin={setIsAdmin} />;
+      // If user authorized and admin, displaying admin dashboard.
+      return (
+        // Admin Dashboard
+        <AdminDashboard
+          userAuth={userAuth}
+          isAdmin={isAdmin}
+          setUserAuth={setUserAuth}
+          setIsAdmin={setIsAdmin}
+        />
+      );
     }
   }
 };
