@@ -11,7 +11,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 
-const AccountMenu = ({ userAuth, isAdmin, setUserAuth, setIsAdmin }) => {
+const AccountMenu = ({ setUserAuth }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {

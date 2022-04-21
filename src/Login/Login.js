@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { Form, FormGroup, NavLink, Col, Row } from "reactstrap";
 import { Link } from "react-router-dom";
-import Dashboard from "../Dashboard";
-import AdminDashboard from "../AdminDashboard";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -17,10 +15,6 @@ import Paper from "@mui/material/Paper";
 import InputAdornment from "@mui/material/InputAdornment";
 import EmailIcon from "@mui/icons-material/Email";
 import axios from "axios";
-
-// import { useGetPostData } from "../api/useGetPostData";
-// import { Spinner } from "reactstrap";
-// const loginUrl = "/api/login";
 
 const Login = ({
   userAuth,
@@ -44,30 +38,31 @@ const Login = ({
       password: state.password,
     };
     // Post Route returns PasswordHash, Admin, and MerchantId
-    let data = await axios.post("/api/login", { user }).then((res) => res.data);
-    let userInfo = data.data[0];
-    console.log(userInfo);
+    try {
+      let response = await axios.post("/api/login", { user });
+      console.log(response);
+      let userInfo = response.data;
+      console.log(userInfo);
 
-    // Set of validations that will determine if user is Authenticated and which Dashboard to display.
-    if (user.password !== userInfo.PasswordHash) {
-      // User Password incorrect
-      alert("Invalid login info! Check your password or email and try again.");
-    } else {
       // Password is correct, logging user in. Taking user to Merchant dash.
       setUserAuth(true);
-      if (userInfo.Admin) {
-        // User is admin, taking user to Admin dash.
-        setIsAdmin(true);
-      }
-      if (userInfo.MerchantId !== null) {
-        // If user has MerchantId, assigning that to state value.
-        setMerchantId(userInfo.MerchantId);
-      }
+
+      // User is admin, taking user to Admin dash.
+      setIsAdmin(userInfo.isAdmin);
+
+      // If user has MerchantId, assigning that to state value.
+      setMerchantId(userInfo.merchantId);
+    } catch (err) {
+      // Resetting variables to ensure nothing sneaks through
+      setUserAuth(false);
+      setIsAdmin(false);
+      setMerchantId(0);
+      alert("Invalid login info! Check your password or email and try again.");
     }
   };
 
   // Called when login form is submitted
-  const useLogin = (event) => {
+  const login = (event) => {
     event.preventDefault();
 
     let email = state.email;
@@ -84,7 +79,6 @@ const Login = ({
 
     // Axios method to post login to server
     axiosPost();
-
   };
 
   // Capturing form inputs within state.
@@ -94,7 +88,7 @@ const Login = ({
   };
 
   // If user not authorized then displaying login form.
-  if (userAuth === false) {
+  if (!userAuth) {
     return (
       <Card
         style={{ width: "500px", margin: "auto", marginTop: "300px" }}
@@ -114,7 +108,7 @@ const Login = ({
             >
               <img src={dickerLogoSquare} alt={"dicker logo"} />
             </Paper>
-            <Form id="loginForm" onSubmit={useLogin}>
+            <Form id="loginForm" onSubmit={login}>
               <FormGroup
                 style={{ backgroundColor: "", alignContent: "center" }}
               >
@@ -220,33 +214,9 @@ const Login = ({
         </body>
       </Card>
     );
-  } else if (userAuth === true) {
-    // If user authorized but not admin, displaying merchant dashboard.
-    if (isAdmin === false) {
-      return (
-        // Merchant Dashboard
-        <Dashboard
-          userAuth={userAuth}
-          isAdmin={isAdmin}
-          setUserAuth={setUserAuth}
-          setIsAdmin={setIsAdmin}
-          merchantId={merchantId}
-          setMerchantId={setMerchantId}
-        />
-      );
-    } else {
-      // If user authorized and admin, displaying admin dashboard.
-      return (
-        // Admin Dashboard
-        <AdminDashboard
-          userAuth={userAuth}
-          isAdmin={isAdmin}
-          setUserAuth={setUserAuth}
-          setIsAdmin={setIsAdmin}
-        />
-      );
-    }
   }
+
+  return null;
 };
 
 export default Login;
