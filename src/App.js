@@ -58,7 +58,7 @@ function App() {
               <Row>
                 <Col>
                   <Route exact path="/dashboard">
-                    <Dashboard />
+                    <Dashboard merchantId={merchantId} />
                   </Route>
                   <Route exact path="/adminDashboard">
                     <AdminDashboard />
@@ -86,16 +86,6 @@ function App() {
                   </Route>
                   <Route>
                     <Redirect to={isAdmin ? "/adminDash" : "/dashboard"} />
-                  </Route>
-                  <Route exact path="/">
-                    <Login
-                      userAuth={userAuth}
-                      setUserAuth={setUserAuth}
-                      isAdmin={isAdmin}
-                      setIsAdmin={setIsAdmin}
-                      merchantId={merchantId}
-                      setMerchantId={setMerchantId}
-                    />
                   </Route>
                 </Col>
               </Row>

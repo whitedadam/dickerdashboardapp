@@ -25,7 +25,13 @@ import dickerLogoSquare from "../images/dickerLogoSquare.png";
 const acceptedOffersUrl = "/api/accepted-offers";
 // get all the data you need at once, and then pass down what is relevant to the component
 
-const Dashboard = ({ userAuth, isAdmin, setUserAuth, setIsAdmin, merchantId, setMerchantId }) => {
+const Dashboard = ({
+  userAuth,
+  isAdmin,
+  setUserAuth,
+  setIsAdmin,
+  merchantId,
+}) => {
   const [acceptedOffersData, acceptedOffersIsLoading] =
     useGetData(acceptedOffersUrl);
 
@@ -79,11 +85,15 @@ const Dashboard = ({ userAuth, isAdmin, setUserAuth, setIsAdmin, merchantId, set
       {/* Page Heading */}
       <Row>
         <Col sm={10} style={{ margin: "auto", display: "inline-flex" }}>
-          <img src={dickerLogoSquare} alt={"dicker logo"} style={{
-            height: "35px",
-            width: "35px",
-            "margin-right": "5px"
-          }}/>
+          <img
+            src={dickerLogoSquare}
+            alt={"dicker logo"}
+            style={{
+              height: "35px",
+              width: "35px",
+              "margin-right": "5px",
+            }}
+          />
           <h3>Welcome to your DICKER dashboard!</h3>
         </Col>
         <Col sm={2}>

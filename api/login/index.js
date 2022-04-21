@@ -66,17 +66,27 @@ module.exports = async function (context, req) {
 
   // Try to post data
   try {
-    const data = await executeSql(select, (rows) => {
-      console.log("ADMIN VALUE: ", rows[0].Admin);
-    });
+    const data = await executeSql(select);
+    const user = data[0];
 
+    // Checking if password valid
+    if (password !== user.PasswordHash) {
+      // User Password incorrect
+      throw new Error(
+        "Invalid login info! Check your password or email and try again."
+      );
+    }
+    // Returning only releveant info to frontend.
     context.res = {
-      body: { data },
+      body: {
+        isAdmin: user.Admin,
+        merchantId: user.MerchantId,
+      },
     };
     context.done();
   } catch (error) {
     context.res = {
-      status: 400,
+      status: 401,
       body: error.message,
     };
   }
