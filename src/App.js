@@ -22,6 +22,7 @@ import Footer from "./Footer/Footer";
 function App() {
   const [userAuth, setUserAuth] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [merchantId, setMerchantId] = useState();
 
   return (
     <Router>
@@ -40,6 +41,8 @@ function App() {
                 setUserAuth={setUserAuth}
                 isAdmin={isAdmin}
                 setIsAdmin={setIsAdmin}
+                merchantId={merchantId}
+                setMerchantId={setMerchantId}
               />
             </Route>
             <Route exact path="/resetPassword">
@@ -53,15 +56,6 @@ function App() {
           <>
             <Switch>
               <Row>
-                {/* We may not use a nav bar. Just the AccountMenu nav.
-                <Col xs={3}> 
-                  <Nav
-                    userAuth={userAuth}
-                    isAdmin={isAdmin}
-                    setUserAuth={setUserAuth}
-                    setIsAdmin={setIsAdmin}
-                  />
-                </Col> */}
                 <Col>
                   <Route exact path="/dashboard">
                     <Dashboard />
@@ -73,7 +67,7 @@ function App() {
                     <AdminSettings />
                   </Route>
                   <Route exact path="/settings">
-                    <Settings userAuth={userAuth} isAdmin={isAdmin} />
+                    <Settings userAuth={userAuth} isAdmin={isAdmin} merchantId={merchantId}/>
                   </Route>
                   <Route exact path="/adminDash">
                     <AdminDashboard />
@@ -99,6 +93,8 @@ function App() {
                       setUserAuth={setUserAuth}
                       isAdmin={isAdmin}
                       setIsAdmin={setIsAdmin}
+                      merchantId={merchantId}
+                      setMerchantId={setMerchantId}
                     />
                   </Route>
                 </Col>
