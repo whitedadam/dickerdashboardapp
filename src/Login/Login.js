@@ -210,13 +210,6 @@ const Login = ({
                   >
                     Create Account
                   </NavLink>
-                  <NavLink
-                    style={{ marginRight: "auto" }}
-                    to="/adminDash"
-                    tag={Link}
-                  >
-                    Admin Dashboard
-                  </NavLink>
                 </Row>
               </FormGroup>
             </Form>
