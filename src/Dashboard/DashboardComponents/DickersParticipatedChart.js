@@ -7,9 +7,38 @@ import { useGetData } from "../../api/useGetData";
 
 const offersUrl = "/api/offers";
 
-const DickersParticipatedChart = ({ filterStartDate, filterEndDate }) => {
+const DickersParticipatedChart = ({
+  filterStartDate,
+  filterEndDate,
+  filteredBusinesses,
+  merchantId,
+}) => {
   const [drilldown, setDrilldown] = useState(false);
   const [offersData, offersDataisLoading] = useGetData(offersUrl);
+
+  // Function filters out offers that are not from logged in merchants businesses
+  const filterOffersByBusiness = () => {
+    // final out arr holds all filtered offers
+    let finalFilteredBusinessArr = [];
+    try {
+      // for each business that belongs to the merchant
+      filteredBusinesses.forEach((business, index) => {
+        // placeholder, wiped after every business search
+        let currentBusiness = offersData.filter((offer) => {
+          // if offer has business id then we know its one the the merchants businesses
+          return offer.Business_FK === business.BusinessId;
+        });
+        // pushing all found offers to finalFilteredBusiness Arr
+        currentBusiness.forEach((offer) => {
+          finalFilteredBusinessArr.push(offer);
+        });
+        // wiping array
+        currentBusiness = [];
+      });
+      return finalFilteredBusinessArr;
+    } catch (err) {}
+  };
+  const offersDataFilteredByBusiness = filterOffersByBusiness();
 
   const buildInputData = () => {
     // Array of Objects that will hold various datum based upon selected time intervals.
@@ -119,7 +148,8 @@ const DickersParticipatedChart = ({ filterStartDate, filterEndDate }) => {
     try {
       let startFilter = new Date(filterStartDate);
       let endFilter = new Date(filterEndDate);
-      let offers = offersData.filter((offer) => {
+      // if offer date is between start and end filter dates, return that offer
+      let offers = offersDataFilteredByBusiness.filter((offer) => {
         let offerDate = new Date(offer.StartingDate);
         return offerDate > startFilter && offerDate <= endFilter;
       });
@@ -205,8 +235,10 @@ const DickersParticipatedChart = ({ filterStartDate, filterEndDate }) => {
     // console.log(inputData);
     return inputData;
   };
+
   const displayData = buildInputData();
 
+  // x Axis of chart
   const primaryAxis = React.useMemo(
     () => ({
       getValue: (datum) => String(datum.primary),
@@ -214,6 +246,7 @@ const DickersParticipatedChart = ({ filterStartDate, filterEndDate }) => {
     []
   );
 
+  // y axis of chart
   const secondaryAxes = React.useMemo(
     () => [
       {
@@ -247,16 +280,19 @@ const DickersParticipatedChart = ({ filterStartDate, filterEndDate }) => {
       out.push({ total });
       return total;
     };
+    // Direct DICKERs
     totalDirect = countOfferTotals(
       directDickers,
       totalDirect,
       dickerTypeTotalsArrOut
     );
+    // Wildcard DICKERs
     totalWildcard = countOfferTotals(
       wildcardDickers,
       totalWildcard,
       dickerTypeTotalsArrOut
     );
+    // Selected to DICKERs
     totalSelected = countOfferTotals(
       selectedDickers,
       totalSelected,
@@ -275,22 +311,26 @@ const DickersParticipatedChart = ({ filterStartDate, filterEndDate }) => {
     let percentageSelected;
     let dickerTypePercentagesArrOut = [];
 
+    // Calculates percentages of each specific DICKER data type
     const calcOfferPercentages = (dickers, total, percentage, out) => {
       percentage = ((dickers / total) * 100).toFixed();
       out.push({ percentage });
     };
+    // Direct DICKERs
     calcOfferPercentages(
       totalDirect,
       totalPotentialDickers,
       percentageDirect,
       dickerTypePercentagesArrOut
     );
+    // Wildcard DICKERs
     calcOfferPercentages(
       totalWildcard,
       totalPotentialDickers,
       percentageWildcard,
       dickerTypePercentagesArrOut
     );
+    // Selected to DICKERs
     calcOfferPercentages(
       totalSelected,
       totalPotentialDickers,
@@ -309,10 +349,11 @@ const DickersParticipatedChart = ({ filterStartDate, filterEndDate }) => {
       Sunday: 0,
     };
 
+    // Counts the total amount of week day that offers occur on.
     const countDayTotals = (obj) => {
       for (let day in obj) {
         try {
-          offersData.forEach((row) => {
+          offersDataFilteredByBusiness.forEach((row) => {
             if (row[day] === true) obj[day] += 1;
           });
         } catch {}
@@ -321,6 +362,7 @@ const DickersParticipatedChart = ({ filterStartDate, filterEndDate }) => {
     };
     countDayTotals(daysObj);
 
+    // Finds the day with the most offer activity
     const findMostActiveDay = (obj) => {
       let mostActive = Object.keys(obj)[0];
       let num = obj.Monday;
@@ -334,6 +376,7 @@ const DickersParticipatedChart = ({ filterStartDate, filterEndDate }) => {
     };
     const mostActive = findMostActiveDay(daysObj);
 
+    // Finds the day with the least offer activity
     const findLeastActiveDay = (obj) => {
       let leastActive = Object.keys(obj)[0];
       let num = obj.Monday;

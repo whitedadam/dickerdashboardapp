@@ -10,7 +10,7 @@ const offersUrl = "/api/offers";
 const PotentialDickersChart = ({ filterStartDate, filterEndDate }) => {
   const [drilldown, setDrilldown] = useState(false);
   const [offersData, offersDataIsLoading] = useGetData(offersUrl);
-
+  
   const buildInputData = () => {
     // Array of Objects that will hold various datum based upon selected time intervals.
     let inputData = [

@@ -1,18 +1,17 @@
-const Connection = require('tedious').Connection;
-const Request = require('tedious').Request;
-const queries = require('../queries');
+const Connection = require("tedious").Connection;
+const Request = require("tedious").Request;
 
 // Setting configuration for accessing hosted SQL DB with tedious
 const config = {
-  server: 'codingwpride.database.windows.net',
+  server: "codingwpride.database.windows.net",
   options: {
-    database: 'DICKERdashboard',
+    database: "DICKERdashboard",
   },
   authentication: {
-    type: 'default',
+    type: "default",
     options: {
-      userName: 'Adam',
-      password: 'CodingWPride2021',
+      userName: "Adam",
+      password: "CodingWPride2021",
     },
   },
 };
@@ -35,7 +34,7 @@ const executeSql = (query, params) =>
     });
 
     // Put the columns into an object and store as a row
-    request.on('row', (columns) => {
+    request.on("row", (columns) => {
       let dataset = {};
       columns.forEach((column) => {
         dataset[column.metadata.colName] = column.value;
@@ -45,7 +44,7 @@ const executeSql = (query, params) =>
     });
 
     // Once connected, reject on error or execute query
-    connection.on('connect', (err) => {
+    connection.on("connect", (err) => {
       if (err) {
         reject(err);
       } else {
@@ -57,10 +56,10 @@ const executeSql = (query, params) =>
   });
 
 module.exports = async function (context, req) {
-  context.log('Request to: /api/businesses');
-
+  context.log("Request to: /api/businesses");
+  let select = `SELECT [BusinessId],[BusinessName],[CategoryId],[SubCategoryId],[Merchant_FK] FROM Business`;
   try {
-    const data = await executeSql(queries.BUSINESSES);
+    const data = await executeSql(select);
 
     context.res = {
       body: data,

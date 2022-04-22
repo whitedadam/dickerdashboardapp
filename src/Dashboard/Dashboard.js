@@ -21,7 +21,9 @@ import {
 } from "./DashboardComponents";
 import AccountMenu from "../AccountMenu/AccountMenu";
 import dickerLogoSquare from "../images/dickerLogoSquare.png";
+import { useGetDataWithParam } from "../api/useGetDataWithParam";
 
+const businessesURL = "/api/businesses";
 const acceptedOffersUrl = "/api/accepted-offers";
 // get all the data you need at once, and then pass down what is relevant to the component
 
@@ -32,15 +34,25 @@ const Dashboard = ({
   setIsAdmin,
   merchantId,
 }) => {
+  // Pulling data from the AcceptedOffers Table
+
   const [acceptedOffersData, acceptedOffersIsLoading] =
     useGetData(acceptedOffersUrl);
 
+  // Pulling businesses from the Business table
+  const [businesses, businessesIsLoading] = useGetDataWithParam(
+    businessesURL,
+    merchantId
+  );
+
+  // Functions that will allow the user to dynamically change the start and end dates of data filtering.
   const setDefaultStartDateFilter = () => {
     let startDate = new Date();
     startDate.setDate(startDate.getDate() - 365);
     let startDateString = startDate.toISOString().split("T")[0];
     return startDateString;
   };
+  // The start date of the date filter.
   const [filterStartDate, setFilterStartDate] = useState(
     setDefaultStartDateFilter
   );
@@ -51,16 +63,59 @@ const Dashboard = ({
     let endDateString = endDate.toISOString().split("T")[0];
     return endDateString;
   };
+  // The end date of the date filter.
   const [filterEndDate, setFilterEndDate] = useState(setDefaultEndDateFilter);
 
+  // Functions that dytnamically update the data filtering as users enter new dates into date filter
   const handleStartDateChange = (event) => {
     setFilterStartDate(event.target.value);
   };
-
   const handleEndDateChange = (event) => {
     setFilterEndDate(event.target.value);
   };
 
+  // Removes irrelevant businesses from businesses
+  const filterBusinesses = () => {
+    try {
+      // Deep copy of businesses
+      let unfilteredArray = JSON.parse(JSON.stringify(businesses));
+
+      // if business.Merchant_FK === merchantId, it's a relevant business and we keep it
+      let filteredArray = unfilteredArray.filter((business) => {
+        return business.Merchant_FK === merchantId;
+      });
+
+      return filteredArray;
+    } catch (err) {}
+  };
+  // Array of businesses that are filtered by logged in user's merchantId
+  const filteredBusinesses = filterBusinesses();
+
+  // Function filters out offers that are not from logged in merchants businesses
+  const filterAcceptedOffersByBusiness = () => {
+    // final out arr holds all filtered offers
+    let finalFilteredBusinessArr = [];
+    try {
+      // for each business that belongs to the merchant
+      filteredBusinesses.forEach((business) => {
+        // placeholder, wiped after every business search
+        let currentBusiness = acceptedOffersData.filter((offer) => {
+          // if offer has business id then we know its one the the merchants businesses
+          return offer.Business_FK === business.BusinessId;
+        });
+        // pushing all found offers to finalFilteredBusiness Arr
+        currentBusiness.forEach((offer) => {
+          finalFilteredBusinessArr.push(offer);
+        });
+        // wiping array
+        currentBusiness = [];
+      });
+      return finalFilteredBusinessArr;
+    } catch (err) {}
+  };
+  const acceptedOffersDataFilteredByBusiness = filterAcceptedOffersByBusiness();
+
+  // Will hold the app to ensure accepted offer data is pulled before other queries start
   if (acceptedOffersIsLoading)
     return (
       <Container>
@@ -75,6 +130,21 @@ const Dashboard = ({
       </Container>
     );
 
+  // Will hold the app to ensure businesses data is pulled before other queries start
+  if (!acceptedOffersIsLoading && businessesIsLoading) {
+    return (
+      <Container>
+        <Col>
+          <Row></Row>
+          <Row>
+            <p>Hello, we're grabbing your data!</p>
+            <Spinner color={"warning"}></Spinner>Loading chart data...
+          </Row>
+          <Row></Row>
+        </Col>
+      </Container>
+    );
+  }
   return (
     <Container
       className={"dashboardContainer"}
@@ -175,10 +245,12 @@ const Dashboard = ({
               <h5>DICKERs Participated In</h5>
             </CardHeader>
             <CardBody>
-              {acceptedOffersData ? (
+              {acceptedOffersData && businesses ? (
                 <DickersParticipatedChart
                   filterStartDate={filterStartDate}
                   filterEndDate={filterEndDate}
+                  filteredBusinesses={filteredBusinesses}
+                  merchantId={merchantId}
                 />
               ) : null}
             </CardBody>
@@ -193,9 +265,10 @@ const Dashboard = ({
             <CardBody>
               {acceptedOffersData ? (
                 <DickersRedeemedChart
-                  acceptedOffersData={acceptedOffersData}
+                  acceptedOffersData={acceptedOffersDataFilteredByBusiness}
                   filterStartDate={filterStartDate}
                   filterEndDate={filterEndDate}
+                  filteredBusinesses={filteredBusinesses}
                 />
               ) : null}
             </CardBody>
@@ -215,7 +288,7 @@ const Dashboard = ({
             <CardBody>
               {acceptedOffersData ? (
                 <SuccessfulDickersChart
-                  acceptedOffersData={acceptedOffersData}
+                  acceptedOffersData={acceptedOffersDataFilteredByBusiness}
                   filterStartDate={filterStartDate}
                   filterEndDate={filterEndDate}
                 />
