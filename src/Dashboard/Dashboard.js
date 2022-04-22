@@ -90,6 +90,30 @@ const Dashboard = ({
   // Array of businesses that are filtered by logged in user's merchantId
   const filteredBusinesses = filterBusinesses();
 
+  const filterAcceptedOffersByBusiness = () => {
+    // final out arr holds all filtered offers
+    let finalFilteredBusinessArr = [];
+    try {
+      // for each business that belongs to the merchant
+      filteredBusinesses.forEach((business) => {
+        // placeholder, wiped after every business search
+        let currentBusiness = acceptedOffersData.filter((offer) => {
+          // if offer has business id then we know its one the the merchants businesses
+          return offer.Business_FK === business.BusinessId;
+        });
+        // pushing all found offers to finalFilteredBusiness Arr
+        currentBusiness.forEach((offer) => {
+          finalFilteredBusinessArr.push(offer);
+        });
+        // wiping array
+        currentBusiness = [];
+      });
+      return finalFilteredBusinessArr;
+    } catch (err) {}
+  };
+  const acceptedOffersDataFilteredByBusiness = filterAcceptedOffersByBusiness();
+
+
   // Will hold the app to ensure accepted offer data is pulled before other queries start
   if (acceptedOffersIsLoading)
     return (
@@ -241,7 +265,7 @@ const Dashboard = ({
             <CardBody>
               {acceptedOffersData ? (
                 <DickersRedeemedChart
-                  acceptedOffersData={acceptedOffersData}
+                  acceptedOffersData={acceptedOffersDataFilteredByBusiness}
                   filterStartDate={filterStartDate}
                   filterEndDate={filterEndDate}
                   filteredBusinesses={filteredBusinesses}
@@ -265,7 +289,7 @@ const Dashboard = ({
             <CardBody>
               {acceptedOffersData ? (
                 <SuccessfulDickersChart
-                  acceptedOffersData={acceptedOffersData}
+                  acceptedOffersData={acceptedOffersDataFilteredByBusiness}
                   filterStartDate={filterStartDate}
                   filterEndDate={filterEndDate}
                 />
