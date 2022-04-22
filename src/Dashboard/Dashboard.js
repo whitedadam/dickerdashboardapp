@@ -35,6 +35,7 @@ const Dashboard = ({
   merchantId,
 }) => {
   // Pulling data from the AcceptedOffers Table
+
   const [acceptedOffersData, acceptedOffersIsLoading] =
     useGetData(acceptedOffersUrl);
 
