@@ -23,7 +23,6 @@ function App() {
   const [userAuth, setUserAuth] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [merchantId, setMerchantId] = useState();
-  const [businesses, setBusinesses] = useState();
 
   return (
     <Router>
@@ -44,8 +43,6 @@ function App() {
                 setIsAdmin={setIsAdmin}
                 merchantId={merchantId}
                 setMerchantId={setMerchantId}
-                businesses={businesses}
-                setBusinesses={setBusinesses}
               />
             </Route>
             <Route exact path="/resetPassword">

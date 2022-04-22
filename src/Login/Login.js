@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Form, FormGroup, NavLink, Col, Row, Spinner } from "reactstrap";
+import { Form, FormGroup, NavLink, Col, Row } from "reactstrap";
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -19,7 +19,9 @@ import axios from "axios";
 const Login = ({
   userAuth,
   setUserAuth,
+  isAdmin,
   setIsAdmin,
+  merchantId,
   setMerchantId,
 }) => {
   const [state, setState] = useState({
@@ -27,7 +29,6 @@ const Login = ({
     email: "",
     password: "",
   });
-  const [loginLoading, setLoginLoading] = useState(false);
 
   // Post route used to log user in.
   const axiosPost = async () => {
@@ -38,11 +39,10 @@ const Login = ({
     };
     // Post Route returns PasswordHash, Admin, and MerchantId
     try {
-      // Pulling userInfo from login
-      setLoginLoading(true);
       let response = await axios.post("/api/login", { user });
-      setLoginLoading(false);
+      console.log(response);
       let userInfo = response.data;
+      console.log(userInfo);
 
       // Password is correct, logging user in. Taking user to Merchant dash.
       setUserAuth(true);
@@ -64,6 +64,19 @@ const Login = ({
   // Called when login form is submitted
   const login = (event) => {
     event.preventDefault();
+
+    let email = state.email;
+    let password = state.password;
+
+    // call to server to authenticate.
+    const user = {
+      username: email,
+      password: password,
+    };
+
+    // Logging to track data capture
+    console.log("logging in ", user);
+
     // Axios method to post login to server
     axiosPost();
   };
@@ -175,13 +188,7 @@ const Login = ({
                       variant="contained"
                       sx={{ backgroundColor: "#d9c07c", mt: 3, mb: 2 }}
                     >
-                      {loginLoading ? (
-                        <>
-                          <Spinner color={"warning"}></Spinner>
-                        </>
-                      ) : (
-                        <>Sign In</>
-                      )}
+                      Sign In
                     </Button>
                   </Col>
                 </Row>
