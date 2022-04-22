@@ -51,18 +51,16 @@ function App() {
             <Route exact path="/createAccount">
               <CreateAccount />
             </Route>
+            <Route exact path="/adminDash">
+              <AdminDashboard />
+            </Route>
           </Switch>
         ) : (
           <>
             <Switch>
               <Row>
                 <Col>
-                  <Dashboard
-                    merchantId={merchantId}
-                  />
-                  <Route exact path="/adminDashboard">
-                    <AdminDashboard />
-                  </Route>
+                  <Dashboard merchantId={merchantId} />
                   <Route exact path="/adminSettings">
                     <AdminSettings />
                   </Route>

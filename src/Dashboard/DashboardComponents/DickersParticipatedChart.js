@@ -16,6 +16,7 @@ const DickersParticipatedChart = ({
   const [drilldown, setDrilldown] = useState(false);
   const [offersData, offersDataisLoading] = useGetData(offersUrl);
 
+  // Function filters out offers that are not from logged in merchants businesses
   const filterOffersByBusiness = () => {
     // final out arr holds all filtered offers
     let finalFilteredBusinessArr = [];

@@ -90,6 +90,7 @@ const Dashboard = ({
   // Array of businesses that are filtered by logged in user's merchantId
   const filteredBusinesses = filterBusinesses();
 
+  // Function filters out offers that are not from logged in merchants businesses
   const filterAcceptedOffersByBusiness = () => {
     // final out arr holds all filtered offers
     let finalFilteredBusinessArr = [];
@@ -112,7 +113,6 @@ const Dashboard = ({
     } catch (err) {}
   };
   const acceptedOffersDataFilteredByBusiness = filterAcceptedOffersByBusiness();
-
 
   // Will hold the app to ensure accepted offer data is pulled before other queries start
   if (acceptedOffersIsLoading)
@@ -261,7 +261,6 @@ const Dashboard = ({
             <CardHeader>
               <h5>DICKERs Redeemed</h5>
             </CardHeader>
-            {/* business filtering pending */}
             <CardBody>
               {acceptedOffersData ? (
                 <DickersRedeemedChart
@@ -285,7 +284,6 @@ const Dashboard = ({
             <CardHeader>
               <h5>DICKERs Accepted</h5>
             </CardHeader>
-            {/* business filtering pending */}
             <CardBody>
               {acceptedOffersData ? (
                 <SuccessfulDickersChart
@@ -303,7 +301,6 @@ const Dashboard = ({
             <CardHeader>
               <h5>Potential DICKERs</h5>
             </CardHeader>
-            {/* business filtering pending */}
             <CardBody>
               {acceptedOffersData ? (
                 <PotentialDickersChart

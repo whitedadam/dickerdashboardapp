@@ -48,12 +48,13 @@ const Login = ({
       setUserAuth(true);
 
       // User is admin, taking user to Admin dash.
+      // isAdmin = userInfo.isAdmin;
       setIsAdmin(userInfo.isAdmin);
 
       // If user has MerchantId, assigning that to state value.
-      merchantId = userInfo.merchantId;
+      // merchantId = userInfo.merchantId;
       setMerchantId(userInfo.merchantId);
-      console.log(merchantId);
+      // console.log(merchantId);
     } catch (err) {
       // Resetting variables to ensure nothing sneaks through
       setUserAuth(false);
@@ -208,6 +209,13 @@ const Login = ({
                     tag={Link}
                   >
                     Create Account
+                  </NavLink>
+                  <NavLink
+                    style={{ marginRight: "auto" }}
+                    to="/adminDash"
+                    tag={Link}
+                  >
+                    Admin Dashboard
                   </NavLink>
                 </Row>
               </FormGroup>
