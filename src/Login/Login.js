@@ -51,7 +51,9 @@ const Login = ({
       setIsAdmin(userInfo.isAdmin);
 
       // If user has MerchantId, assigning that to state value.
+      merchantId = userInfo.merchantId;
       setMerchantId(userInfo.merchantId);
+      console.log(merchantId);
     } catch (err) {
       // Resetting variables to ensure nothing sneaks through
       setUserAuth(false);

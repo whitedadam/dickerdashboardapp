@@ -57,9 +57,9 @@ function App() {
             <Switch>
               <Row>
                 <Col>
-                  <Route exact path="/dashboard">
-                    <Dashboard merchantId={merchantId} />
-                  </Route>
+                  <Dashboard
+                    merchantId={merchantId}
+                  />
                   <Route exact path="/adminDashboard">
                     <AdminDashboard />
                   </Route>
@@ -67,7 +67,11 @@ function App() {
                     <AdminSettings />
                   </Route>
                   <Route exact path="/settings">
-                    <Settings userAuth={userAuth} isAdmin={isAdmin} merchantId={merchantId}/>
+                    <Settings
+                      userAuth={userAuth}
+                      isAdmin={isAdmin}
+                      merchantId={merchantId}
+                    />
                   </Route>
                   <Route exact path="/adminDash">
                     <AdminDashboard />
@@ -93,7 +97,7 @@ function App() {
           </>
         )}
         <Row>
-          <Col style={{ alignContent: "right"}}>
+          <Col style={{ alignContent: "right" }}>
             <Footer />
           </Col>
         </Row>

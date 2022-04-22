@@ -21,7 +21,10 @@ import {
 } from "./DashboardComponents";
 import AccountMenu from "../AccountMenu/AccountMenu";
 import dickerLogoSquare from "../images/dickerLogoSquare.png";
+import { Button } from "reactstrap";
+import { useGetDataWithParam } from "../api/useGetDataWithParam";
 
+const businessesURL = "/api/businesses";
 const acceptedOffersUrl = "/api/accepted-offers";
 // get all the data you need at once, and then pass down what is relevant to the component
 
@@ -34,6 +37,10 @@ const Dashboard = ({
 }) => {
   const [acceptedOffersData, acceptedOffersIsLoading] =
     useGetData(acceptedOffersUrl);
+  const [businesses, businessesIsLoading] = useGetDataWithParam(
+    businessesURL,
+    merchantId
+  );
 
   const setDefaultStartDateFilter = () => {
     let startDate = new Date();
@@ -61,6 +68,7 @@ const Dashboard = ({
     setFilterEndDate(event.target.value);
   };
 
+  // Will hold the app to ensure accepted offer data is pulled before other queries start
   if (acceptedOffersIsLoading)
     return (
       <Container>
@@ -75,6 +83,21 @@ const Dashboard = ({
       </Container>
     );
 
+  // Will hold the app to ensure businesses data is pulled before other queries start
+  if (!acceptedOffersIsLoading && businessesIsLoading) {
+    return (
+      <Container>
+        <Col>
+          <Row></Row>
+          <Row>
+            <p>Hello, we're grabbing your data!</p>
+            <Spinner color={"warning"}></Spinner>Loading chart data...
+          </Row>
+          <Row></Row>
+        </Col>
+      </Container>
+    );
+  }
   return (
     <Container
       className={"dashboardContainer"}
@@ -175,10 +198,12 @@ const Dashboard = ({
               <h5>DICKERs Participated In</h5>
             </CardHeader>
             <CardBody>
-              {acceptedOffersData ? (
+              {acceptedOffersData && businesses ? (
                 <DickersParticipatedChart
                   filterStartDate={filterStartDate}
                   filterEndDate={filterEndDate}
+                  businesses={businesses}
+                  merchantId={merchantId}
                 />
               ) : null}
             </CardBody>

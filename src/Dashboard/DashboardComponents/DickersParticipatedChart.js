@@ -7,7 +7,12 @@ import { useGetData } from "../../api/useGetData";
 
 const offersUrl = "/api/offers";
 
-const DickersParticipatedChart = ({ filterStartDate, filterEndDate }) => {
+const DickersParticipatedChart = ({
+  filterStartDate,
+  filterEndDate,
+  businesses,
+  merchantId,
+}) => {
   const [drilldown, setDrilldown] = useState(false);
   const [offersData, offersDataisLoading] = useGetData(offersUrl);
 
@@ -386,6 +391,22 @@ const DickersParticipatedChart = ({ filterStartDate, filterEndDate }) => {
       </Row>
       <Row>
         <Col>
+        {/* TEST BUTTONS */}
+          <Button
+            onClick={() => {
+              console.log(merchantId);
+            }}
+          >
+            merchantId?
+          </Button>
+          <Button
+            onClick={() => {
+              console.log(businesses);
+            }}
+          >
+            businessData?
+          </Button>
+          {/* TEST BUTTONS */}
           <Button onClick={handleDrilldown} color="warning">
             Drilldown
           </Button>
