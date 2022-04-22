@@ -21,7 +21,6 @@ import {
 } from "./DashboardComponents";
 import AccountMenu from "../AccountMenu/AccountMenu";
 import dickerLogoSquare from "../images/dickerLogoSquare.png";
-import { Button } from "reactstrap";
 import { useGetDataWithParam } from "../api/useGetDataWithParam";
 
 const businessesURL = "/api/businesses";
@@ -35,19 +34,24 @@ const Dashboard = ({
   setIsAdmin,
   merchantId,
 }) => {
+  // Pulling data from the AcceptedOffers Table
   const [acceptedOffersData, acceptedOffersIsLoading] =
     useGetData(acceptedOffersUrl);
+
+  // Pulling businesses from the Business table
   const [businesses, businessesIsLoading] = useGetDataWithParam(
     businessesURL,
     merchantId
   );
 
+  // Functions that will allow the user to dynamically change the start and end dates of data filtering.
   const setDefaultStartDateFilter = () => {
     let startDate = new Date();
     startDate.setDate(startDate.getDate() - 365);
     let startDateString = startDate.toISOString().split("T")[0];
     return startDateString;
   };
+  // The start date of the date filter.
   const [filterStartDate, setFilterStartDate] = useState(
     setDefaultStartDateFilter
   );
@@ -58,15 +62,33 @@ const Dashboard = ({
     let endDateString = endDate.toISOString().split("T")[0];
     return endDateString;
   };
+  // The end date of the date filter.
   const [filterEndDate, setFilterEndDate] = useState(setDefaultEndDateFilter);
 
+  // Functions that dytnamically update the data filtering as users enter new dates into date filter
   const handleStartDateChange = (event) => {
     setFilterStartDate(event.target.value);
   };
-
   const handleEndDateChange = (event) => {
     setFilterEndDate(event.target.value);
   };
+
+  // Removes irrelevant businesses from businesses
+  const filterBusinesses = () => {
+    try {
+      // Deep copy of businesses
+      let unfilteredArray = JSON.parse(JSON.stringify(businesses));
+
+      // if business.Merchant_FK === merchantId, it's a relevant business and we keep it
+      let filteredArray = unfilteredArray.filter((business) => {
+        return business.Merchant_FK === merchantId;
+      });
+
+      return filteredArray;
+    } catch (err) {}
+  };
+  // Array of businesses that are filtered by logged in user's merchantId
+  const filteredBusinesses = filterBusinesses();
 
   // Will hold the app to ensure accepted offer data is pulled before other queries start
   if (acceptedOffersIsLoading)
@@ -202,7 +224,7 @@ const Dashboard = ({
                 <DickersParticipatedChart
                   filterStartDate={filterStartDate}
                   filterEndDate={filterEndDate}
-                  businesses={businesses}
+                  filteredBusinesses={filteredBusinesses}
                   merchantId={merchantId}
                 />
               ) : null}
@@ -215,12 +237,14 @@ const Dashboard = ({
             <CardHeader>
               <h5>DICKERs Redeemed</h5>
             </CardHeader>
+            {/* business filtering pending */}
             <CardBody>
               {acceptedOffersData ? (
                 <DickersRedeemedChart
                   acceptedOffersData={acceptedOffersData}
                   filterStartDate={filterStartDate}
                   filterEndDate={filterEndDate}
+                  filteredBusinesses={filteredBusinesses}
                 />
               ) : null}
             </CardBody>
@@ -237,6 +261,7 @@ const Dashboard = ({
             <CardHeader>
               <h5>DICKERs Accepted</h5>
             </CardHeader>
+            {/* business filtering pending */}
             <CardBody>
               {acceptedOffersData ? (
                 <SuccessfulDickersChart
@@ -254,6 +279,7 @@ const Dashboard = ({
             <CardHeader>
               <h5>Potential DICKERs</h5>
             </CardHeader>
+            {/* business filtering pending */}
             <CardBody>
               {acceptedOffersData ? (
                 <PotentialDickersChart

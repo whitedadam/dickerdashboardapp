@@ -1,6 +1,5 @@
 const Connection = require("tedious").Connection;
 const Request = require("tedious").Request;
-const queries = require("../queries");
 
 // Setting configuration for accessing hosted SQL DB with tedious
 const config = {
@@ -58,7 +57,7 @@ const executeSql = (query, params) =>
 
 module.exports = async function (context, req) {
   context.log("Request to: /api/businesses");
-  let select = `SELECT [BusinessId],[BusinessName],[CategoryId],[SubCategoryId] FROM Business`;
+  let select = `SELECT [BusinessId],[BusinessName],[CategoryId],[SubCategoryId],[Merchant_FK] FROM Business`;
   try {
     const data = await executeSql(select);
 
