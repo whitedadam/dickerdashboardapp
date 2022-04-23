@@ -13,7 +13,6 @@ import {
   CardHeader,
   CardBody,
 } from "reactstrap";
-import adminData from "../mock-data.json";
 import AdminDickers from "./AdminDashboardComponents/AdminDickersChart";
 import { useGetData } from "../api/useGetData";
 import AdminAccountMenu from "../AdminAccountMenu/AdminAccountMenu";
@@ -22,7 +21,6 @@ import dickerLogoSquare from "../images/dickerLogoSquare.png";
 const acceptedOffersUrl = "/api/accepted-offers";
 
 const AdminDashboard = ({ userAuth, isAdmin, setUserAuth }) => {
-  const [merch] = useState(adminData);
   const [acceptedOffersData, acceptedOffersIsLoading] =
     useGetData(acceptedOffersUrl);
 
