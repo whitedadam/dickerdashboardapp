@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { Chart } from "react-charts";
-import { Table, Row, Button, Container, Col } from "reactstrap";
+import { Row, Container, } from "reactstrap";
 import ResizableBox from "./ResizableBox";
-import { TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import subcategories from "./SampleData/subcategory.json";
 
 const AdminDickers = ({
@@ -10,11 +9,6 @@ const AdminDickers = ({
   filterEndDate,
   acceptedOffersData,
 }) => {
-  // Var and Function to handle use of drilldown button.
-  const [drilldown, setDrilldown] = useState(false);
-  const handleDrilldown = () => {
-    setDrilldown(!drilldown);
-  };
 
   // Constructs input data into form that is consumable by chart
   const buildInputData = () => {
@@ -86,34 +80,6 @@ const AdminDickers = ({
           />
         </ResizableBox>
       </Row>
-      <Row>
-        <Col>
-          <Button onClick={handleDrilldown} color="warning">
-            Drilldown
-          </Button>
-        </Col>
-      </Row>
-      {drilldown && (
-        <Row>
-          <h5>DICKER Totals</h5>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Total DICKERs</TableCell>
-                <TableCell>Selected to DICKER Count</TableCell>
-                <TableCell>Selected to DICKER %</TableCell>
-                <TableCell>Wildcard DICKERs Count</TableCell>
-                <TableCell>Wildcard DICKERs %</TableCell>
-                <TableCell>Direct DICKERs Count</TableCell>
-                <TableCell>Direct DICKERs %</TableCell>
-                <TableCell>Most Active Day</TableCell>
-                <TableCell>Least Active Day</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody></TableBody>
-          </Table>
-        </Row>
-      )}
     </Container>
   );
 };

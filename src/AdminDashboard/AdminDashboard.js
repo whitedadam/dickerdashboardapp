@@ -3,23 +3,25 @@ import "./AdminDashboard.css";
 import {
   Col,
   Container,
-  NavItem,
-  NavLink,
   Row,
   Spinner,
   Form,
   FormGroup,
   Label,
   Input,
+  Card,
+  CardHeader,
+  CardBody,
 } from "reactstrap";
 import adminData from "../mock-data.json";
-import { Link } from "react-router-dom";
 import AdminDickers from "./AdminDashboardComponents/AdminDickersChart";
 import { useGetData } from "../api/useGetData";
+import AdminAccountMenu from "../AdminAccountMenu/AdminAccountMenu";
+import dickerLogoSquare from "../images/dickerLogoSquare.png";
 
 const acceptedOffersUrl = "/api/accepted-offers";
 
-const AdminDashboard = ({ userAuth, isAdmin }) => {
+const AdminDashboard = ({ userAuth, isAdmin, setUserAuth }) => {
   const [merch] = useState(adminData);
   const [acceptedOffersData, acceptedOffersIsLoading] =
     useGetData(acceptedOffersUrl);
@@ -64,55 +66,107 @@ const AdminDashboard = ({ userAuth, isAdmin }) => {
     );
 
   return (
-    <Container className="AdminDashboard" >
+    <Container className="AdminDashboard">
+      {/* Header Row */}
       <Row>
-        <Col>
-          <h3>Welcome, {merch[1].firstName}!</h3>
-        </Col>
-        <Col>
-          <h5>Date Filter:</h5>
-          <Form inline>
-            <FormGroup className="mb-3">
-              <Label for={"startDateFilter"}>Start Date</Label>
-              <Input
-                type={"date"}
-                id={"startDateFilter"}
-                name={"startDateFilter"}
-                onChange={handleStartDateChange}
-                bsSize={"sm"}
-              />
-            </FormGroup>
-            <FormGroup className="mb-3">
-              <Label for={"endDateFilter"}>End Date</Label>
-              <Input
-                type={"date"}
-                id={"endDateFilter"}
-                name={"endDateFilter"}
-                onChange={handleEndDateChange}
-                bsSize={"sm"}
-              />
-            </FormGroup>
-          </Form>
-        </Col>
-      </Row>
-      <Row>
-        <h5>DICKER Totals</h5>
-        {acceptedOffersData ? (
-          <AdminDickers
-            filterStartDate={filterStartDate}
-            filterEndDate={filterEndDate}
-            acceptedOffersData={acceptedOffersData}
+        {/* Welcome Col */}
+        <Col sm={10} style={{ margin: "auto", display: "inline-flex" }}>
+          <img
+            src={dickerLogoSquare}
+            alt={"dicker logo"}
+            style={{
+              height: "35px",
+              width: "35px",
+              "margin-right": "5px",
+            }}
           />
-        ) : null}
-      </Row>
-      <Row>
-        <Col>
-          <NavItem className="adminDashNav">
-            <NavLink tag={Link} to="/adminSettings">
-              Admin Settings
-            </NavLink>
-          </NavItem>
+          <h3>Welcome, Admin!</h3>
         </Col>
+        {/* Menu Col */}
+        <Col sm={2}>
+          <AdminAccountMenu
+            userAuth={userAuth}
+            isAdmin={isAdmin}
+            setUserAuth={setUserAuth}
+          />
+        </Col>
+      </Row>
+      {/* Date Filter Row */}
+      <Row xs={12}>
+        <Card
+          style={{
+            width: "100%",
+            "box-shadow": "3px 3px 3px",
+          }}
+        >
+          <CardHeader>
+            <h5>Date Filter</h5>
+            <p>Default setting is last 365 days</p>
+          </CardHeader>
+          <CardBody>
+            <Form inline>
+              <FormGroup className="mb-3">
+                <Label
+                  for={"startDateFilter"}
+                  style={{
+                    paddingRight: "5px",
+                  }}
+                >
+                  Start Date:
+                </Label>
+                <Input
+                  type={"date"}
+                  id={"startDateFilter"}
+                  name={"startDateFilter"}
+                  onChange={handleStartDateChange}
+                  bsSize={"sm"}
+                />
+              </FormGroup>
+              <FormGroup className="mb-3">
+                <Label
+                  for={"endDateFilter"}
+                  style={{
+                    paddingRight: "5px",
+                    paddingLeft: "20px",
+                  }}
+                >
+                  End Date:
+                </Label>
+                <Input
+                  type={"date"}
+                  id={"endDateFilter"}
+                  name={"endDateFilter"}
+                  onChange={handleEndDateChange}
+                  bsSize={"sm"}
+                />
+              </FormGroup>
+            </Form>
+          </CardBody>
+        </Card>
+      </Row>
+      {/* Spacer Row for Formatting */}
+      <Row></Row>
+      {/* DICKER Totals Row */}
+      <Row xs={12}>
+        <Card
+          style={{
+            width: "100%",
+            "box-shadow": "3px 3px 3px",
+          }}
+        >
+          <CardHeader>
+            <h5>DICKER Totals</h5>
+          </CardHeader>
+          <CardBody>
+            {acceptedOffersData ? (
+              <AdminDickers
+                filterStartDate={filterStartDate}
+                filterEndDate={filterEndDate}
+                acceptedOffersData={acceptedOffersData}
+              />
+            ) : null}
+          </CardBody>
+        </Card>
       </Row>
     </Container>
   );
