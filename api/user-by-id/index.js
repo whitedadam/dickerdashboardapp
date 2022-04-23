@@ -56,46 +56,24 @@ const executeSql = (query, params) =>
   });
 
 module.exports = async function (context, req) {
-  context.log("POST Request to: /api/login");
-  // Variables we're passing to db
-  const username = req.body.user.username;
-  const password = req.body.user.password;
-  console.log("login:", username, " / ", password); //tracking data capture
+  context.log("Request to: /api/user-by-id");
 
-  const select = `SELECT Id, PasswordHash, Admin, MerchantId, LockoutEnabled FROM AspNetUsers2 WHERE UserName = '${username}' `;
+  let select =
+    `Select [Id],[MerchantId],[UserName],[PhoneNumber],` +
+    `[Email],[PushNotificationsEnabled],[EmailNotificationsEnabled],[LockoutEnabled] ` +
+    `FROM [AspNetUsers2] WHERE Id = ${req.body.userId}`;
 
-  // Try to post data
   try {
     const data = await executeSql(select);
-    const user = data[0];
 
-    // Checking if password valid
-    if (password !== user.PasswordHash) {
-      // User Password incorrect
-      throw new Error(
-        "Invalid login info! Check your password or email and try again."
-      );
-    }
-
-    // Checking that user is not locked out
-    if (user.LockoutEnabled) {
-      throw new Error(
-        "User currently lockedout of system. Please contact admin team."
-      )
-    }
-
-    // Returning only releveant info to frontend.
     context.res = {
-      body: {
-        isAdmin: user.Admin,
-        merchantId: user.MerchantId,
-        Id: user.Id
-      },
+      body: data,
     };
+
     context.done();
   } catch (error) {
     context.res = {
-      status: 401,
+      status: 400,
       body: error.message,
     };
   }

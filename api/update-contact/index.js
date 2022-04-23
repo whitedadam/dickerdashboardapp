@@ -56,42 +56,34 @@ const executeSql = (query, params) =>
   });
 
 module.exports = async function (context, req) {
-  context.log("POST Request to: /api/login");
-  // Variables we're passing to db
-  const username = req.body.user.username;
-  const password = req.body.user.password;
-  console.log("login:", username, " / ", password); //tracking data capture
+  context.log("POST Request to: /api/update-contact");
 
-  const select = `SELECT Id, PasswordHash, Admin, MerchantId, LockoutEnabled FROM AspNetUsers2 WHERE UserName = '${username}' `;
+  // Variables we're passing to db
+  const userId = req.body.newContacts.Id;
+  const userUserName = req.body.newContacts.UserName;
+  const userPhoneNumber = req.body.newContacts.PhoneNumber;
+
+  console.log(
+    `Updating row ${userId} in AspNetUsers2 table.\n` + 
+    `UserName: ${userUserName} PhoneNumber: ${userPhoneNumber}`
+  ); //tracking data capture
+
+  const update =
+    `UPDATE AspNetUsers2 ` +
+    `SET UserName = '${userUserName}', PhoneNumber = '${userPhoneNumber}' ` +
+    `WHERE Id = ${userId};`;
+
+    console.log(update);
 
   // Try to post data
   try {
-    const data = await executeSql(select);
-    const user = data[0];
+    const data = await executeSql(update);
 
-    // Checking if password valid
-    if (password !== user.PasswordHash) {
-      // User Password incorrect
-      throw new Error(
-        "Invalid login info! Check your password or email and try again."
-      );
-    }
-
-    // Checking that user is not locked out
-    if (user.LockoutEnabled) {
-      throw new Error(
-        "User currently lockedout of system. Please contact admin team."
-      )
-    }
-
-    // Returning only releveant info to frontend.
+    // Response Body
     context.res = {
-      body: {
-        isAdmin: user.Admin,
-        merchantId: user.MerchantId,
-        Id: user.Id
-      },
+      body: data,
     };
+
     context.done();
   } catch (error) {
     context.res = {
