@@ -1,7 +1,6 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import "./AdminSettings.css";
-import { Container, Table } from "reactstrap";
-import adminData from "../mock-admindata.json";
+import { Container, Table, Col, Row, Spinner } from "reactstrap";
 import ReadAdminRow from "../components/ReadAdminRow";
 import EditableAdminRow from "../components/EditableAdminRow";
 import Paper from "@mui/material/Paper";
@@ -10,17 +9,56 @@ import Typography from "@mui/material/Typography";
 import { Card } from "@mui/material";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
+import axios from "axios";
+
+// Endpoint to gather users
+const url = "/api/users";
 
 const AdminSettings = () => {
-  const [merchs, setMerchs] = useState(adminData);
+  // Will consist of Merchant Data from api
+  // State variable used to prevent app crashing
+  // Axios function to pull user data
+  const get = async () => {
+    let response = await axios.get(url);
+    return response;
+  };
+
+  // Will hold user data pulled from endpoint
+  const [merchs, setMerchs] = useState([]);
+  useEffect(() => {
+    get().then((response) => {
+      setMerchs(response.data);
+    });
+  }, []);
+
+  // Function called after updating user info in form.
+  // Will update the database with admin inputted info.
+  const updateUserInfoInDB = async (editedAdmin) => {
+    // Update endpoint
+    const update = "/api/update-user";
+
+    // Post route that takes the editted admin as a param to update db
+    let response = await axios.post(update, { editedAdmin });
+    console.log(response);
+
+    if (response.status === 200) {
+      alert("Changes successfully posted to Database");
+    } else alert("Error saving changes, please try again.");
+  };
+
+  // Set of state variables and functions that handle the editing merch profiles
+  // This is the form that will hold the updated values within the state
   const [editForm, setEditForm] = useState({
-    appUserId: "",
-    password: "",
-    email: "",
-    phoneNumber: "",
+    Id: "",
+    MerchantId: null,
+    UserName: "",
+    LockoutEnabled: null,
   });
+  // Used to keep track of which row the admin is editing
   const [editAdminId, setEditAdminId] = useState(null);
 
+  // Called to keep track of form inputs during editting.
+  // Updates the edit form state value
   const handleEditForm = (event) => {
     event.preventDefault();
 
@@ -32,63 +70,76 @@ const AdminSettings = () => {
 
     setEditForm(newForm);
   };
+
+  // Called when merchant clicks save on an editable row
+  // Finalizes the editted changes.
+  // Will want an axios post route here to post updates to backend.
   const handleEditFormSubmit = (event) => {
     event.preventDefault();
 
     const editedAdmin = {
-      id: editAdminId,
-      appUserId: editForm.appUserId,
-      password: editForm.password,
-      email: editForm.email,
-      phoneNumber: editForm.phoneNumber,
+      Id: editAdminId,
+      MerchantId: Number(editForm.MerchantId),
+      UserName: editForm.UserName,
+      LockoutEnabled: editForm.LockoutEnabled,
     };
     const newAdmins = [...merchs];
 
-    const index = merchs.findIndex((contact) => contact.id === editAdminId);
+    const index = merchs.findIndex((user) => user.Id === editAdminId);
     newAdmins[index] = editedAdmin;
 
     setMerchs(newAdmins);
 
+    updateUserInfoInDB(editedAdmin);
+
     setEditAdminId(null);
   };
-  const handleEditClick = (event, contact) => {
+
+  // Called when admin clicks edit, turns the row into an editable row.
+  const handleEditClick = (event, user) => {
     event.preventDefault();
-    setEditAdminId(contact.id);
+    setEditAdminId(user.Id);
 
     const formValues = {
-      appUserId: contact.appUserId,
-      password: contact.password,
-      email: contact.email,
-      phoneNumber: contact.phoneNumber,
+      Id: editAdminId,
+      MerchantId: user.MerchantId,
+      UserName: user.UserName,
+      LockoutEnabled: user.LockoutEnabled,
     };
     setEditForm(formValues);
   };
+
+  // Called when admin is in edit mode and clicks cancel on editting a row
   const handleCancel = () => {
     setEditAdminId(null);
   };
-  const handleDelete = (contactId) => {
-    const newContacts = [...merchs];
 
-    const index = merchs.findIndex((contact) => contact.id === contactId);
-
-    newContacts.splice(index, 1);
-
-    setMerchs(newContacts);
-  };
+  // Displayed is merchants is empty to prevent app crashing
+  if (!merchs)
+    return (
+      <Container>
+        <Col>
+          <Row></Row>
+          <Row>
+            <Spinner color={"warning"}></Spinner>Loading data...
+          </Row>
+          <Row></Row>
+        </Col>
+      </Container>
+    );
 
   return (
     <>
       <div>
         <Card
-          style={{ width: "900px", margin: "auto", marginTop: "25px" }}
+          style={{ width: "100%", margin: "auto", marginTop: "25px" }}
           sx={{ boxShadow: 3 }}
         >
           <Container className="AdminSettings">
             <Paper
               sx={{
                 boxShadow: 0,
-                marginLeft: "160px",
-                marginRight: "auto",
+                marginLeft: "275px",
                 marginTop: "15px",
                 marginBottom: "15px",
               }}
@@ -105,30 +156,31 @@ const AdminSettings = () => {
               Admin Profile
             </Typography>
             <form onSubmit={handleEditFormSubmit}>
+              {/* <form> */}
               <Table>
                 <thead>
                   <tr>
-                    <th>appUserId</th>
-                    <th>Password</th>
-                    <th>Email</th>
-                    <th>Phone Number</th>
+                    <th>Id</th>
+                    <th>MerchantId</th>
+                    <th>UserName</th>
+                    <th>LockoutEnabled</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {merchs.map((contact) => (
+                  {merchs.map((user) => (
                     <Fragment>
-                      {editAdminId === contact.id ? (
+                      {editAdminId === user.Id ? (
                         <EditableAdminRow
+                          user={user}
                           editForm={editForm}
                           handleEditForm={handleEditForm}
                           handleCancel={handleCancel}
                         />
                       ) : (
                         <ReadAdminRow
-                          contact={contact}
+                          user={user}
                           handleEditClick={handleEditClick}
-                          handleDelete={handleDelete}
                         />
                       )}
                     </Fragment>
