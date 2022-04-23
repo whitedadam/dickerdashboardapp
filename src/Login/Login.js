@@ -23,6 +23,8 @@ const Login = ({
   setIsAdmin,
   merchantId,
   setMerchantId,
+  userId,
+  setUserId,
 }) => {
   const [state, setState] = useState({
     // submitted with login form
@@ -40,9 +42,9 @@ const Login = ({
     // Post Route returns PasswordHash, Admin, and MerchantId
     try {
       let response = await axios.post("/api/login", { user });
-      console.log(response);
+      // console.log(response);
       let userInfo = response.data;
-      console.log(userInfo);
+      // console.log(userInfo);
 
       // Password is correct, logging user in. Taking user to Merchant dash.
       setUserAuth(true);
@@ -54,6 +56,10 @@ const Login = ({
       // If user has MerchantId, assigning that to state value.
       // merchantId = userInfo.merchantId;
       setMerchantId(userInfo.merchantId);
+
+      // Setting userId variable so that user is able to update their settings.
+      setUserId(userInfo.Id);
+      
       // console.log(merchantId);
     } catch (err) {
       // Resetting variables to ensure nothing sneaks through

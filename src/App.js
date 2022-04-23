@@ -23,6 +23,7 @@ function App() {
   const [userAuth, setUserAuth] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [merchantId, setMerchantId] = useState();
+  const [userId, setUserId] = useState();
 
   return (
     <Router>
@@ -43,6 +44,8 @@ function App() {
                 setIsAdmin={setIsAdmin}
                 merchantId={merchantId}
                 setMerchantId={setMerchantId}
+                userId={userId}
+                setUserId={setUserId}
               />
             </Route>
             <Route exact path="/resetPassword">
@@ -67,7 +70,10 @@ function App() {
                     <Settings
                       userAuth={userAuth}
                       isAdmin={isAdmin}
-                      merchantId={merchantId}
+                      setUserAuth={setUserAuth}
+                      setIsAdmin={setIsAdmin}
+                      userId={userId}
+                      setUserId={setUserId}
                     />
                   </Route>
                   <Route exact path="/adminDash">
@@ -84,7 +90,7 @@ function App() {
                     <Notifications />
                   </Route>
                   <Route exact path="/general">
-                    <GeneralSettings />
+                    <GeneralSettings userId={userId}/>
                   </Route>
                   <Route exact path="/createAccount">
                     <CreateAccount />

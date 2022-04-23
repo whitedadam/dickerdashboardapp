@@ -7,8 +7,9 @@ import { Card } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import "./Settings.css";
+import AccountMenu from "../AccountMenu/AccountMenu";
 
-const Settings = () => {
+const Settings = ({ userAuth, isAdmin, setUserAuth, setIsAdmin, userId }) => {
   const [modules, setModules] = useState({
     userOption: "none",
     isGeneralSetting: false,
@@ -46,6 +47,29 @@ const Settings = () => {
 
   return (
     <>
+      {/* Page Heading */}
+      <Row>
+        <Col sm={10} style={{ margin: "auto", display: "inline-flex" }}>
+          <img
+            src={dickerLogoSquare}
+            alt={"dicker logo"}
+            style={{
+              height: "35px",
+              width: "35px",
+              "margin-right": "5px",
+            }}
+          />
+          <h3>Settings</h3>
+        </Col>
+        <Col sm={2}>
+          <AccountMenu
+            userAuth={userAuth}
+            isAdmin={isAdmin}
+            setUserAuth={setUserAuth}
+            setIsAdmin={setIsAdmin}
+          />
+        </Col>
+      </Row>
       {/* Merchant Settings Card */}
       <Card
         style={{ width: "900px", margin: "auto", marginTop: "25px" }}
@@ -120,7 +144,12 @@ const Settings = () => {
           to="/dashboard"
           className="button button1"
           sx={{ backgroundColor: "#d9c07c", mt: 3, mb: 2 }}
-          style={{ height: "30px", width: "250px", margin: "auto", color: "black" }}
+          style={{
+            height: "30px",
+            width: "250px",
+            margin: "auto",
+            color: "black",
+          }}
         >
           Return to Dashboard
         </Button>

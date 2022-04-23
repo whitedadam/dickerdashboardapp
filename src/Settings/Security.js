@@ -148,7 +148,7 @@ export default function Security({ userAuth }) {
         >
           <Button
             component={Link}
-            to="/"
+            to="/settings"
             className="button button1"
             sx={{ backgroundColor: "#d9c07c", mt: 3, mb: 2 }}
             style={{
@@ -158,7 +158,7 @@ export default function Security({ userAuth }) {
               color: "black",
             }}
           >
-            Return
+            Return to Settings
           </Button>
         </Card>
       )}
