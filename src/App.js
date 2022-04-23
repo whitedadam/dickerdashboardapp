@@ -71,7 +71,11 @@ function App() {
                     />
                   </Route>
                   <Route exact path="/adminDash">
-                    <AdminDashboard />
+                    <AdminDashboard
+                      userAuth={userAuth}
+                      isAdmin={isAdmin}
+                      setUserAuth={setUserAuth}
+                    />
                   </Route>
                   <Route exact path="/security">
                     <Security />
