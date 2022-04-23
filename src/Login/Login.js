@@ -60,7 +60,10 @@ const Login = ({
       setUserAuth(false);
       setIsAdmin(false);
       setMerchantId(0);
-      alert("Invalid login info! Check your password or email and try again.");
+      alert(
+        "You may have entered invalid info or be locked out from the system. Please try again.\n" +
+          "If problem persists, please contact an administrator."
+      );
     }
   };
 

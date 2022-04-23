@@ -56,41 +56,35 @@ const executeSql = (query, params) =>
   });
 
 module.exports = async function (context, req) {
-  context.log("POST Request to: /api/login");
-  // Variables we're passing to db
-  const username = req.body.user.username;
-  const password = req.body.user.password;
-  console.log("login:", username, " / ", password); //tracking data capture
+  context.log("POST Request to: /api/update-user");
 
-  const select = `SELECT PasswordHash, Admin, MerchantId, LockoutEnabled FROM AspNetUsers2 WHERE UserName = '${username}' `;
+  // Variables we're passing to db
+  const userId = req.body.editedAdmin.Id;
+  const userMerchantId = req.body.editedAdmin.MerchantId;
+  const userLockoutEnabled = req.body.editedAdmin.LockoutEnabled;
+  const userUserName = req.body.editedAdmin.UserName;
+
+  console.log(
+    `Updating row ${userId} in AspNetUsers2 table.\n` + 
+    `MerchantId: ${userMerchantId} LockoutEnabled: ${userLockoutEnabled} UserName: ${userUserName}`
+  ); //tracking data capture
+
+  const update =
+    `UPDATE AspNetUsers2 ` +
+    `SET MerchantId = ${userMerchantId}, LockoutEnabled = '${userLockoutEnabled}' ` +
+    `WHERE Id = ${userId};`;
+
+    console.log(update);
 
   // Try to post data
   try {
-    const data = await executeSql(select);
-    const user = data[0];
+    const data = await executeSql(update);
 
-    // Checking if password valid
-    if (password !== user.PasswordHash) {
-      // User Password incorrect
-      throw new Error(
-        "Invalid login info! Check your password or email and try again."
-      );
-    }
-
-    // Checking that user is not locked out
-    if (user.LockoutEnabled) {
-      throw new Error(
-        "User currently lockedout of system. Please contact admin team."
-      )
-    }
-
-    // Returning only releveant info to frontend.
+    // Response Body
     context.res = {
-      body: {
-        isAdmin: user.Admin,
-        merchantId: user.MerchantId,
-      },
+      body: data,
     };
+
     context.done();
   } catch (error) {
     context.res = {

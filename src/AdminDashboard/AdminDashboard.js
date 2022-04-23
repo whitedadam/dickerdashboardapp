@@ -18,12 +18,14 @@ import { useGetData } from "../api/useGetData";
 import AdminAccountMenu from "../AdminAccountMenu/AdminAccountMenu";
 import dickerLogoSquare from "../images/dickerLogoSquare.png";
 
+// Passed to the api as a GET request with useGetData
 const acceptedOffersUrl = "/api/accepted-offers";
 
 const AdminDashboard = ({ userAuth, isAdmin, setUserAuth }) => {
   const [acceptedOffersData, acceptedOffersIsLoading] =
     useGetData(acceptedOffersUrl);
 
+  // Set of functions and state variables that filter data based upon dates
   const setDefaultStartDateFilter = () => {
     let startDate = new Date();
     startDate.setDate(startDate.getDate() - 365);
@@ -33,7 +35,6 @@ const AdminDashboard = ({ userAuth, isAdmin, setUserAuth }) => {
   const [filterStartDate, setFilterStartDate] = useState(
     setDefaultStartDateFilter
   );
-
   const setDefaultEndDateFilter = () => {
     let endDate = new Date();
     endDate.setDate(endDate.getDate());
@@ -41,15 +42,14 @@ const AdminDashboard = ({ userAuth, isAdmin, setUserAuth }) => {
     return endDateString;
   };
   const [filterEndDate, setFilterEndDate] = useState(setDefaultEndDateFilter);
-
   const handleStartDateChange = (event) => {
     setFilterStartDate(event.target.value);
   };
-
   const handleEndDateChange = (event) => {
     setFilterEndDate(event.target.value);
   };
 
+  // If waiting for response from api, will display loading to prevent app crash
   if (acceptedOffersIsLoading)
     return (
       <Container>
