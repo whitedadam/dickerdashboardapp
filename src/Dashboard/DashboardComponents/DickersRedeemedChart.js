@@ -23,16 +23,13 @@ const DickersRedeemedChart = ({
     newData.forEach((offer) => {
       uniqueSubCatsInOffers.add(offer.SubCategory_FK);
     });
-    console.log(uniqueSubCatsInOffers);
     let filteredSubcategoryArr = arr.filter((subcat) => {
       return uniqueSubCatsInOffers.has(subcat.SubCategoryId);
     });
-    console.log(filteredSubcategoryArr);
 
     filteredSubcategoryArr.forEach((cat) => {
       cat.SubCategoryTotal = 0;
     });
-    console.log(filteredSubcategoryArr);
     return filteredSubcategoryArr;
   };
 
@@ -56,10 +53,12 @@ const DickersRedeemedChart = ({
         return offerDate > startFilter && offerDate <= endFilter;
       });
 
+      // Calculating totals for Redeemed DICKERs
       offers.forEach((obj) => {
         totalDickersWon++;
         if (obj.IsRedeemed) {
           totalRedeemedDickers++;
+          // Adding to unique subcategory totals
           categories.forEach((cat) => {
             if (cat.SubCategoryId === obj.SubCategory_FK) {
               cat.SubCategoryTotal += 1;
@@ -115,6 +114,7 @@ const DickersRedeemedChart = ({
               <strong>Redeemed Total: </strong>
             </p>
             <p>{data[0]}</p>
+            <br />
           </Col>
           <Col>
             <p>
