@@ -121,8 +121,8 @@ const SuccessfulDickersChart = ({
         <ResizableBox>
           <Col lg={0}>
             <p>
-              <strong>Accepted Total: </strong>
-              {data[0]}
+              <strong>Wins Total: </strong>
+              {data[4]}
             </p>
             <br />
           </Col>
@@ -143,7 +143,7 @@ const SuccessfulDickersChart = ({
           <Col lg={0}>
             <p>
               <strong>Potential DICKER Wins: </strong>
-              {data[1]}
+              {data[5]}
             </p>
           </Col>
         </ResizableBox>
@@ -160,13 +160,13 @@ const SuccessfulDickersChart = ({
               <TableHead>
                 <TableRow>
                   {/* 137. Changed from InGrid to Competing - Adam */}
-                  <TableCell>Competing DICKER % of Total Wins</TableCell>
+                  <TableCell>Potential DICKER % of Total Wins</TableCell>
                   <TableCell>Wildcard DICKER % of Total Wins</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 <TableRow>
-                  {/* Competing DICKERs */}
+                  {/* Competing/Potential DICKERs */}
                   <TableCell>
                     {isNaN((data[5] / data[4]) * 100)
                       ? "No Data"
