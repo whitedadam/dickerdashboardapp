@@ -36,6 +36,7 @@ const SuccessfulDickersChart = ({
     let avgDiscount = 0;
 
     try {
+      // This block filters all offers by the user input start and end date.
       let startFilter = new Date(filterStartDate);
       let endFilter = new Date(filterEndDate);
       let offers = newData.filter((offer) => {
@@ -43,26 +44,39 @@ const SuccessfulDickersChart = ({
         return offerDate > startFilter && offerDate <= endFilter;
       });
 
-      // console.log(offers);
-
+      // forEach that parses available offers into Win, InGrid (Competing), Wildcard and Direct categories
       offers.forEach((obj) => {
+        // Every offer within this dataset is in the Accepted Offers table.
+        // Therefore, every record adds to the total.
         totalAcceptedDickers++;
+
+        // If the accepted offer was a win, we increment the total number of wins.
+        // We add this objects discount value to the avgDiscount so that we may divide it later for drilldown.
         if (obj.Win === true) {
           totalAcceptedWins++;
           avgDiscount += obj.Discount;
         }
+
+        // If InGrid is true, then we increment the total potential dickers by 1
+        // If win is also true, we increment the number of wins for this particular offer type.
         if (obj.InGrid === true) {
           totalPotentialDickers++;
           if (obj.Win === true) {
             totalPotentialDickersWins++;
           }
         }
+
+        // If Wildcard is true, then we increment the total Wildcard dickers by 1
+        // If win is also true, we increment the number of wins for this particular offer type.
         if (obj.Wildcard === true) {
           totalWildcardDickers++;
           if (obj.Win === true) {
             totalWildcardWins++;
           }
         }
+
+        // If DirectDICKER is true, then we increment the total direct dickers by 1
+        // If win is also true, we increment the number of wins for this particular offer type.
         if (obj.DirectDICKER === true && obj.Win === true) {
           totalDirectDickers++;
           if (obj.Win === true) {
@@ -70,6 +84,7 @@ const SuccessfulDickersChart = ({
           }
         }
       });
+      // Calculating the avgdiscount by dividing it by the number of totalAcceptedWins
       avgDiscount = avgDiscount / totalAcceptedWins;
     } catch (err) {
       // console.log('err loading data');
@@ -97,6 +112,7 @@ const SuccessfulDickersChart = ({
     setDrilldown(!drilldown);
   };
 
+  // If there is no data in newData, then we will return this filtering status message to prevent app crashing.
   return newData === undefined ? (
     <div>Filtering Chart Data... </div>
   ) : (
@@ -124,6 +140,7 @@ const SuccessfulDickersChart = ({
         </ResizableBox>
       </Row>
       <Row>
+        {/* Button that activates drilldown table display */}
         <Button onClick={handleDrilldown} color={"warning"}>
           Drilldown
         </Button>
