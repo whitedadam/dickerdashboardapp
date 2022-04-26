@@ -60,7 +60,9 @@ module.exports = async function (context, req) {
 
   console.log("body", req.body.user);
   const user = req.body.user;
-  const insert = `INSERT INTO [dbo].[AspNetUsers2] (UserName, PasswordHash, Admin) VALUES('${user.regEmail}', '${user.createPass}', '0')`;
+  const insert =
+    `INSERT INTO [dbo].[AspNetUsers2] (UserName, PasswordHash, Admin, Email, LockoutEnabled, PushNotificationsEnabled, EmailNotificationsEnabled, MerchantId) ` +
+    `VALUES('${user.regEmail}', '${user.createPass}', '0', '${user.regEmail}', 0, 0, 0, 0)`;
 
   console.log("/register-new endpoint hit", insert);
 
