@@ -1,30 +1,53 @@
 import React, { useState } from "react";
 import ResizableBox from "./ResizableBoxSmall";
-import { Col, Container, Row, Button, Table } from "reactstrap";
+import { Col, Container, Row, Button, Table, Spinner } from "reactstrap";
 import { TableBody, TableCell, TableHead, TableRow } from "@mui/material";
-import subcategories from "./SampleData/subcategory.json";
+import { useGetData } from "../../api/useGetData";
+
+// URL for Subcategories route
+const subcategoriesURL = "/api/subcategories";
 
 const DickersRedeemedChart = ({
   acceptedOffersData: newData,
   filterStartDate,
   filterEndDate,
 }) => {
+  // Pulling subcategory info from backend
+  const [subcategories, subcategoriesIsLoading] = useGetData(subcategoriesURL);
+
+  //  Function that prepares each subcategory for totals counting.
+  //  Grabs each unique SubCategory ID from the offer set
+  //  Filters the subcategory records by that set of unique values
   const prepCategories = (arr) => {
-    arr.forEach((cat) => {
+    let uniqueSubCatsInOffers = new Set();
+    newData.forEach((offer) => {
+      uniqueSubCatsInOffers.add(offer.SubCategory_FK);
+    });
+    console.log(uniqueSubCatsInOffers);
+    let filteredSubcategoryArr = arr.filter((subcat) => {
+      return uniqueSubCatsInOffers.has(subcat.SubCategoryId);
+    });
+    console.log(filteredSubcategoryArr);
+
+    filteredSubcategoryArr.forEach((cat) => {
       cat.SubCategoryTotal = 0;
     });
-    return arr;
+    console.log(filteredSubcategoryArr);
+    return filteredSubcategoryArr;
   };
-  prepCategories(subcategories);
 
   // Filter Accepted Offer Data into YTD Offers
   const filterData = () => {
     let totalRedeemedDickers = 0;
     let totalDickersWon = 0;
-
-    let categories = JSON.parse(JSON.stringify(subcategories));
+    let categories;
+    let filteredCategories;
 
     try {
+      prepCategories(subcategories);
+
+      categories = JSON.parse(JSON.stringify(subcategories));
+
       // Filtering out offers that are not within specified date range
       let startFilter = new Date(filterStartDate);
       let endFilter = new Date(filterEndDate);
@@ -44,20 +67,42 @@ const DickersRedeemedChart = ({
           });
         }
       });
+
+      // Removing categories that have no data so that output is clean.
+      filteredCategories = categories.filter((category) => {
+        return category.SubCategoryTotal !== undefined;
+      });
     } catch (err) {}
 
-    return [totalRedeemedDickers, totalDickersWon, categories];
+    return [
+      totalRedeemedDickers, // data[0]
+      totalDickersWon, // data[1]
+      filteredCategories, // data[2]
+    ];
   };
 
   // Output Filtered YTD Data
   const data = filterData();
 
+  // Allows the user to toggle display of drilldown table
   const [drilldown, setDrilldown] = useState(false);
   const handleDrilldown = () => {
     setDrilldown(!drilldown);
   };
 
-  // console.log(displayData, displayData.deals);
+  if (subcategoriesIsLoading)
+    return (
+      <Container>
+        <Col>
+          <Row></Row>
+          <Row>
+            <p>Hello, we're grabbing your data!</p>
+            <Spinner color={"warning"}></Spinner>Loading chart data...
+          </Row>
+          <Row></Row>
+        </Col>
+      </Container>
+    );
 
   return newData === undefined ? (
     <div>Filtering Chart Data... </div>
