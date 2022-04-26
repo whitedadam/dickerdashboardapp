@@ -96,7 +96,7 @@ const SuccessfulDickersChart = ({
       totalWildcardDickers, // 2
       totalDirectDickers, // 3
       totalAcceptedWins, // 4
-      totalPotentialDickersWins, // 5
+      totalPotentialDickersWins, // 5 also referred to as competing
       totalWildcardWins, // 6
       totalDirectWins, // 7
       avgDiscount, // 8
@@ -142,7 +142,7 @@ const SuccessfulDickersChart = ({
           </Col>
           <Col lg={0}>
             <p>
-              <strong>Potential DICKER Wins: </strong>
+              <strong>Competing DICKER Wins: </strong>
               {data[5]}
             </p>
           </Col>
@@ -160,7 +160,7 @@ const SuccessfulDickersChart = ({
               <TableHead>
                 <TableRow>
                   {/* 137. Changed from InGrid to Competing - Adam */}
-                  <TableCell>Potential DICKER % of Total Wins</TableCell>
+                  <TableCell>Competing DICKER % of Total Wins</TableCell>
                   <TableCell>Wildcard DICKER % of Total Wins</TableCell>
                 </TableRow>
               </TableHead>
