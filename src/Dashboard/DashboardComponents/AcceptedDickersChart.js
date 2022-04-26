@@ -20,7 +20,7 @@ const SuccessfulDickersChart = ({
     let totalAcceptedDickers = 0;
     let totalAcceptedWins = 0;
 
-    // InGrid DICKERs
+    // Competing (InGrid) DICKERs
     let totalPotentialDickers = 0;
     let totalPotentialDickersWins = 0;
 
@@ -133,7 +133,8 @@ const SuccessfulDickersChart = ({
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>DICKER Win % While InGrid</TableCell>
+                  {/* 137. Changed from InGrid to Competing - Adam */}
+                  <TableCell>DICKER Win % While Competing</TableCell>
                   <TableCell>Wildcard DICKER % of Total Wins</TableCell>
                   <TableCell>Direct DICKER Wins % of Total Wins</TableCell>
                   <TableCell>DICKER Win % Avg Discount</TableCell>

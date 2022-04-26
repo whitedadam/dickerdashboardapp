@@ -1,6 +1,6 @@
 import PotentialDickersChart from "./PotentialDickersChart";
-import SuccessfulDickersChart from "./SuccessfulDickersChart";
+import AcceptedDickersChart from "./AcceptedDickersChart";
 import DickersRedeemedChart from "./DickersRedeemedChart";
 import DickersParticipatedChart from "./DickersParticipatedChart";
 
-export { PotentialDickersChart, SuccessfulDickersChart, DickersRedeemedChart, DickersParticipatedChart };
+export { PotentialDickersChart, AcceptedDickersChart, DickersRedeemedChart, DickersParticipatedChart };
