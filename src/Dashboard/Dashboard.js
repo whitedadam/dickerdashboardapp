@@ -11,6 +11,7 @@ import {
   Card,
   CardHeader,
   CardBody,
+  CardFooter,
 } from "reactstrap";
 import { useGetData } from "../api/useGetData";
 import {
@@ -185,7 +186,10 @@ const Dashboard = ({
         >
           <CardHeader>
             <h5>Date Filter</h5>
-            <p>Default setting is last 365 days</p>
+            <p>
+              Default setting is last 365 days. The charts below break down
+              information by each unique DICKER type.
+            </p>
           </CardHeader>
           <CardBody>
             <Form inline>
@@ -243,6 +247,10 @@ const Dashboard = ({
           <Card style={{ "box-shadow": "3px 3px 3px" }}>
             <CardHeader>
               <h5>DICKERs Participated In</h5>
+              <p>
+                Calculated by totaling the number of DICKERs that were active of
+                a given day of the week.
+              </p>
             </CardHeader>
             <CardBody>
               {acceptedOffersData && businesses ? (
@@ -254,6 +262,12 @@ const Dashboard = ({
                 />
               ) : null}
             </CardBody>
+            <CardFooter>
+              <p>
+                These are deals that your businesses have participated in with
+                consumers.
+              </p>
+            </CardFooter>
           </Card>
         </Col>
         {/* Redeemed Col */}
@@ -261,6 +275,10 @@ const Dashboard = ({
           <Card style={{ "box-shadow": "3px 3px 3px" }}>
             <CardHeader>
               <h5>DICKERs Redeemed</h5>
+              <p>
+                Calculated with the total number of DICKERs won by your
+                businesses.
+              </p>
             </CardHeader>
             <CardBody>
               {acceptedOffersData ? (
@@ -272,6 +290,9 @@ const Dashboard = ({
                 />
               ) : null}
             </CardBody>
+            <CardFooter>
+              <p>These are deals that your consumers have redeemed in-house.</p>
+            </CardFooter>
           </Card>
         </Col>
       </Row>
@@ -284,6 +305,10 @@ const Dashboard = ({
           <Card style={{ "box-shadow": "3px 3px 3px" }}>
             <CardHeader>
               <h5>DICKERs Accepted</h5>
+              <p>
+                Calcualted with the total number of Accepted Offers under your
+                businesses.
+              </p>
             </CardHeader>
             <CardBody>
               {acceptedOffersData ? (
@@ -294,6 +319,12 @@ const Dashboard = ({
                 />
               ) : null}
             </CardBody>
+            <CardFooter>
+              <p>
+                These are deals that consumers have accepted with your
+                businesses.
+              </p>
+            </CardFooter>
           </Card>
         </Col>
         {/* Potential Col */}
@@ -301,15 +332,24 @@ const Dashboard = ({
           <Card style={{ "box-shadow": "3px 3px 3px" }}>
             <CardHeader>
               <h5>Potential DICKERs</h5>
+              <p>
+                Calculated with the total Initial Quantity of each DICKER type.
+              </p>
             </CardHeader>
             <CardBody>
               {acceptedOffersData ? (
                 <PotentialDickersChart
                   filterStartDate={filterStartDate}
                   filterEndDate={filterEndDate}
+                  filteredBusinesses={filteredBusinesses}
                 />
               ) : null}
             </CardBody>
+            <CardFooter>
+              <p>
+                These are all of the deals that your businesses could close.
+              </p>
+            </CardFooter>
           </Card>
         </Col>
       </Row>

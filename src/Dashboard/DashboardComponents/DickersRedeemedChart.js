@@ -118,7 +118,7 @@ const DickersRedeemedChart = ({
           </Col>
           <Col>
             <p>
-              <strong>Redeemed % of Won: </strong>
+              <strong>Redeemed DICKER % of Total Wins: </strong>
             </p>
             <p>
               {isNaN(Math.round((data[0] / data[1]) * 100))
@@ -135,7 +135,7 @@ const DickersRedeemedChart = ({
           </Button>
           {drilldown && (
             <Row>
-              <h5>SubCategory Count</h5>
+              <h5>Redeemed DICKERs by Subcategory</h5>
               <Table>
                 <TableHead>
                   <TableRow>

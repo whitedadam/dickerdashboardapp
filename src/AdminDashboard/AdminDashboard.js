@@ -99,7 +99,8 @@ const AdminDashboard = ({ userAuth, isAdmin, setUserAuth }) => {
         >
           <CardHeader>
             <h5>Date Filter</h5>
-            <p>Default setting is last 365 days</p>
+            <p>Default setting is last 365 days. The chart below breaks down
+              information by each unique business subcategory.</p>
           </CardHeader>
           <CardBody>
             <Form inline>
@@ -154,6 +155,8 @@ const AdminDashboard = ({ userAuth, isAdmin, setUserAuth }) => {
         >
           <CardHeader>
             <h5>DICKER Totals</h5>
+            <p>This is the total amount of DICKERing activity for the active date filter.</p>
+            <p>The information below is the amount of Records in the Offer Table, by subcategory.</p>
           </CardHeader>
           <CardBody>
             {acceptedOffersData ? (
