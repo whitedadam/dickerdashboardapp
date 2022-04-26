@@ -5,44 +5,76 @@ import { useGetData } from "../../api/useGetData";
 import { Container, Row, Col, Spinner, Button, Table } from "reactstrap";
 import { TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 
+// URL for Offers route
 const offersUrl = "/api/offers";
+// URL for Subcategories route
+const subcategoriesURL = "/api/subcategories";
 
-const PotentialDickersChart = ({ filterStartDate, filterEndDate }) => {
+const PotentialDickersChart = ({
+  filterStartDate,
+  filterEndDate,
+  filteredBusinesses,
+}) => {
   const [drilldown, setDrilldown] = useState(false);
   const [offersData, offersDataIsLoading] = useGetData(offersUrl);
+  // Pulling subcategory info from backend
+  const [subcategories, subcategoriesIsLoading] = useGetData(subcategoriesURL);
 
+  // Function filters out offers that are not from logged in merchants businesses
+  const filterOffersByBusiness = () => {
+    // final out arr holds all filtered offers
+    let finalFilteredBusinessArr = [];
+    try {
+      // for each business that belongs to the merchant
+      filteredBusinesses.forEach((business, index) => {
+        // placeholder, wiped after every business search
+        let currentBusiness = offersData.filter((offer) => {
+          // if offer has business id then we know its one the the merchants businesses
+          return offer.Business_FK === business.BusinessId;
+        });
+        // pushing all found offers to finalFilteredBusiness Arr
+        currentBusiness.forEach((offer) => {
+          finalFilteredBusinessArr.push(offer);
+        });
+        // wiping array
+        currentBusiness = [];
+      });
+      return finalFilteredBusinessArr;
+    } catch (err) {}
+  };
+  const offersDataFilteredByBusiness = filterOffersByBusiness();
+
+  //  Function that prepares each subcategory for totals counting.
+  //  Grabs each unique SubCategory ID from the offer set
+  //  Filters the subcategory records by that set of unique values
+  const prepCategories = (arr) => {
+    let uniqueSubCatsInOffers = new Set();
+    offersDataFilteredByBusiness.forEach((offer) => {
+      uniqueSubCatsInOffers.add(offer.SubCategory_FK);
+    });
+    let filteredSubcategoryArr = arr.filter((subcat) => {
+      return uniqueSubCatsInOffers.has(subcat.SubCategoryId);
+    });
+
+    filteredSubcategoryArr.forEach((cat) => {
+      cat.SubCategoryTotal = 0;
+    });
+    return filteredSubcategoryArr;
+  };
+
+  // Function that builds and outputs the offers to the module chart
   const buildInputData = () => {
+    // Holds relevant subcategories of merchant
+    let filteredSubCategories;
+
     // Array of Objects that will hold various datum based upon selected time intervals.
-    let inputData = [
+    // Placeholder required to prevent app from crashing
+    let inputData2 = [
       {
         label: "Direct DICKERs",
         data: [
           {
-            primary: "Casual Dining",
-            secondary: 0,
-          },
-          {
-            primary: "Fast Food",
-            secondary: 0,
-          },
-          {
-            primary: "Restaurants General",
-            secondary: 0,
-          },
-          {
-            primary: "Specialty",
-            secondary: 0,
-          },
-          {
-            primary: "Hotels",
-            secondary: 0,
-          },
-          {
-            primary: "Air Fare",
-            secondary: 0,
-          },
-          {
-            primary: "Automotive General",
+            primary: "placeholder",
             secondary: 0,
           },
         ],
@@ -51,31 +83,7 @@ const PotentialDickersChart = ({ filterStartDate, filterEndDate }) => {
         label: "Wildcard DICKERs",
         data: [
           {
-            primary: "Casual Dining",
-            secondary: 0,
-          },
-          {
-            primary: "Fast Food",
-            secondary: 0,
-          },
-          {
-            primary: "Restaurants General",
-            secondary: 0,
-          },
-          {
-            primary: "Specialty",
-            secondary: 0,
-          },
-          {
-            primary: "Hotels",
-            secondary: 0,
-          },
-          {
-            primary: "Air Fare",
-            secondary: 0,
-          },
-          {
-            primary: "Automotive General",
+            primary: "placeholder",
             secondary: 0,
           },
         ],
@@ -84,128 +92,75 @@ const PotentialDickersChart = ({ filterStartDate, filterEndDate }) => {
         label: "Competing DICKERs",
         data: [
           {
-            primary: "Casual Dining",
-            secondary: 0,
-          },
-          {
-            primary: "Fast Food",
-            secondary: 0,
-          },
-          {
-            primary: "Restaurants General",
-            secondary: 0,
-          },
-          {
-            primary: "Specialty",
-            secondary: 0,
-          },
-          {
-            primary: "Hotels",
-            secondary: 0,
-          },
-          {
-            primary: "Air Fare",
-            secondary: 0,
-          },
-          {
-            primary: "Automotive General",
+            primary: "placeholder",
             secondary: 0,
           },
         ],
       },
     ];
 
-    // Filtering Offer data between availble DICKER types
+    // Filtering offer data into correct DICKER type buckets.
     try {
+      // Dynamically adding relevant subcategory info into inputData array
+      filteredSubCategories = prepCategories(subcategories);
+      filteredSubCategories.forEach((cat) => {
+        inputData2.forEach((type) => {
+          type.data.push({
+            primary: cat.SubCategoryName,
+            secondary: 0,
+          });
+        });
+      });
+
+      // Removing placeholder datasets from inputData2
+      // Placeholders are needed to prevent app crashing on login.
+      inputData2.forEach((type) => {
+        type.data.shift();
+      });
+
+      // Filtering offer data by start/end date filter
       let startFilter = new Date(filterStartDate);
       let endFilter = new Date(filterEndDate);
-      let offers = offersData.filter((offer) => {
+      let offers = offersDataFilteredByBusiness.filter((offer) => {
         let offerDate = new Date(offer.StartingDate);
         return offerDate > startFilter && offerDate <= endFilter;
       });
 
+      // Filtering each offer by subcategory
+      // Need to ask client if Potential Dicker is (offer.InitialQuantity - offer.QuantityRemaining) or just Quantity Remaining or just Initial Quantity
       offers.forEach((offer) => {
-        // Building Direct DICKERs Object
-        if (offer.DirectDICKER) {
-          if (offer.SubCategory_FK === 1) {
-            inputData[0].data[0].secondary++;
+        // forEach subcategory relevant to this merchant
+        filteredSubCategories.forEach((cat, catIndex) => {
+          // If offer is a direct dicker adding to that buckets total
+          if (offer.DirectDICKER) {
+            if (offer.SubCategory_FK === cat.SubCategoryId) {
+              inputData2[0].data[catIndex].secondary +=
+                offer.InitialQuantity;
+            }
           }
-          if (offer.SubCategory_FK === 2) {
-            inputData[0].data[1].secondary++;
+          // If offer is a Wildcard dicker adding to that buckets total
+          if (offer.Wildcard) {
+            if (offer.SubCategory_FK === cat.SubCategoryId) {
+              inputData2[1].data[catIndex].secondary +=
+                offer.InitialQuantity;
+            }
           }
-          if (offer.SubCategory_FK === 3) {
-            inputData[0].data[2].secondary++;
+          // If offer is a Competing dicker adding to that buckets total
+          if (offer.InGrid) {
+            if (offer.SubCategory_FK === cat.SubCategoryId) {
+              inputData2[2].data[catIndex].secondary +=
+                offer.InitialQuantity;
+            }
           }
-          if (offer.SubCategory_FK === 4) {
-            inputData[0].data[3].secondary++;
-          }
-          if (offer.SubCategory_FK === 5) {
-            inputData[0].data[4].secondary++;
-          }
-          if (offer.SubCategory_FK === 6) {
-            inputData[0].data[5].secondary++;
-          }
-          if (offer.SubCategory_FK === 7) {
-            inputData[0].data[6].secondary++;
-          }
-        }
-
-        // Building Wildcard DICKERs Object
-        if (offer.Wildcard) {
-          if (offer.SubCategory_FK === 1) {
-            inputData[1].data[0].secondary++;
-          }
-          if (offer.SubCategory_FK === 2) {
-            inputData[1].data[1].secondary++;
-          }
-          if (offer.SubCategory_FK === 3) {
-            inputData[1].data[2].secondary++;
-          }
-          if (offer.SubCategory_FK === 4) {
-            inputData[1].data[3].secondary++;
-          }
-          if (offer.SubCategory_FK === 5) {
-            inputData[1].data[4].secondary++;
-          }
-          if (offer.SubCategory_FK === 6) {
-            inputData[1].data[5].secondary++;
-          }
-          if (offer.SubCategory_FK === 7) {
-            inputData[1].data[6].secondary++;
-          }
-        }
-
-        // Building Selected to DICKER Object
-        if (offer.InGrid) {
-          if (offer.SubCategory_FK === 1) {
-            inputData[2].data[0].secondary++;
-          }
-          if (offer.SubCategory_FK === 2) {
-            inputData[2].data[1].secondary++;
-          }
-          if (offer.SubCategory_FK === 3) {
-            inputData[2].data[2].secondary++;
-          }
-          if (offer.SubCategory_FK === 4) {
-            inputData[2].data[3].secondary++;
-          }
-          if (offer.SubCategory_FK === 5) {
-            inputData[2].data[4].secondary++;
-          }
-          if (offer.SubCategory_FK === 6) {
-            inputData[2].data[5].secondary++;
-          }
-          if (offer.SubCategory_FK === 7) {
-            inputData[2].data[6].secondary++;
-          }
-        }
+        });
       });
     } catch (err) {}
 
-    return inputData;
+    return inputData2;
   };
   const displayData = buildInputData();
 
+  // Calculating totals for all data within drilldown table
   const dataTotals = () => {
     // Variables to hold all DICKER datatypes and data
     const directDickers = displayData[0].data;
@@ -254,6 +209,7 @@ const PotentialDickersChart = ({ filterStartDate, filterEndDate }) => {
     let percentageSelected;
     let dickerTypePercentagesArrOut = [];
 
+    // Calculates percentages of each dicker type compared to total potential dickers
     const calcOfferPercentages = (dickers, total, percentage, out) => {
       percentage = ((dickers / total) * 100).toFixed();
       out.push({ percentage });
@@ -277,7 +233,7 @@ const PotentialDickersChart = ({ filterStartDate, filterEndDate }) => {
       dickerTypePercentagesArrOut
     );
 
-    // Gathering specific data on which days were most/least active
+    // Gathering specific data on which subcategories were most/least active
     let catsObj = {
       "Casual Dining": 0,
       "Fast Food": 0,
@@ -288,10 +244,11 @@ const PotentialDickersChart = ({ filterStartDate, filterEndDate }) => {
       "Automotive General": 0,
     };
 
+    // counting the totals of each subcategories
     const countCatTotals = (obj) => {
       for (let cat in obj) {
         try {
-          offersData.forEach((row) => {
+          offersDataFilteredByBusiness.forEach((row) => {
             if (row[cat] === true) obj[cat] += 1;
           });
         } catch (err) {}
@@ -300,6 +257,7 @@ const PotentialDickersChart = ({ filterStartDate, filterEndDate }) => {
     };
     countCatTotals(catsObj);
 
+    // finds and returns the most active subcategory
     const findMostActiveCat = (obj) => {
       let mostActive = Object.keys(obj)[0];
       let num = obj["Casual Dining"];
@@ -313,6 +271,7 @@ const PotentialDickersChart = ({ filterStartDate, filterEndDate }) => {
     };
     const mostActive = findMostActiveCat(catsObj);
 
+    // finds and returns the least active subcategory
     const findLeastActiveCat = (obj) => {
       let leastActive = Object.keys(obj)[0];
       let num = obj["Casual Dining"];
@@ -328,20 +287,23 @@ const PotentialDickersChart = ({ filterStartDate, filterEndDate }) => {
 
     // Returning all filtered data
     return [
-      totalPotentialDickers,
-      dickerTypeTotalsArrOut,
-      dickerTypePercentagesArrOut,
-      mostActive,
-      leastActive,
+      totalPotentialDickers, // drilldownData[0]
+      dickerTypeTotalsArrOut, // drilldownData[1]
+      dickerTypePercentagesArrOut, // drilldownData[2]
+      mostActive, // drilldownData[3]
+      leastActive, // drilldownData[4]
     ];
   };
 
+  // Calling Data Totals for the Drilldown Table Data
   const drilldownData = dataTotals();
 
+  // Allows users to toggle display of drilldown table.
   const handleDrilldown = () => {
     setDrilldown(!drilldown);
   };
 
+  // Primary Axis of Displayed Graph (X)
   const primaryAxis = React.useMemo(
     () => ({
       getValue: (datum) => datum.primary,
@@ -349,6 +311,7 @@ const PotentialDickersChart = ({ filterStartDate, filterEndDate }) => {
     []
   );
 
+  // Secondary Axis of display graph (Y)
   const secondaryAxes = React.useMemo(
     () => [
       {
@@ -358,7 +321,7 @@ const PotentialDickersChart = ({ filterStartDate, filterEndDate }) => {
     []
   );
 
-  if (offersDataIsLoading)
+  if (offersDataIsLoading || subcategoriesIsLoading)
     return (
       <Container>
         <Col>
@@ -373,17 +336,20 @@ const PotentialDickersChart = ({ filterStartDate, filterEndDate }) => {
 
   return (
     <Container>
+      {/* Row that holds Chart */}
       <Row>
         <ResizableBox>
           <Chart
             options={{
               data: displayData,
+              elementType: "line",
               primaryAxis,
               secondaryAxes,
             }}
           />
         </ResizableBox>
       </Row>
+      {/* Drilldown Button Row */}
       <Row>
         <Col>
           <Button onClick={handleDrilldown} color="warning">
