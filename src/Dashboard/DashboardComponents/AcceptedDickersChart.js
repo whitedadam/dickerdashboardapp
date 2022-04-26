@@ -36,6 +36,7 @@ const SuccessfulDickersChart = ({
     let avgDiscount = 0;
 
     try {
+      // This block filters all offers by the user input start and end date.
       let startFilter = new Date(filterStartDate);
       let endFilter = new Date(filterEndDate);
       let offers = newData.filter((offer) => {
@@ -43,26 +44,39 @@ const SuccessfulDickersChart = ({
         return offerDate > startFilter && offerDate <= endFilter;
       });
 
-      // console.log(offers);
-
+      // forEach that parses available offers into Win, InGrid (Competing), Wildcard and Direct categories
       offers.forEach((obj) => {
+        // Every offer within this dataset is in the Accepted Offers table.
+        // Therefore, every record adds to the total.
         totalAcceptedDickers++;
+
+        // If the accepted offer was a win, we increment the total number of wins.
+        // We add this objects discount value to the avgDiscount so that we may divide it later for drilldown.
         if (obj.Win === true) {
           totalAcceptedWins++;
           avgDiscount += obj.Discount;
         }
+
+        // If InGrid is true, then we increment the total potential dickers by 1
+        // If win is also true, we increment the number of wins for this particular offer type.
         if (obj.InGrid === true) {
           totalPotentialDickers++;
           if (obj.Win === true) {
             totalPotentialDickersWins++;
           }
         }
+
+        // If Wildcard is true, then we increment the total Wildcard dickers by 1
+        // If win is also true, we increment the number of wins for this particular offer type.
         if (obj.Wildcard === true) {
           totalWildcardDickers++;
           if (obj.Win === true) {
             totalWildcardWins++;
           }
         }
+
+        // If DirectDICKER is true, then we increment the total direct dickers by 1
+        // If win is also true, we increment the number of wins for this particular offer type.
         if (obj.DirectDICKER === true && obj.Win === true) {
           totalDirectDickers++;
           if (obj.Win === true) {
@@ -70,6 +84,7 @@ const SuccessfulDickersChart = ({
           }
         }
       });
+      // Calculating the avgdiscount by dividing it by the number of totalAcceptedWins
       avgDiscount = avgDiscount / totalAcceptedWins;
     } catch (err) {
       // console.log('err loading data');
@@ -81,7 +96,7 @@ const SuccessfulDickersChart = ({
       totalWildcardDickers, // 2
       totalDirectDickers, // 3
       totalAcceptedWins, // 4
-      totalPotentialDickersWins, // 5
+      totalPotentialDickersWins, // 5 also referred to as competing
       totalWildcardWins, // 6
       totalDirectWins, // 7
       avgDiscount, // 8
@@ -97,6 +112,7 @@ const SuccessfulDickersChart = ({
     setDrilldown(!drilldown);
   };
 
+  // If there is no data in newData, then we will return this filtering status message to prevent app crashing.
   return newData === undefined ? (
     <div>Filtering Chart Data... </div>
   ) : (
@@ -105,25 +121,35 @@ const SuccessfulDickersChart = ({
         <ResizableBox>
           <Col lg={0}>
             <p>
-              <strong>Accepted Total: </strong>
+              <strong>Wins Total: </strong>
+              {data[4]}
             </p>
-            <p>{data[0]}</p>
+            <br />
           </Col>
           <Col lg={0}>
             <p>
               <strong>Wildcard Wins: </strong>
+              {data[2]}
             </p>
-            <p>{data[2]}</p>
+            <br />
           </Col>
           <Col lg={0}>
             <p>
               <strong>Direct DICKER Wins: </strong>
+              {data[3]}
             </p>
-            <p>{data[3]}</p>
+            <br />
+          </Col>
+          <Col lg={0}>
+            <p>
+              <strong>Competing DICKER Wins: </strong>
+              {data[5]}
+            </p>
           </Col>
         </ResizableBox>
       </Row>
       <Row>
+        {/* Button that activates drilldown table display */}
         <Button onClick={handleDrilldown} color={"warning"}>
           Drilldown
         </Button>
@@ -134,29 +160,41 @@ const SuccessfulDickersChart = ({
               <TableHead>
                 <TableRow>
                   {/* 137. Changed from InGrid to Competing - Adam */}
-                  <TableCell>DICKER Win % While Competing</TableCell>
+                  <TableCell>Competing DICKER % of Total Wins</TableCell>
                   <TableCell>Wildcard DICKER % of Total Wins</TableCell>
-                  <TableCell>Direct DICKER Wins % of Total Wins</TableCell>
-                  <TableCell>DICKER Win % Avg Discount</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 <TableRow>
-                  <TableCell>
-                    {isNaN((data[1] / data[0]) * 100)
-                      ? "No Data"
-                      : Math.round((data[1] / data[0]) * 100) + "%"}
-                  </TableCell>
+                  {/* Competing/Potential DICKERs */}
                   <TableCell>
                     {isNaN((data[5] / data[4]) * 100)
                       ? "No Data"
                       : Math.round((data[5] / data[4]) * 100) + "%"}
                   </TableCell>
+                  {/* Wildcard DICKERs */}
+                  <TableCell>
+                    {isNaN((data[6] / data[4]) * 100)
+                      ? "No Data"
+                      : Math.round((data[6] / data[4]) * 100) + "%"}
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Direct DICKER Wins % of Total Wins</TableCell>
+                  <TableCell>Average Discount of Wins</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                <TableRow>
+                  {/* Direct DICKERs */}
                   <TableCell>
                     {isNaN((data[7] / data[4]) * 100)
                       ? "No Data"
                       : Math.round((data[7] / data[4]) * 100) + "%"}
                   </TableCell>
+                  {/* Avg Discount of Wins */}
                   <TableCell>
                     {isNaN(Math.round((data[8] / 100) * 100))
                       ? "No Data"

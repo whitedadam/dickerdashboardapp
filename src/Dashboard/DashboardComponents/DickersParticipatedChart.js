@@ -205,7 +205,7 @@ const DickersParticipatedChart = ({
           }
         }
 
-        // Building Selected to DICKER Object
+        // Building Competing DICKER Object
         if (offer.InGrid) {
           if (offer.Monday) {
             inputData[2].data[0].secondary++;
