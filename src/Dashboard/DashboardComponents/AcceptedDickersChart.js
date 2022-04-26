@@ -122,20 +122,29 @@ const SuccessfulDickersChart = ({
           <Col lg={0}>
             <p>
               <strong>Accepted Total: </strong>
+              {data[0]}
             </p>
-            <p>{data[0]}</p>
+            <br />
           </Col>
           <Col lg={0}>
             <p>
               <strong>Wildcard Wins: </strong>
+              {data[2]}
             </p>
-            <p>{data[2]}</p>
+            <br />
           </Col>
           <Col lg={0}>
             <p>
               <strong>Direct DICKER Wins: </strong>
+              {data[3]}
             </p>
-            <p>{data[3]}</p>
+            <br />
+          </Col>
+          <Col lg={0}>
+            <p>
+              <strong>Potential DICKER Wins: </strong>
+              {data[1]}
+            </p>
           </Col>
         </ResizableBox>
       </Row>
@@ -151,29 +160,41 @@ const SuccessfulDickersChart = ({
               <TableHead>
                 <TableRow>
                   {/* 137. Changed from InGrid to Competing - Adam */}
-                  <TableCell>DICKER Win % While Competing</TableCell>
+                  <TableCell>Competing DICKER % of Total Wins</TableCell>
                   <TableCell>Wildcard DICKER % of Total Wins</TableCell>
-                  <TableCell>Direct DICKER Wins % of Total Wins</TableCell>
-                  <TableCell>DICKER Win % Avg Discount</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 <TableRow>
-                  <TableCell>
-                    {isNaN((data[1] / data[0]) * 100)
-                      ? "No Data"
-                      : Math.round((data[1] / data[0]) * 100) + "%"}
-                  </TableCell>
+                  {/* Competing DICKERs */}
                   <TableCell>
                     {isNaN((data[5] / data[4]) * 100)
                       ? "No Data"
                       : Math.round((data[5] / data[4]) * 100) + "%"}
                   </TableCell>
+                  {/* Wildcard DICKERs */}
+                  <TableCell>
+                    {isNaN((data[6] / data[4]) * 100)
+                      ? "No Data"
+                      : Math.round((data[6] / data[4]) * 100) + "%"}
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Direct DICKER Wins % of Total Wins</TableCell>
+                  <TableCell>Average Discount of Wins</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                <TableRow>
+                  {/* Direct DICKERs */}
                   <TableCell>
                     {isNaN((data[7] / data[4]) * 100)
                       ? "No Data"
                       : Math.round((data[7] / data[4]) * 100) + "%"}
                   </TableCell>
+                  {/* Avg Discount of Wins */}
                   <TableCell>
                     {isNaN(Math.round((data[8] / 100) * 100))
                       ? "No Data"
