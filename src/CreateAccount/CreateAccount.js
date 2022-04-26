@@ -51,6 +51,12 @@ export default class registerUser extends React.Component {
     axios.post("/api/register-new", { user }).then((res) => {
       console.log(res);
       console.log(res.data);
+
+      if (res.status === 200) {
+        alert("Account successfully created!");
+      } else {
+        alert("Error in account creation, please try again");
+      }
     });
   };
 
