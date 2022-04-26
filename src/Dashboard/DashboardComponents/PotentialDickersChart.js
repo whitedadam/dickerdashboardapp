@@ -10,7 +10,7 @@ const offersUrl = "/api/offers";
 const PotentialDickersChart = ({ filterStartDate, filterEndDate }) => {
   const [drilldown, setDrilldown] = useState(false);
   const [offersData, offersDataIsLoading] = useGetData(offersUrl);
-  
+
   const buildInputData = () => {
     // Array of Objects that will hold various datum based upon selected time intervals.
     let inputData = [
@@ -81,7 +81,7 @@ const PotentialDickersChart = ({ filterStartDate, filterEndDate }) => {
         ],
       },
       {
-        label: "Selected to DICKERs",
+        label: "Competing DICKERs",
         data: [
           {
             primary: "Casual Dining",
@@ -215,7 +215,7 @@ const PotentialDickersChart = ({ filterStartDate, filterEndDate }) => {
     // Gathering all of the available DICKER type data into one place
     let totalDirect = 0;
     let totalWildcard = 0;
-    let totalSelected = 0;
+    let totalCompeting = 0;
     let dickerTypeTotalsArrOut = [];
 
     // Gathering totals of all individual DICKER types
@@ -236,9 +236,9 @@ const PotentialDickersChart = ({ filterStartDate, filterEndDate }) => {
       totalWildcard,
       dickerTypeTotalsArrOut
     );
-    totalSelected = countOfferTotals(
+    totalCompeting = countOfferTotals(
       selectedDickers,
-      totalSelected,
+      totalCompeting,
       dickerTypeTotalsArrOut
     );
 
@@ -271,7 +271,7 @@ const PotentialDickersChart = ({ filterStartDate, filterEndDate }) => {
       dickerTypePercentagesArrOut
     );
     calcOfferPercentages(
-      totalSelected,
+      totalCompeting,
       totalPotentialDickers,
       percentageSelected,
       dickerTypePercentagesArrOut
@@ -398,39 +398,56 @@ const PotentialDickersChart = ({ filterStartDate, filterEndDate }) => {
             <TableHead>
               <TableRow>
                 <TableCell>Total Potential DICKERs</TableCell>
-                <TableCell>Selected to DICKER Count</TableCell>
-                <TableCell>Selected to DICKER %</TableCell>
-                <TableCell>Wildcard DICKERs Count</TableCell>
-                <TableCell>Wildcard DICKERs %</TableCell>
-                <TableCell>Direct DICKERs Count</TableCell>
-                <TableCell>Direct DICKERs %</TableCell>
                 <TableCell>Most Active SubCategory</TableCell>
                 <TableCell>Least Active SubCategory</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               <TableRow>
+                {/* Total Potential DICKERs */}
                 <TableCell>{drilldownData[0]}</TableCell>
+                {/* Most Active Subcat */}
+                <TableCell>{drilldownData[3]}</TableCell>
+                {/* Least Active Subcat */}
+                <TableCell>{drilldownData[4]}</TableCell>
+              </TableRow>
+            </TableBody>
+            <TableHead>
+              <TableRow>
+                <TableCell>Competing DICKER Count</TableCell>
+                <TableCell>Competing DICKER %</TableCell>
+                <TableCell>Wildcard DICKERs Count</TableCell>
+                <TableCell>Wildcard DICKERs %</TableCell>
+                <TableCell>Direct DICKERs Count</TableCell>
+                <TableCell>Direct DICKERs %</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              <TableRow>
+                {/* Competing Count */}
                 <TableCell>{drilldownData[1][2].total}</TableCell>
+                {/* Competing % */}
                 <TableCell>
                   {isNaN(drilldownData[2][2].percentage)
                     ? "No Data"
                     : drilldownData[2][2].percentage + "%"}
                 </TableCell>
+                {/* Wildcard Count */}
                 <TableCell>{drilldownData[1][1].total}</TableCell>
+                {/* Wildcard % */}
                 <TableCell>
                   {isNaN(drilldownData[2][1].percentage)
                     ? "No Data"
                     : drilldownData[2][1].percentage + "%"}
                 </TableCell>
+                {/* Direct Count */}
                 <TableCell>{drilldownData[1][0].total}</TableCell>
+                {/* Direct % */}
                 <TableCell>
                   {isNaN(drilldownData[2][0].percentage)
                     ? "No Data"
                     : drilldownData[2][0].percentage + "%"}
                 </TableCell>
-                <TableCell>{drilldownData[3]}</TableCell>
-                <TableCell>{drilldownData[4]}</TableCell>
               </TableRow>
             </TableBody>
           </Table>

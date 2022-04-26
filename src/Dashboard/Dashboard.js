@@ -16,7 +16,7 @@ import { useGetData } from "../api/useGetData";
 import {
   PotentialDickersChart,
   DickersParticipatedChart,
-  SuccessfulDickersChart,
+  AcceptedDickersChart,
   DickersRedeemedChart,
 } from "./DashboardComponents";
 import AccountMenu from "../AccountMenu/AccountMenu";
@@ -287,7 +287,7 @@ const Dashboard = ({
             </CardHeader>
             <CardBody>
               {acceptedOffersData ? (
-                <SuccessfulDickersChart
+                <AcceptedDickersChart
                   acceptedOffersData={acceptedOffersDataFilteredByBusiness}
                   filterStartDate={filterStartDate}
                   filterEndDate={filterEndDate}
