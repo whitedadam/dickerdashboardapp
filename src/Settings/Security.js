@@ -25,6 +25,9 @@ export default function Security({ userAuth }) {
       .then(
         (result) => {
           console.log(result.text);
+          if (result.status === 200)
+            alert("Passwsord reset email successfully sent!");
+          else alert("Error in sending password reset email, please try again.");
         },
         (error) => {
           console.log(error.text);

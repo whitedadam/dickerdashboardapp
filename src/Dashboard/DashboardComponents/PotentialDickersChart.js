@@ -114,9 +114,11 @@ const PotentialDickersChart = ({
 
       // Removing placeholder datasets from inputData2
       // Placeholders are needed to prevent app crashing on login.
-      inputData2.forEach((type) => {
-        type.data.shift();
-      });
+      if (filteredSubCategories.length !== 0) {
+        inputData2.forEach((type) => {
+          type.data.shift();
+        });
+      }
 
       // Filtering offer data by start/end date filter
       let startFilter = new Date(filterStartDate);
@@ -321,7 +323,7 @@ const PotentialDickersChart = ({
     []
   );
 
-  if (offersDataIsLoading || subcategoriesIsLoading)
+  if (offersDataIsLoading || subcategoriesIsLoading || !filteredBusinesses)
     return (
       <Container>
         <Col>
